@@ -13,3 +13,5 @@ C:\KTPOS\obj\Debug\KTPOS.csproj.CoreCompileInputs.cache
 C:\KTPOS\obj\Debug\KTPOS.csproj.Up2Date
 C:\KTPOS\obj\Debug\KTPOS.exe
 C:\KTPOS\obj\Debug\KTPOS.pdb
+C:\KTPOS\obj\Debug\KTPOS.STAFF.fStaff_F.resources
+C:\KTPOS\obj\Debug\KTPOS.STAFF.fStaff_S.resources
