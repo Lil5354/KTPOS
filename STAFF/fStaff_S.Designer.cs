@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fStaff_S));
             Guna.UI2.WinForms.Guna2Button btnClose;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fStaff_S));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -42,25 +42,49 @@
             this.Filter = new Guna.UI2.WinForms.Guna2ComboBox();
             this.FlowMenu = new System.Windows.Forms.FlowLayoutPanel();
             this.PanelBillCus = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            this.lbCancel = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.txtPeople = new Guna.UI2.WinForms.Guna2TextBox();
             this.nUDItem = new Guna.UI2.WinForms.Guna2NumericUpDown();
             this.guna2TextBox1 = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.txtTotal = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.dtgvBillCus = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.btnSave = new Guna.UI2.WinForms.Guna2Button();
-            this.txtTable = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.txtSearch = new Guna.UI2.WinForms.Guna2TextBox();
             this.NAME = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.QUANTITY = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PRICE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DELETE = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.txtPeople = new Guna.UI2.WinForms.Guna2TextBox();
-            this.lbCancel = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.btnSave = new Guna.UI2.WinForms.Guna2Button();
+            this.txtTable = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.txtSearch = new Guna.UI2.WinForms.Guna2TextBox();
             btnClose = new Guna.UI2.WinForms.Guna2Button();
             this.PanelBillCus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nUDItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvBillCus)).BeginInit();
             this.SuspendLayout();
+            // 
+            // btnClose
+            // 
+            btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            btnClose.Animated = true;
+            btnClose.AutoRoundedCorners = true;
+            btnClose.BackColor = System.Drawing.Color.Transparent;
+            btnClose.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnClose.BackgroundImage")));
+            btnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            btnClose.BorderRadius = 11;
+            btnClose.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
+            btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnClose.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            btnClose.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            btnClose.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            btnClose.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            btnClose.FillColor = System.Drawing.Color.Transparent;
+            btnClose.Font = new System.Drawing.Font("Segoe UI", 9F);
+            btnClose.ForeColor = System.Drawing.Color.Transparent;
+            btnClose.Location = new System.Drawing.Point(1357, 29);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new System.Drawing.Size(25, 25);
+            btnClose.TabIndex = 41;
+            btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnMinSize
             // 
@@ -102,30 +126,6 @@
             this.btnMaxSize.TabIndex = 42;
             this.btnMaxSize.Click += new System.EventHandler(this.btnMaxSize_Click);
             // 
-            // btnClose
-            // 
-            btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            btnClose.Animated = true;
-            btnClose.AutoRoundedCorners = true;
-            btnClose.BackColor = System.Drawing.Color.Transparent;
-            btnClose.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnClose.BackgroundImage")));
-            btnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            btnClose.BorderRadius = 11;
-            btnClose.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
-            btnClose.Cursor = System.Windows.Forms.Cursors.Hand;
-            btnClose.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            btnClose.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            btnClose.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            btnClose.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            btnClose.FillColor = System.Drawing.Color.Transparent;
-            btnClose.Font = new System.Drawing.Font("Segoe UI", 9F);
-            btnClose.ForeColor = System.Drawing.Color.Transparent;
-            btnClose.Location = new System.Drawing.Point(1357, 29);
-            btnClose.Name = "btnClose";
-            btnClose.Size = new System.Drawing.Size(25, 25);
-            btnClose.TabIndex = 41;
-            btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
             // Filter
             // 
             this.Filter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -138,12 +138,6 @@
             this.Filter.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.Filter.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(88)))), ((int)(((byte)(112)))));
             this.Filter.ItemHeight = 30;
-            this.Filter.Items.AddRange(new object[] {
-            "Best Sellers",
-            "New Arrivals",
-            "Featured Dishes",
-            "Combo Deals",
-            "Most Loved"});
             this.Filter.Location = new System.Drawing.Point(1149, 123);
             this.Filter.Name = "Filter";
             this.Filter.Size = new System.Drawing.Size(211, 36);
@@ -186,6 +180,38 @@
             this.PanelBillCus.ShadowDecoration.Shadow = new System.Windows.Forms.Padding(20);
             this.PanelBillCus.Size = new System.Drawing.Size(395, 639);
             this.PanelBillCus.TabIndex = 52;
+            // 
+            // lbCancel
+            // 
+            this.lbCancel.BackColor = System.Drawing.Color.Transparent;
+            this.lbCancel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lbCancel.ForeColor = System.Drawing.Color.White;
+            this.lbCancel.Location = new System.Drawing.Point(310, 28);
+            this.lbCancel.Name = "lbCancel";
+            this.lbCancel.Size = new System.Drawing.Size(47, 22);
+            this.lbCancel.TabIndex = 53;
+            this.lbCancel.Text = "Cancel";
+            // 
+            // txtPeople
+            // 
+            this.txtPeople.BorderRadius = 5;
+            this.txtPeople.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtPeople.DefaultText = "";
+            this.txtPeople.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtPeople.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtPeople.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtPeople.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtPeople.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtPeople.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtPeople.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtPeople.Location = new System.Drawing.Point(34, 69);
+            this.txtPeople.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtPeople.Name = "txtPeople";
+            this.txtPeople.PasswordChar = '\0';
+            this.txtPeople.PlaceholderText = "People";
+            this.txtPeople.SelectedText = "";
+            this.txtPeople.Size = new System.Drawing.Size(109, 36);
+            this.txtPeople.TabIndex = 52;
             // 
             // nUDItem
             // 
@@ -321,6 +347,40 @@
             this.dtgvBillCus.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
             this.dtgvBillCus.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.Black;
             // 
+            // NAME
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.NAME.DefaultCellStyle = dataGridViewCellStyle3;
+            this.NAME.HeaderText = "NAME";
+            this.NAME.MinimumWidth = 6;
+            this.NAME.Name = "NAME";
+            this.NAME.ReadOnly = true;
+            // 
+            // QUANTITY
+            // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.QUANTITY.DefaultCellStyle = dataGridViewCellStyle4;
+            this.QUANTITY.HeaderText = "QTY";
+            this.QUANTITY.MinimumWidth = 6;
+            this.QUANTITY.Name = "QUANTITY";
+            this.QUANTITY.ReadOnly = true;
+            // 
+            // PRICE
+            // 
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.PRICE.DefaultCellStyle = dataGridViewCellStyle5;
+            this.PRICE.HeaderText = "PRICE";
+            this.PRICE.MinimumWidth = 6;
+            this.PRICE.Name = "PRICE";
+            this.PRICE.ReadOnly = true;
+            // 
+            // DELETE
+            // 
+            this.DELETE.HeaderText = "DEL";
+            this.DELETE.MinimumWidth = 6;
+            this.DELETE.Name = "DELETE";
+            this.DELETE.ReadOnly = true;
+            // 
             // btnSave
             // 
             this.btnSave.Animated = true;
@@ -382,73 +442,7 @@
             this.txtSearch.Size = new System.Drawing.Size(240, 38);
             this.txtSearch.TabIndex = 51;
             // 
-            // NAME
-            // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.NAME.DefaultCellStyle = dataGridViewCellStyle3;
-            this.NAME.HeaderText = "NAME";
-            this.NAME.MinimumWidth = 6;
-            this.NAME.Name = "NAME";
-            this.NAME.ReadOnly = true;
-            // 
-            // QUANTITY
-            // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.QUANTITY.DefaultCellStyle = dataGridViewCellStyle4;
-            this.QUANTITY.HeaderText = "QTY";
-            this.QUANTITY.MinimumWidth = 6;
-            this.QUANTITY.Name = "QUANTITY";
-            this.QUANTITY.ReadOnly = true;
-            // 
-            // PRICE
-            // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.PRICE.DefaultCellStyle = dataGridViewCellStyle5;
-            this.PRICE.HeaderText = "PRICE";
-            this.PRICE.MinimumWidth = 6;
-            this.PRICE.Name = "PRICE";
-            this.PRICE.ReadOnly = true;
-            // 
-            // DELETE
-            // 
-            this.DELETE.HeaderText = "DEL";
-            this.DELETE.MinimumWidth = 6;
-            this.DELETE.Name = "DELETE";
-            this.DELETE.ReadOnly = true;
-            // 
-            // txtPeople
-            // 
-            this.txtPeople.BorderRadius = 5;
-            this.txtPeople.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtPeople.DefaultText = "";
-            this.txtPeople.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txtPeople.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txtPeople.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtPeople.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtPeople.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtPeople.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtPeople.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtPeople.Location = new System.Drawing.Point(34, 69);
-            this.txtPeople.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtPeople.Name = "txtPeople";
-            this.txtPeople.PasswordChar = '\0';
-            this.txtPeople.PlaceholderText = "People";
-            this.txtPeople.SelectedText = "";
-            this.txtPeople.Size = new System.Drawing.Size(109, 36);
-            this.txtPeople.TabIndex = 52;
-            // 
-            // lbCancel
-            // 
-            this.lbCancel.BackColor = System.Drawing.Color.Transparent;
-            this.lbCancel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lbCancel.ForeColor = System.Drawing.Color.White;
-            this.lbCancel.Location = new System.Drawing.Point(310, 28);
-            this.lbCancel.Name = "lbCancel";
-            this.lbCancel.Size = new System.Drawing.Size(47, 22);
-            this.lbCancel.TabIndex = 53;
-            this.lbCancel.Text = "Cancel";
-            // 
-            // FStaff_S
+            // fStaff_S
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
@@ -462,7 +456,7 @@
             this.Controls.Add(this.btnMaxSize);
             this.Controls.Add(btnClose);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "FStaff_S";
+            this.Name = "fStaff_S";
             this.Text = "FStaff_S";
             this.PanelBillCus.ResumeLayout(false);
             this.PanelBillCus.PerformLayout();

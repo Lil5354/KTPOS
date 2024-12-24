@@ -15,3 +15,4 @@ C:\KTPOS\obj\Debug\KTPOS.exe
 C:\KTPOS\obj\Debug\KTPOS.pdb
 C:\KTPOS\obj\Debug\KTPOS.STAFF.fStaff_F.resources
 C:\KTPOS\obj\Debug\KTPOS.STAFF.fStaff_S.resources
+C:\KTPOS\obj\Debug\KTPOS.MANAGER.fManager.resources

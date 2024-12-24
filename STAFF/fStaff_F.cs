@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using KTPOS.MANAGER;
 
 namespace KTPOS.STAFF
 {
@@ -54,6 +55,13 @@ namespace KTPOS.STAFF
             this.WindowState = FormWindowState.Maximized;
             btnMaxSize.Visible = false;
             btnMinSize.Visible = true;
+        }
+
+        private void btnManage_Click(object sender, EventArgs e)
+        {
+            fManager newForm = new fManager();
+            newForm.Show();
+            this.Close();
         }
     }
 }

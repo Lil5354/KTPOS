@@ -49,6 +49,7 @@
             this.flTable = new System.Windows.Forms.FlowLayoutPanel();
             this.btnMinSize = new Guna.UI2.WinForms.Guna2Button();
             this.btnMaxSize = new Guna.UI2.WinForms.Guna2Button();
+            this.btnManage = new Guna.UI2.WinForms.Guna2Button();
             btnClose = new Guna.UI2.WinForms.Guna2Button();
             this.guna2CustomGradientPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBillDetails)).BeginInit();
@@ -306,12 +307,41 @@
             this.btnMaxSize.TabIndex = 39;
             this.btnMaxSize.Click += new System.EventHandler(this.btnMaxSize_Click);
             // 
+            // btnManage
+            // 
+            this.btnManage.Animated = true;
+            this.btnManage.AutoRoundedCorners = true;
+            this.btnManage.BackColor = System.Drawing.Color.Transparent;
+            this.btnManage.BorderRadius = 25;
+            this.btnManage.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            this.btnManage.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            this.btnManage.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnManage.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnManage.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnManage.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnManage.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnManage.FillColor = System.Drawing.Color.Transparent;
+            this.btnManage.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold);
+            this.btnManage.ForeColor = System.Drawing.Color.White;
+            this.btnManage.HoverState.BorderColor = System.Drawing.Color.White;
+            this.btnManage.HoverState.CustomBorderColor = System.Drawing.Color.Transparent;
+            this.btnManage.HoverState.FillColor = System.Drawing.Color.White;
+            this.btnManage.HoverState.ForeColor = System.Drawing.Color.Maroon;
+            this.btnManage.Location = new System.Drawing.Point(32, 38);
+            this.btnManage.Name = "btnManage";
+            this.btnManage.Size = new System.Drawing.Size(148, 52);
+            this.btnManage.TabIndex = 43;
+            this.btnManage.Text = "Management";
+            this.btnManage.UseTransparentBackground = true;
+            this.btnManage.Click += new System.EventHandler(this.btnManage_Click);
+            // 
             // fStaff_F
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackgroundImage = global::KTPOS.Properties.Resources.bground;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1418, 927);
+            this.Controls.Add(this.btnManage);
             this.Controls.Add(this.guna2CustomGradientPanel2);
             this.Controls.Add(this.guna2CustomGradientPanel1);
             this.Controls.Add(this.btnMinSize);
@@ -343,5 +373,6 @@
         private System.Windows.Forms.FlowLayoutPanel flTable;
         private Guna.UI2.WinForms.Guna2Button btnMinSize;
         private Guna.UI2.WinForms.Guna2Button btnMaxSize;
+        private Guna.UI2.WinForms.Guna2Button btnManage;
     }
 }
