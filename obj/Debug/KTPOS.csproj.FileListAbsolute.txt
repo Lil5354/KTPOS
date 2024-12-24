@@ -1,12 +1,15 @@
+C:\KTPOS\KTPOS main\obj\Debug\KTPOS.csproj.AssemblyReference.cache
+C:\KTPOS\KTPOS main\obj\Debug\KTPOS.fLogin.resources
+C:\KTPOS\KTPOS main\obj\Debug\KTPOS.csproj.GenerateResource.cache
 C:\KTPOS\bin\Debug\KTPOS.exe.config
 C:\KTPOS\bin\Debug\KTPOS.exe
 C:\KTPOS\bin\Debug\KTPOS.pdb
 C:\KTPOS\bin\Debug\Guna.UI2.dll
 C:\KTPOS\obj\Debug\KTPOS.csproj.AssemblyReference.cache
+C:\KTPOS\obj\Debug\KTPOS.fLogin.resources
 C:\KTPOS\obj\Debug\KTPOS.Properties.Resources.resources
 C:\KTPOS\obj\Debug\KTPOS.csproj.GenerateResource.cache
 C:\KTPOS\obj\Debug\KTPOS.csproj.CoreCompileInputs.cache
 C:\KTPOS\obj\Debug\KTPOS.csproj.Up2Date
 C:\KTPOS\obj\Debug\KTPOS.exe
 C:\KTPOS\obj\Debug\KTPOS.pdb
-C:\KTPOS\obj\Debug\KTPOS.fLogin.resources
