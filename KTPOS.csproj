@@ -52,13 +52,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="D:\FILE CỦA THẢO\đập đi xây lại pj\fLogin.cs">
+    <Compile Include="fLogin.cs">
       <SubType>Form</SubType>
-      <Link>fLogin.cs</Link>
     </Compile>
-    <Compile Include="D:\FILE CỦA THẢO\đập đi xây lại pj\fLogin.Designer.cs">
+    <Compile Include="fLogin.Designer.cs">
       <DependentUpon>fLogin.cs</DependentUpon>
-      <Link>fLogin.Designer.cs</Link>
     </Compile>
     <Compile Include="MANAGER\fManager.cs">
       <SubType>Form</SubType>
@@ -80,9 +78,8 @@
     <Compile Include="STAFF\fStaff_S.Designer.cs">
       <DependentUpon>fStaff_S.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="D:\FILE CỦA THẢO\đập đi xây lại pj\fLogin.resx">
+    <EmbeddedResource Include="fLogin.resx">
       <DependentUpon>fLogin.cs</DependentUpon>
-      <Link>fLogin.resx</Link>
     </EmbeddedResource>
     <EmbeddedResource Include="MANAGER\fManager.resx">
       <DependentUpon>fManager.cs</DependentUpon>

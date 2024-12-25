@@ -6,7 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Security;
 using System.Windows.Forms;
+using KTPOS.STAFF;
 
 namespace KTPOS
 {
@@ -42,10 +44,6 @@ namespace KTPOS
             this.WindowState = FormWindowState.Maximized;
             btnMaxSize.Visible = false;
             btnMinSize.Visible = true;
-            panelLogin.Location = new Point(
-        (this.ClientSize.Width - panelLogin.Width) / 2, // Vị trí X
-        (this.ClientSize.Height - panelLogin.Height) / 2 // Vị trí Y
-    );
         }
 
         private void btnMinSize_Click(object sender, EventArgs e)
@@ -57,6 +55,34 @@ namespace KTPOS
             this.Location = new Point(0, 0);
             btnMinSize.Visible = false;
             btnMaxSize.Visible = true;
+        }
+
+        private void btnSignin_Click(object sender, EventArgs e)
+        {
+            fStaff_F f = new fStaff_F();
+            this.Hide();
+            f.ShowDialog();
+        }
+
+        
+
+        private void btnEye_Click(object sender, EventArgs e)
+        {
+            if (txtPass.PasswordChar == '\0')
+            {
+                txtPass.PasswordChar = '\u25CF';
+                btnEye.Visible = false;
+                btnHide.Visible = true;
+            }
+        }
+        private void btnHide_Click(object sender, EventArgs e)
+        {
+            if (txtPass.PasswordChar == '\u25CF')
+            {
+                txtPass.PasswordChar = '\0';
+                btnHide.Visible = false;
+                btnEye.Visible = true;
+            }
         }
     }
 }
