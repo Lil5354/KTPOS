@@ -28,31 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             Guna.UI2.WinForms.Guna2Button btnClose;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fStaff_F));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.guna2Elipse1 = new Guna.UI2.WinForms.Guna2Elipse(this.components);
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.guna2CustomGradientPanel2 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.Filter = new Guna.UI2.WinForms.Guna2ComboBox();
-            this.dgvBillDetails = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.TABLE = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.QUANTITY = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TIME = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.METHOD = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.PAYMENT = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.BILL = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.ListBill = new Guna.UI2.WinForms.Guna2DataGridView();
             this.guna2CustomGradientPanel1 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.flTable = new System.Windows.Forms.FlowLayoutPanel();
             this.btnMinSize = new Guna.UI2.WinForms.Guna2Button();
             this.btnMaxSize = new Guna.UI2.WinForms.Guna2Button();
             this.btnManage = new Guna.UI2.WinForms.Guna2Button();
+            this.TableName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.QUANTITY = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Datepayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.METHOD = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.StatusText = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.PrintButton = new System.Windows.Forms.DataGridViewButtonColumn();
             btnClose = new Guna.UI2.WinForms.Guna2Button();
             this.guna2CustomGradientPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvBillDetails)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ListBill)).BeginInit();
             this.guna2CustomGradientPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,16 +82,12 @@
             btnClose.TabIndex = 38;
             btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // guna2Elipse1
-            // 
-            this.guna2Elipse1.TargetControl = this;
-            // 
             // guna2CustomGradientPanel2
             // 
             this.guna2CustomGradientPanel2.BackColor = System.Drawing.Color.Transparent;
             this.guna2CustomGradientPanel2.BorderRadius = 20;
             this.guna2CustomGradientPanel2.Controls.Add(this.Filter);
-            this.guna2CustomGradientPanel2.Controls.Add(this.dgvBillDetails);
+            this.guna2CustomGradientPanel2.Controls.Add(this.ListBill);
             this.guna2CustomGradientPanel2.FillColor = System.Drawing.Color.Maroon;
             this.guna2CustomGradientPanel2.FillColor2 = System.Drawing.Color.Maroon;
             this.guna2CustomGradientPanel2.FillColor3 = System.Drawing.Color.Maroon;
@@ -122,17 +120,17 @@
             this.Filter.Size = new System.Drawing.Size(211, 36);
             this.Filter.TabIndex = 51;
             // 
-            // dgvBillDetails
+            // ListBill
             // 
-            this.dgvBillDetails.AllowUserToAddRows = false;
-            this.dgvBillDetails.AllowUserToDeleteRows = false;
-            this.dgvBillDetails.AllowUserToResizeRows = false;
+            this.ListBill.AllowUserToAddRows = false;
+            this.ListBill.AllowUserToDeleteRows = false;
+            this.ListBill.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Maroon;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(220)))), ((int)(((byte)(185)))));
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.dgvBillDetails.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.ListBill.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.Maroon;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -140,109 +138,63 @@
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Maroon;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvBillDetails.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvBillDetails.ColumnHeadersHeight = 32;
-            this.dgvBillDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.dgvBillDetails.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.TABLE,
+            this.ListBill.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.ListBill.ColumnHeadersHeight = 32;
+            this.ListBill.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.ListBill.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.TableName,
             this.QUANTITY,
-            this.TIME,
+            this.Datepayment,
             this.METHOD,
-            this.PAYMENT,
-            this.BILL});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Maroon;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(220)))), ((int)(((byte)(185)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvBillDetails.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvBillDetails.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvBillDetails.Location = new System.Drawing.Point(31, 87);
-            this.dgvBillDetails.Name = "dgvBillDetails";
-            this.dgvBillDetails.ReadOnly = true;
-            this.dgvBillDetails.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvBillDetails.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.dgvBillDetails.RowHeadersVisible = false;
-            this.dgvBillDetails.RowHeadersWidth = 51;
-            this.dgvBillDetails.RowTemplate.Height = 24;
-            this.dgvBillDetails.Size = new System.Drawing.Size(777, 415);
-            this.dgvBillDetails.TabIndex = 0;
-            this.dgvBillDetails.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
-            this.dgvBillDetails.ThemeStyle.AlternatingRowsStyle.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvBillDetails.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Maroon;
-            this.dgvBillDetails.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(220)))), ((int)(((byte)(185)))));
-            this.dgvBillDetails.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.dgvBillDetails.ThemeStyle.BackColor = System.Drawing.Color.White;
-            this.dgvBillDetails.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
-            this.dgvBillDetails.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.Maroon;
-            this.dgvBillDetails.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dgvBillDetails.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvBillDetails.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
-            this.dgvBillDetails.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.dgvBillDetails.ThemeStyle.HeaderStyle.Height = 32;
-            this.dgvBillDetails.ThemeStyle.ReadOnly = true;
-            this.dgvBillDetails.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
-            this.dgvBillDetails.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.dgvBillDetails.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgvBillDetails.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.Maroon;
-            this.dgvBillDetails.ThemeStyle.RowsStyle.Height = 24;
-            this.dgvBillDetails.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(220)))), ((int)(((byte)(185)))));
-            this.dgvBillDetails.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            // 
-            // TABLE
-            // 
-            this.TABLE.HeaderText = "TABLE";
-            this.TABLE.MinimumWidth = 6;
-            this.TABLE.Name = "TABLE";
-            this.TABLE.ReadOnly = true;
-            // 
-            // QUANTITY
-            // 
-            this.QUANTITY.HeaderText = "QTY";
-            this.QUANTITY.MinimumWidth = 6;
-            this.QUANTITY.Name = "QUANTITY";
-            this.QUANTITY.ReadOnly = true;
-            // 
-            // TIME
-            // 
-            this.TIME.HeaderText = "TIME";
-            this.TIME.MinimumWidth = 6;
-            this.TIME.Name = "TIME";
-            this.TIME.ReadOnly = true;
-            // 
-            // METHOD
-            // 
-            this.METHOD.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            this.METHOD.HeaderText = "METHOD";
-            this.METHOD.Items.AddRange(new object[] {
-            "Cash",
-            "Transfer"});
-            this.METHOD.MinimumWidth = 6;
-            this.METHOD.Name = "METHOD";
-            this.METHOD.ReadOnly = true;
-            // 
-            // PAYMENT
-            // 
-            this.PAYMENT.HeaderText = "PAYMENT";
-            this.PAYMENT.MinimumWidth = 6;
-            this.PAYMENT.Name = "PAYMENT";
-            this.PAYMENT.ReadOnly = true;
-            // 
-            // BILL
-            // 
-            this.BILL.HeaderText = "BILL";
-            this.BILL.MinimumWidth = 6;
-            this.BILL.Name = "BILL";
-            this.BILL.ReadOnly = true;
+            this.StatusText,
+            this.PrintButton});
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Maroon;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(220)))), ((int)(((byte)(185)))));
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ListBill.DefaultCellStyle = dataGridViewCellStyle7;
+            this.ListBill.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.ListBill.Location = new System.Drawing.Point(31, 87);
+            this.ListBill.Name = "ListBill";
+            this.ListBill.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ListBill.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            this.ListBill.RowHeadersVisible = false;
+            this.ListBill.RowHeadersWidth = 51;
+            this.ListBill.RowTemplate.Height = 24;
+            this.ListBill.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.ListBill.Size = new System.Drawing.Size(777, 415);
+            this.ListBill.TabIndex = 0;
+            this.ListBill.ThemeStyle.AlternatingRowsStyle.BackColor = System.Drawing.Color.White;
+            this.ListBill.ThemeStyle.AlternatingRowsStyle.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ListBill.ThemeStyle.AlternatingRowsStyle.ForeColor = System.Drawing.Color.Maroon;
+            this.ListBill.ThemeStyle.AlternatingRowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(220)))), ((int)(((byte)(185)))));
+            this.ListBill.ThemeStyle.AlternatingRowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ListBill.ThemeStyle.BackColor = System.Drawing.Color.White;
+            this.ListBill.ThemeStyle.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(229)))), ((int)(((byte)(255)))));
+            this.ListBill.ThemeStyle.HeaderStyle.BackColor = System.Drawing.Color.Maroon;
+            this.ListBill.ThemeStyle.HeaderStyle.BorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.ListBill.ThemeStyle.HeaderStyle.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ListBill.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
+            this.ListBill.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
+            this.ListBill.ThemeStyle.HeaderStyle.Height = 32;
+            this.ListBill.ThemeStyle.ReadOnly = false;
+            this.ListBill.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
+            this.ListBill.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.ListBill.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ListBill.ThemeStyle.RowsStyle.ForeColor = System.Drawing.Color.Maroon;
+            this.ListBill.ThemeStyle.RowsStyle.Height = 24;
+            this.ListBill.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(220)))), ((int)(((byte)(185)))));
+            this.ListBill.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             // 
             // guna2CustomGradientPanel1
             // 
@@ -335,6 +287,51 @@
             this.btnManage.UseTransparentBackground = true;
             this.btnManage.Click += new System.EventHandler(this.btnManage_Click);
             // 
+            // TableName
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.TableName.DefaultCellStyle = dataGridViewCellStyle3;
+            this.TableName.HeaderText = "TABLE";
+            this.TableName.MinimumWidth = 6;
+            this.TableName.Name = "TableName";
+            // 
+            // QUANTITY
+            // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.QUANTITY.DefaultCellStyle = dataGridViewCellStyle4;
+            this.QUANTITY.HeaderText = "QTY";
+            this.QUANTITY.MinimumWidth = 6;
+            this.QUANTITY.Name = "QUANTITY";
+            // 
+            // Datepayment
+            // 
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Datepayment.DefaultCellStyle = dataGridViewCellStyle5;
+            this.Datepayment.HeaderText = "TIME";
+            this.Datepayment.MinimumWidth = 6;
+            this.Datepayment.Name = "Datepayment";
+            // 
+            // METHOD
+            // 
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.METHOD.DefaultCellStyle = dataGridViewCellStyle6;
+            this.METHOD.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.METHOD.HeaderText = "METHOD";
+            this.METHOD.MinimumWidth = 6;
+            this.METHOD.Name = "METHOD";
+            // 
+            // StatusText
+            // 
+            this.StatusText.HeaderText = "PAYMENT";
+            this.StatusText.MinimumWidth = 6;
+            this.StatusText.Name = "StatusText";
+            // 
+            // PrintButton
+            // 
+            this.PrintButton.HeaderText = "BILL";
+            this.PrintButton.MinimumWidth = 6;
+            this.PrintButton.Name = "PrintButton";
+            // 
             // fStaff_F
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -350,29 +347,28 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "fStaff_F";
             this.Text = "fStaff_F";
+            this.Load += new System.EventHandler(this.fStaff_F_Load);
             this.guna2CustomGradientPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvBillDetails)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ListBill)).EndInit();
             this.guna2CustomGradientPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private Guna.UI2.WinForms.Guna2Elipse guna2Elipse1;
         private Guna.UI2.WinForms.Guna2CustomGradientPanel guna2CustomGradientPanel2;
         private Guna.UI2.WinForms.Guna2ComboBox Filter;
-        private Guna.UI2.WinForms.Guna2DataGridView dgvBillDetails;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TABLE;
-        private System.Windows.Forms.DataGridViewTextBoxColumn QUANTITY;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TIME;
-        private System.Windows.Forms.DataGridViewComboBoxColumn METHOD;
-        private System.Windows.Forms.DataGridViewButtonColumn PAYMENT;
-        private System.Windows.Forms.DataGridViewButtonColumn BILL;
+        private Guna.UI2.WinForms.Guna2DataGridView ListBill;
         private Guna.UI2.WinForms.Guna2CustomGradientPanel guna2CustomGradientPanel1;
         private System.Windows.Forms.FlowLayoutPanel flTable;
         private Guna.UI2.WinForms.Guna2Button btnMinSize;
         private Guna.UI2.WinForms.Guna2Button btnMaxSize;
         private Guna.UI2.WinForms.Guna2Button btnManage;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TableName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn QUANTITY;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Datepayment;
+        private System.Windows.Forms.DataGridViewComboBoxColumn METHOD;
+        private System.Windows.Forms.DataGridViewButtonColumn StatusText;
+        private System.Windows.Forms.DataGridViewButtonColumn PrintButton;
     }
 }

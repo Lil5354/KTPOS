@@ -118,10 +118,64 @@ namespace KTPOS.STAFF
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
-
         private void TableButton_Click(object sender, EventArgs e)
         {
             throw new NotImplementedException();
+        }
+        public void LoadBillData()
+        {
+            ListBill.Rows.Clear(); // Xóa dữ liệu cũ
+
+            string queryString = @"
+            SELECT 
+            CASE 
+                WHEN t.fname IS NULL THEN 'Take Away'
+                ELSE t.fname 
+            END AS TableName,
+            10 AS Quantity,
+            b.datepayment AS DatePayment,
+            'Cash' AS Method,
+            CASE 
+                WHEN b.status = 1 THEN 'Done'
+                WHEN b.status = 0 THEN 'Not Paid'
+            END AS StatusText,
+            'Print' AS PrintButton
+            FROM BILL b
+            LEFT JOIN [TABLE] t ON b.IDTABLE = t.ID
+            ORDER BY b.status, b.ID DESC";
+
+            try
+            {
+                // Trước khi load data, cấu hình combobox column
+                DataGridViewComboBoxColumn methodColumn = ListBill.Columns["Method"] as DataGridViewComboBoxColumn;
+                if (methodColumn != null)
+                {
+                    methodColumn.Items.Clear();
+                    methodColumn.Items.AddRange(new string[] { "Transfer", "Cash" });
+                }
+
+                DataTable data = GetDatabase.Instance.ExecuteQuery(queryString);
+                foreach (DataRow row in data.Rows)
+                {
+                    ListBill.Rows.Add(
+                        row["TableName"],
+                        row["Quantity"],
+                        row["DatePayment"],
+                        row["Method"],
+                        row["StatusText"],
+                        row["PrintButton"]
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading bill data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void fStaff_F_Load(object sender, EventArgs e)
+        {
+            LoadBillData();
         }
     }
 }

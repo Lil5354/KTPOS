@@ -182,9 +182,9 @@ namespace KTPOS.STAFF
                 MessageBox.Show("Error loading menu items: " + ex.Message);
             }
         }
-
         private void ItemPanel_Click(int itemId, string itemName, double price)
         {
         }
+
     }
 }
