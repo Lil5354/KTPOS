@@ -15,9 +15,12 @@ namespace KTPOS.STAFF
 {
     public partial class fStaff_F : Form
     {
-        public fStaff_F()
+        private string userRole;
+        public fStaff_F(string role)
         {
             InitializeComponent();
+            this.userRole = role;
+            ConfigureUIBasedOnRole();
             LoadTables();
             SetStyle(ControlStyles.OptimizedDoubleBuffer |
                 ControlStyles.AllPaintingInWmPaint, true);
@@ -28,6 +31,15 @@ namespace KTPOS.STAFF
 
         }
 
+        public fStaff_F()
+        {
+        }
+
+        private void ConfigureUIBasedOnRole()
+        {
+            // Hide the manager button if the user role is Staff
+            btnManage.Visible = userRole == "Manager";
+        }
         private void btnClose_Click(object sender, EventArgs e)
         {
             DialogResult dialog = MessageBox.Show("Do you really want to exit?", "Notice", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Security;
 using System.Windows.Forms;
+using KTPOS.Proccess;
 using KTPOS.STAFF;
 
 namespace KTPOS
@@ -59,9 +60,37 @@ namespace KTPOS
 
         private void btnSignin_Click(object sender, EventArgs e)
         {
-            fStaff_F f = new fStaff_F();
+            /*string role = "Manager";
+            fStaff f = new fStaff(role);
             this.Hide();
-            f.ShowDialog();
+            f.ShowDialog();*/
+            string email = txtAccount.Text;
+            string password = txtPass.Text;
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Please enter both email and password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            try
+            {
+                string role = LgAccount.Instance.LgManage(email, password);
+                if (role != null)
+                {
+                    fStaff_F f = new fStaff_F(role);
+                    this.Hide();
+                    f.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Please enter a valid email or password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Please enter a valid email or password." + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
 
         
