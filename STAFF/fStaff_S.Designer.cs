@@ -30,6 +30,7 @@
         {
             Guna.UI2.WinForms.Guna2Button btnClose;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fStaff_S));
+            Guna.UI2.WinForms.Guna2Button btnBack;
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -37,7 +38,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            Guna.UI2.WinForms.Guna2Button btnBack;
             this.btnMinSize = new Guna.UI2.WinForms.Guna2Button();
             this.btnMaxSize = new Guna.UI2.WinForms.Guna2Button();
             this.Filter = new Guna.UI2.WinForms.Guna2ComboBox();
@@ -87,6 +87,29 @@
             btnClose.Size = new System.Drawing.Size(25, 25);
             btnClose.TabIndex = 41;
             btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // btnBack
+            // 
+            btnBack.Animated = true;
+            btnBack.AutoRoundedCorners = true;
+            btnBack.BackColor = System.Drawing.Color.Transparent;
+            btnBack.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnBack.BackgroundImage")));
+            btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            btnBack.BorderRadius = 11;
+            btnBack.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
+            btnBack.Cursor = System.Windows.Forms.Cursors.Hand;
+            btnBack.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            btnBack.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            btnBack.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            btnBack.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            btnBack.FillColor = System.Drawing.Color.Transparent;
+            btnBack.Font = new System.Drawing.Font("Segoe UI", 9F);
+            btnBack.ForeColor = System.Drawing.Color.Transparent;
+            btnBack.Location = new System.Drawing.Point(46, 29);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new System.Drawing.Size(25, 25);
+            btnBack.TabIndex = 55;
+            btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // btnMinSize
             // 
@@ -444,33 +467,10 @@
             this.txtSearch.Size = new System.Drawing.Size(240, 38);
             this.txtSearch.TabIndex = 51;
             // 
-            // btnBack
-            // 
-            btnBack.Animated = true;
-            btnBack.AutoRoundedCorners = true;
-            btnBack.BackColor = System.Drawing.Color.Transparent;
-            btnBack.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnBack.BackgroundImage")));
-            btnBack.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            btnBack.BorderRadius = 11;
-            btnBack.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
-            btnBack.Cursor = System.Windows.Forms.Cursors.Hand;
-            btnBack.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            btnBack.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            btnBack.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            btnBack.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            btnBack.FillColor = System.Drawing.Color.Transparent;
-            btnBack.Font = new System.Drawing.Font("Segoe UI", 9F);
-            btnBack.ForeColor = System.Drawing.Color.Transparent;
-            btnBack.Location = new System.Drawing.Point(46, 29);
-            btnBack.Name = "btnBack";
-            btnBack.Size = new System.Drawing.Size(25, 25);
-            btnBack.TabIndex = 55;
-            btnBack.Click += new System.EventHandler(this.btnBack_Click);
-            // 
             // fStaff_S
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImage = global::KTPOS.Properties.Resources.bground;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1418, 927);
             this.Controls.Add(btnBack);
@@ -481,6 +481,7 @@
             this.Controls.Add(this.btnMinSize);
             this.Controls.Add(this.btnMaxSize);
             this.Controls.Add(btnClose);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "fStaff_S";
             this.Text = "FStaff_S";
