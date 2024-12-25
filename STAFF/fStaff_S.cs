@@ -51,5 +51,12 @@ namespace KTPOS.STAFF
             btnMaxSize.Visible = false;
             btnMinSize.Visible = true;
         }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            fStaff_S newForm = new fStaff_S();
+            newForm.Show();
+            this.Close();
+        }
     }
 }

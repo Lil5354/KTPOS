@@ -16,3 +16,18 @@ C:\KTPOS\obj\Debug\KTPOS.pdb
 C:\KTPOS\obj\Debug\KTPOS.STAFF.fStaff_F.resources
 C:\KTPOS\obj\Debug\KTPOS.STAFF.fStaff_S.resources
 C:\KTPOS\obj\Debug\KTPOS.MANAGER.fManager.resources
+D:\project desktop\KTPOS\bin\Debug\KTPOS.exe.config
+D:\project desktop\KTPOS\bin\Debug\KTPOS.exe
+D:\project desktop\KTPOS\bin\Debug\KTPOS.pdb
+D:\project desktop\KTPOS\bin\Debug\Guna.UI2.dll
+D:\project desktop\KTPOS\obj\Debug\KTPOS.csproj.AssemblyReference.cache
+D:\project desktop\KTPOS\obj\Debug\KTPOS.fLogin.resources
+D:\project desktop\KTPOS\obj\Debug\KTPOS.MANAGER.fManager.resources
+D:\project desktop\KTPOS\obj\Debug\KTPOS.Properties.Resources.resources
+D:\project desktop\KTPOS\obj\Debug\KTPOS.STAFF.fStaff_F.resources
+D:\project desktop\KTPOS\obj\Debug\KTPOS.STAFF.fStaff_S.resources
+D:\project desktop\KTPOS\obj\Debug\KTPOS.csproj.GenerateResource.cache
+D:\project desktop\KTPOS\obj\Debug\KTPOS.csproj.CoreCompileInputs.cache
+D:\project desktop\KTPOS\obj\Debug\KTPOS.csproj.Up2Date
+D:\project desktop\KTPOS\obj\Debug\KTPOS.exe
+D:\project desktop\KTPOS\obj\Debug\KTPOS.pdb
