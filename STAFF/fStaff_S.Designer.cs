@@ -33,11 +33,8 @@
             Guna.UI2.WinForms.Guna2Button btnBack;
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnMinSize = new Guna.UI2.WinForms.Guna2Button();
             this.btnMaxSize = new Guna.UI2.WinForms.Guna2Button();
             this.Filter = new Guna.UI2.WinForms.Guna2ComboBox();
@@ -50,10 +47,6 @@
             this.guna2HtmlLabel5 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.txtTotal = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.dtgvBillCus = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.NAME = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.QUANTITY = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PRICE = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DELETE = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnSave = new Guna.UI2.WinForms.Guna2Button();
             this.txtTable = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.txtSearch = new Guna.UI2.WinForms.Guna2TextBox();
@@ -308,6 +301,7 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
             this.dtgvBillCus.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dtgvBillCus.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.Maroon;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -318,32 +312,26 @@
             this.dtgvBillCus.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dtgvBillCus.ColumnHeadersHeight = 40;
             this.dtgvBillCus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            this.dtgvBillCus.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.NAME,
-            this.QUANTITY,
-            this.PRICE,
-            this.DELETE});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Maroon;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dtgvBillCus.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Maroon;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dtgvBillCus.DefaultCellStyle = dataGridViewCellStyle3;
             this.dtgvBillCus.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
             this.dtgvBillCus.Location = new System.Drawing.Point(34, 126);
             this.dtgvBillCus.Name = "dtgvBillCus";
-            this.dtgvBillCus.ReadOnly = true;
             this.dtgvBillCus.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgvBillCus.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgvBillCus.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dtgvBillCus.RowHeadersVisible = false;
             this.dtgvBillCus.RowHeadersWidth = 51;
             this.dtgvBillCus.RowTemplate.Height = 25;
@@ -363,7 +351,7 @@
             this.dtgvBillCus.ThemeStyle.HeaderStyle.ForeColor = System.Drawing.Color.White;
             this.dtgvBillCus.ThemeStyle.HeaderStyle.HeaightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dtgvBillCus.ThemeStyle.HeaderStyle.Height = 40;
-            this.dtgvBillCus.ThemeStyle.ReadOnly = true;
+            this.dtgvBillCus.ThemeStyle.ReadOnly = false;
             this.dtgvBillCus.ThemeStyle.RowsStyle.BackColor = System.Drawing.Color.White;
             this.dtgvBillCus.ThemeStyle.RowsStyle.BorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dtgvBillCus.ThemeStyle.RowsStyle.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -371,40 +359,6 @@
             this.dtgvBillCus.ThemeStyle.RowsStyle.Height = 25;
             this.dtgvBillCus.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
             this.dtgvBillCus.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.Black;
-            // 
-            // NAME
-            // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.NAME.DefaultCellStyle = dataGridViewCellStyle3;
-            this.NAME.HeaderText = "NAME";
-            this.NAME.MinimumWidth = 6;
-            this.NAME.Name = "NAME";
-            this.NAME.ReadOnly = true;
-            // 
-            // QUANTITY
-            // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.QUANTITY.DefaultCellStyle = dataGridViewCellStyle4;
-            this.QUANTITY.HeaderText = "QTY";
-            this.QUANTITY.MinimumWidth = 6;
-            this.QUANTITY.Name = "QUANTITY";
-            this.QUANTITY.ReadOnly = true;
-            // 
-            // PRICE
-            // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.PRICE.DefaultCellStyle = dataGridViewCellStyle5;
-            this.PRICE.HeaderText = "PRICE";
-            this.PRICE.MinimumWidth = 6;
-            this.PRICE.Name = "PRICE";
-            this.PRICE.ReadOnly = true;
-            // 
-            // DELETE
-            // 
-            this.DELETE.HeaderText = "DEL";
-            this.DELETE.MinimumWidth = 6;
-            this.DELETE.Name = "DELETE";
-            this.DELETE.ReadOnly = true;
             // 
             // btnSave
             // 
@@ -505,15 +459,12 @@
         private Guna.UI2.WinForms.Guna2TextBox guna2TextBox1;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel5;
         private Guna.UI2.WinForms.Guna2HtmlLabel txtTotal;
-        private Guna.UI2.WinForms.Guna2DataGridView dtgvBillCus;
         private Guna.UI2.WinForms.Guna2Button btnSave;
-        private Guna.UI2.WinForms.Guna2HtmlLabel txtTable;
         private Guna.UI2.WinForms.Guna2TextBox txtSearch;
         private Guna.UI2.WinForms.Guna2HtmlLabel lbCancel;
         private Guna.UI2.WinForms.Guna2TextBox txtPeople;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NAME;
-        private System.Windows.Forms.DataGridViewTextBoxColumn QUANTITY;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PRICE;
-        private System.Windows.Forms.DataGridViewButtonColumn DELETE;
+        public Guna.UI2.WinForms.Guna2HtmlLabel txtTable;
+        public Guna.UI2.WinForms.Guna2DataGridView dtgvBillCus;
+        private Guna.UI2.WinForms.Guna2DataGridViewStyler guna2DataGridViewStyler1;
     }
 }

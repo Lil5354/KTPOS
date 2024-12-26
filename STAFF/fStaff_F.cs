@@ -120,7 +120,94 @@ namespace KTPOS.STAFF
         }
         private void TableButton_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            if (!(sender is Guna2Button clickedButton)) return;
+
+            int tableId = Convert.ToInt32(clickedButton.Tag);
+            string tableName = clickedButton.Text.Split('\n')[0];
+
+            const string billQuery = @"
+        SELECT b.ID 
+        FROM Bill b 
+        WHERE b.idTable = @tableId AND b.status = 0";
+
+            object billIdResult = GetDatabase.Instance.ExecuteScalar(billQuery, new object[] { tableId });
+
+            if (billIdResult == null)
+            {
+                MessageBox.Show("No unpaid bill found for this table.",
+                    "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            int billId = Convert.ToInt32(billIdResult);
+            const string detailsQuery = @"
+        SELECT 
+            i.FNAME as NAME,
+            bi.COUNT as QTY,
+            i.PRICE as PRICE
+        FROM BILLINF bi
+        JOIN ITEM i ON bi.IDFD = i.ID
+        WHERE bi.IDBILL = @billId";
+
+            DataTable billDetails = GetDatabase.Instance.ExecuteQuery(detailsQuery, new object[] { billId });
+
+            using (fStaff_S staffForm = new fStaff_S())
+            {
+                if (staffForm.Controls.Find("txtTable", true).FirstOrDefault() is Guna2HtmlLabel txtTable)
+                {
+                    txtTable.Text = tableName;
+                }
+
+                if (staffForm.Controls.Find("dtgvBillCus", true).FirstOrDefault() is Guna2DataGridView dtgvBillCus)
+                {
+                    dtgvBillCus.DataSource = billDetails;
+                    dtgvBillCus.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+                    // Thiết lập canh giữa tiêu đề các cột
+                    dtgvBillCus.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    // Kiểm tra nếu cột "DEL" chưa tồn tại, thì thêm cột Button
+                    if (!dtgvBillCus.Columns.Contains("DEL_BUTTON"))
+                    {
+                        DataGridViewButtonColumn delButtonColumn = new DataGridViewButtonColumn
+                        {
+                            Name = "DEL_BUTTON",
+                            HeaderText = "DEL",
+                            Text = "x",
+                            UseColumnTextForButtonValue = true, // Hiển thị "Delete" làm nút
+                            AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                        };
+                        dtgvBillCus.Columns.Add(delButtonColumn);
+                    }
+
+                    // Xử lý sự kiện khi click vào cột "DEL_BUTTON"
+                    dtgvBillCus.CellClick += (s, evt) =>
+                    {
+                        if (evt.RowIndex >= 0 && evt.ColumnIndex == dtgvBillCus.Columns["DEL_BUTTON"].Index)
+                        {
+                            // Lấy thông tin dòng được click
+                            var row = dtgvBillCus.Rows[evt.RowIndex];
+                            string itemName = row.Cells["NAME"].Value.ToString();
+                            int qty = Convert.ToInt32(row.Cells["QTY"].Value);
+
+                            // Hành động xóa dòng (có thể tùy chỉnh theo logic)
+                            DialogResult confirm = MessageBox.Show(
+                                $"Do you want to delete {qty} of {itemName}?",
+                                "Confirm Delete",
+                                MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Warning
+                            );
+
+                            if (confirm == DialogResult.Yes)
+                            {
+                                // Thực hiện xóa ở DataGridView (hoặc cập nhật trong cơ sở dữ liệu)
+                                dtgvBillCus.Rows.RemoveAt(evt.RowIndex);
+                            }
+                        }
+                    };
+                }
+                this.Hide();
+                staffForm.ShowDialog();
+            }
         }
         public void LoadBillData()
         {

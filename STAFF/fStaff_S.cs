@@ -54,9 +54,13 @@ namespace KTPOS.STAFF
         }
         private void btnBack_Click(object sender, EventArgs e)
         {
-            fStaff_S newForm = new fStaff_S();
-            newForm.Show();
-            this.Close();
+            // Kiểm tra nếu có thể quay lại trang trước đó
+            this.Close(); // Đóng form hiện tại (fStaff_S)
+
+            // Hiển thị lại form trước đó, tức là fStaff_F
+            // Nếu form gọi (fStaff_F) vẫn mở, thì có thể chỉ cần gọi lại form đó.
+            fStaff_F previousForm = Application.OpenForms["fStaff_F"] as fStaff_F;
+            previousForm?.Show();
         }
         private void LoadMenuItems()
         {
