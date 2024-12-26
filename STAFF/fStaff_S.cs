@@ -18,10 +18,24 @@ namespace KTPOS.STAFF
         public fStaff_S()
         {
             InitializeComponent();
-            LoadMenuItems();
+            SetStyle(ControlStyles.OptimizedDoubleBuffer |
+                ControlStyles.AllPaintingInWmPaint, true);
+            this.DoubleBuffered = true;
+            SetDoubleBuffered(FlowMenu, true);
+            SetDoubleBuffered(dtgvBillCus, true);
+            SetDoubleBuffered(btnMaxSize, true);
+            SetDoubleBuffered(btnMinSize, true);
+            SetDoubleBuffered(PanelBillCus, true);
             this.WindowState = FormWindowState.Maximized;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.MinimumSize = new Size(800, 450);
+        }
+        private void SetDoubleBuffered(Control control, bool value)
+        {
+            var property = typeof(Control).GetProperty("DoubleBuffered",
+                System.Reflection.BindingFlags.NonPublic |
+                System.Reflection.BindingFlags.Instance);
+            property?.SetValue(control, value, null);
         }
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -190,5 +204,9 @@ namespace KTPOS.STAFF
         {
         }
 
+        private void btnMenu_Click_1(object sender, EventArgs e)
+        {
+            LoadMenuItems();
+        }
     }
 }
