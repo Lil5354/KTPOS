@@ -15,6 +15,7 @@ namespace KTPOS.STAFF
 {
     public partial class fStaff_F : Form
     {
+
         private string userRole;
         public fStaff_F(string role)
         {
@@ -30,11 +31,6 @@ namespace KTPOS.STAFF
             this.MinimumSize = new Size(800, 450);
 
         }
-
-        public fStaff_F()
-        {
-        }
-
         private void ConfigureUIBasedOnRole()
         {
             // Hide the manager button if the user role is Staff
@@ -53,7 +49,6 @@ namespace KTPOS.STAFF
                 this.Focus();
             }
         }
-
         private void btnMinSize_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Normal;
@@ -64,14 +59,12 @@ namespace KTPOS.STAFF
             btnMinSize.Visible = false;
             btnMaxSize.Visible = true;
         }
-
         private void btnMaxSize_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized;
             btnMaxSize.Visible = false;
             btnMinSize.Visible = true;
         }
-
         private void btnManage_Click(object sender, EventArgs e)
         {
             fManager newForm = new fManager();
@@ -219,7 +212,7 @@ namespace KTPOS.STAFF
                 WHEN t.fname IS NULL THEN 'Take Away'
                 ELSE t.fname 
             END AS TableName,
-            10 AS Quantity,
+            ISNULL(t.capacity, 1) AS Quantity, -- Lấy giá trị từ CAPACITY, mặc định là 10 nếu NULL
             b.datepayment AS DatePayment,
             'Cash' AS Method,
             CASE 
@@ -227,9 +220,9 @@ namespace KTPOS.STAFF
                 WHEN b.status = 0 THEN 'Not Paid'
             END AS StatusText,
             'Print' AS PrintButton
-            FROM BILL b
-            LEFT JOIN [TABLE] t ON b.IDTABLE = t.ID
-            ORDER BY b.status, b.ID DESC";
+        FROM BILL b
+        LEFT JOIN [TABLE] t ON b.IDTABLE = t.ID
+        ORDER BY b.status, b.ID DESC;";
 
             try
             {
@@ -259,7 +252,6 @@ namespace KTPOS.STAFF
                 MessageBox.Show("Error loading bill data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void fStaff_F_Load(object sender, EventArgs e)
         {
             LoadBillData();

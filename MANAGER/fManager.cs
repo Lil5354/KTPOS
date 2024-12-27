@@ -62,9 +62,7 @@ namespace KTPOS.MANAGER
 
         private void btnBack_Click(object sender, EventArgs e)
         {
-            fStaff_F newForm = new fStaff_F();
-            newForm.Show();
-            this.Close();
+
         }
     }
 }

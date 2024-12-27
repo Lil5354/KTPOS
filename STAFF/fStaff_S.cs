@@ -15,6 +15,9 @@ namespace KTPOS.STAFF
 {
     public partial class fStaff_S : Form
     {
+        private Dictionary<string, int> Count = new Dictionary<string, int>();
+        private decimal total = 0;
+        private DataTable billTable;
         public fStaff_S()
         {
             InitializeComponent();
@@ -29,7 +32,27 @@ namespace KTPOS.STAFF
             this.WindowState = FormWindowState.Maximized;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.MinimumSize = new Size(800, 450);
+            if (dtgvBillCus.DataSource == null)
+            {
+                InitializeBillTable();
+            }
+            else
+            {
+                // Get the existing DataTable from the DataGridView
+                billTable = ((DataTable)dtgvBillCus.DataSource).Copy();
+                dtgvBillCus.DataSource = billTable;
+            }
         }
+        private void InitializeBillTable()
+        {
+            billTable = new DataTable();
+            billTable.Columns.Add("NAME", typeof(string));
+            billTable.Columns.Add("QTY", typeof(int));
+            billTable.Columns.Add("PRICE", typeof(string));
+            billTable.Columns.Add("ID", typeof(string));
+            dtgvBillCus.DataSource = billTable;
+        }
+
         private void SetDoubleBuffered(Control control, bool value)
         {
             var property = typeof(Control).GetProperty("DoubleBuffered",
@@ -200,13 +223,115 @@ namespace KTPOS.STAFF
                 MessageBox.Show("Error loading menu items: " + ex.Message);
             }
         }
+        public void AddOrUpdate(Dictionary<string, int> dict, string key)
+        {
+            if (dict.ContainsKey(key))
+                dict[key]++;
+            else
+                dict.Add(key, 1);
+        }
         private void ItemPanel_Click(int itemId, string itemName, double price)
         {
-        }
+            try
+            {
+                string ID = itemId.ToString();
 
+                // Query to get item details
+                string query = "SELECT * FROM ITEM WHERE ID = @ID";
+                DataTable result = GetDatabase.Instance.ExecuteQuery(query, new object[] { ID });
+
+                if (result.Rows.Count > 0)
+                {
+                    DataRow row = result.Rows[0];
+                    string name = row["FNAME"].ToString();
+                    decimal itemPrice = Convert.ToDecimal(row["PRICE"]);
+
+                    // Update count dictionary
+                    AddOrUpdate(Count, name);
+
+                    // Get the current DataTable
+                    DataTable currentTable = (DataTable)dtgvBillCus.DataSource;
+
+                    // Find existing row
+                    DataRow[] foundRows = currentTable.Select($"NAME = '{name}'");
+                    if (foundRows.Length > 0)
+                    {
+                        // Update existing row
+                        foundRows[0]["QTY"] = Count[name];
+                        foundRows[0]["PRICE"] = (itemPrice * Count[name]).ToString("N0");
+                    }
+                    else
+                    {
+                        // Add new row to DataTable
+                        DataRow newRow = currentTable.NewRow();
+                        newRow["NAME"] = name;
+                        newRow["QTY"] = 1;
+                        newRow["PRICE"] = itemPrice.ToString("N0");
+                        currentTable.Rows.Add(newRow);
+                    }
+
+                    // Refresh the DataGridView
+                    dtgvBillCus.Refresh();
+
+                    // Update total
+                    UpdateTotal();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error processing item: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            nUDItem.Visible = false;
+        }
+        private void UpdateTotal()
+        {
+            total = 0;
+            if (dtgvBillCus.DataSource is DataTable dataTable)
+            {
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    if (row["QTY"] != DBNull.Value && row["PRICE"] != DBNull.Value)
+                    {
+                        int qty = Convert.ToInt32(row["QTY"]);
+                        string priceStr = row["PRICE"].ToString().Replace(",", "");
+                        if (decimal.TryParse(priceStr, out decimal price))
+                        {
+                            total += price;
+                        }
+                    }
+                }
+            }
+            txtTotal.Text = total.ToString("N0") + " VND";
+        }
+        
+        private bool IsNumeric(string value)
+        {
+            return decimal.TryParse(value.Replace(",", ""), out _);
+        }
         private void btnMenu_Click_1(object sender, EventArgs e)
         {
             LoadMenuItems();
         }
+
+        private void txtSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            foreach (Control control in FlowMenu.Controls)
+            {
+                if (control is Guna2Panel panel)
+                {
+                    // Get the name label from the panel
+                    Label nameLabel = panel.Controls.OfType<Label>().FirstOrDefault(
+                        label => label.Location.Y == 115);  // Using the Y position we set earlier
+
+                    if (nameLabel != null)
+                    {
+                        string itemName = nameLabel.Text;
+                        panel.Visible = itemName.ToLower().Contains(txtSearch.Text.Trim().ToLower());
+                    }
+                }
+            }
+        }
+        
     }
 }
