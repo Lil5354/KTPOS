@@ -31,3 +31,18 @@ D:\project desktop\KTPOS\obj\Debug\KTPOS.csproj.CoreCompileInputs.cache
 D:\project desktop\KTPOS\obj\Debug\KTPOS.csproj.Up2Date
 D:\project desktop\KTPOS\obj\Debug\KTPOS.exe
 D:\project desktop\KTPOS\obj\Debug\KTPOS.pdb
+D:\Douments\GitHub\KTPOS\bin\Debug\KTPOS.exe.config
+D:\Douments\GitHub\KTPOS\bin\Debug\KTPOS.exe
+D:\Douments\GitHub\KTPOS\bin\Debug\KTPOS.pdb
+D:\Douments\GitHub\KTPOS\bin\Debug\Guna.UI2.dll
+D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.csproj.AssemblyReference.cache
+D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.fLogin.resources
+D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.MANAGER.fManager.resources
+D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.Properties.Resources.resources
+D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.STAFF.fStaff_F.resources
+D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.STAFF.fStaff_S.resources
+D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.csproj.GenerateResource.cache
+D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.csproj.CoreCompileInputs.cache
+D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.csproj.Up2Date
+D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.exe
+D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.pdb

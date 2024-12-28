@@ -69,7 +69,7 @@ namespace KTPOS.STAFF
         {
             fManager newForm = new fManager();
             newForm.Show();
-            this.Close();
+            this.Hide();
         }
         private void LoadTables()
         {

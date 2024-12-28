@@ -64,6 +64,7 @@
     <Compile Include="MANAGER\fManager.Designer.cs">
       <DependentUpon>fManager.cs</DependentUpon>
     </Compile>
+    <Compile Include="Proccess\DTManger.cs" />
     <Compile Include="Proccess\GetDatabase.cs" />
     <Compile Include="Proccess\LgAccount.cs" />
     <Compile Include="Program.cs" />
