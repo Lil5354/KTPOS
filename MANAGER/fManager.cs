@@ -8,8 +8,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using KTPOS.Proccess;
 using KTPOS.STAFF;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static TheArtOfDevHtmlRenderer.Adapters.RGraphicsPath;
 
 namespace KTPOS.MANAGER
 {
@@ -54,7 +58,6 @@ namespace KTPOS.MANAGER
 
             this.WindowState = FormWindowState.Normal;
             this.StartPosition = FormStartPosition.Manual;
-
             // Tùy chỉnh lại vị trí nếu cần (giữ nguyên vị trí hiện tại)
             this.Location = new Point(0, 0);
             btnMinSize.Visible = false;
@@ -63,8 +66,6 @@ namespace KTPOS.MANAGER
         private void btnBack_Click(object sender, EventArgs e)
         {
             this.Close(); // Đóng form hiện tại (fStaff_S)
-
-            // Hiển thị lại form trước đó, tức là fStaff_F
             // Nếu form gọi (fStaff_F) vẫn mở, thì có thể chỉ cần gọi lại form đó.
             fStaff_F previousForm = Application.OpenForms["fStaff_F"] as fStaff_F;
             previousForm?.Show();
@@ -81,23 +82,50 @@ namespace KTPOS.MANAGER
                         DTManger.Instance.LoadList(query, dtgvAccount);
                         index = -1;
                         break;
-                    case "TABLE":
-                        query = "SELECT T.FNAME AS [TABLE], T.CAPACITY AS QTY, T.STATUS, ISNULL(SUM(BI.COUNT * I.PRICE), 0) AS [TOTAL PRICE]  FROM [TABLE] T " +
+                    case "TABLE": 
+                        query = "SELECT T.FNAME AS [TABLE], T.CAPACITY, T.STATUS, ISNULL(SUM(BI.COUNT * I.PRICE), 0) AS [TOTAL PRICE], ISNULL(SUM(B.DURATION), 0) AS [TOTAL DURATION]" +
+                            "  FROM [TABLE] T " +
                             "LEFT JOIN BILL B ON T.ID = B.IDTABLE AND B.STATUS = 1 LEFT JOIN BILLINF BI ON B.ID = BI.IDBILL LEFT JOIN ITEM I ON BI.IDFD = I.ID WHERE T.VISIBLE = 1 " +
                             "GROUP BY T.FNAME, T.CAPACITY, T.STATUS ORDER BY [TOTAL PRICE] DESC;";
                         DTManger.Instance.LoadList(query, dtgvTable);
                         index = -1;
                         break;
                     case "BILL":
-                        query = "SELECT fname AS [NAME CATEGORIES] FROM [F&BCATEGORY] WHERE Visible = 1";
-                        //DTManger.Instance.LoadList(query);
+                        query = @"SELECT 
+                        ID,
+                        CASE 
+                            WHEN BILLTYPE = 1 THEN 'Dine-In'
+                            ELSE 'Take Away'
+                        END AS [TYPE],
+                        CHKIN_TIME AS [CHK-IN],
+                        CHKOUT_TIME AS [CHK-OUT],
+                        DURATION,
+                        CASE 
+                            WHEN STATUS = 1 THEN 'Paid'
+                            ELSE 'Unpaid'
+                        END AS PAYMENT
+                    FROM BILL;";
+                        DTManger.Instance.LoadList(query, dtgvBill);
                         index = -1;
                         break;
                     case "F&B":
-                        query = "SELECT fb.fname [TYPE], i.fname AS [NAME], price[PRICE] FROM ITEM i JOIN [F&BCATEGORY] fb ON idCategory = fb.ID  " +
-                            "WHERE i.Visible = 1 Order by [Type] ASC";
+                        query = @"SELECT 
+                            I.FNAME AS [ITEM NAME],
+                            I.CATEGORY,
+                            I.PRICE,
+                            ISNULL(SUM(BI.COUNT), 0) AS QTY,
+                            I.SALESFLAG,
+                            ROUND(I.PRICE * (1 - I.DISCOUNTRATE / 100), 2) AS [PRICE DISCOUNT]
+                        FROM
+                            ITEM I
+                        LEFT JOIN
+                            BILLINF BI ON I.ID = BI.IDFD
+                        WHERE
+                            I.VISIBLE = 1
+                        GROUP BY
+                            I.FNAME, I.CATEGORY, I.PRICE, I.SALESFLAG, I.DISCOUNTRATE; ";
                         DTManger.Instance.LoadList(query, dtgvFandB);
-                        q = "SELECT fname AS [NAME CATEGORIES] FROM [F&BCATEGORY] WHERE Visible = 1";
+                        q = "SELECT DISTINCT CATEGORY FROM [ITEM]";
                         GetDatabase.Instance.LoadDataToComboBox(q, cbCategoriesFB);
                         index = -1;
                         break;
@@ -107,10 +135,30 @@ namespace KTPOS.MANAGER
                         DTManger.Instance.LoadList(query, dtgvRevenue);
                         index = -1;
                         break;
+                    case "SALETAG":
+                        cbbTag_SelectedIndexChanged(sender, e);
+                        q = "SELECT TAGNAME FROM TAG";
+                        GetDatabase.Instance.LoadDataToComboBox(q,cbbTag);
+                        break;
                     default:
                         query = "";
                         break;
                 }
+            }
+        }
+        private void dtgvAccount_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                index = e.RowIndex;
+                // Lấy hàng hiện tại
+                DataGridViewRow row = dtgvAccount.Rows[e.RowIndex];
+                // Gán dữ liệu từ các cột vào TextBox
+                txtFullName.Text = row.Cells[1].Value?.ToString();
+                dtpDOB.Text = row.Cells[2].Value?.ToString();
+                txtEmail.Text = row.Cells[3].Value?.ToString();
+                txtPhone.Text = row.Cells[4].Value?.ToString();
+                cbBRole.Text = row.Cells[5].Value?.ToString();
             }
         }
         private void ClearTxtAccount()
@@ -121,23 +169,37 @@ namespace KTPOS.MANAGER
             cbBRole.SelectedIndex = -1;
         }
 
-        private void cbBRole_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbbTag_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            query = @"SELECT I.FNAME AS [ITEM NAME], MAX(CASE WHEN T.TAGNAME = '"+cbbTag.Text+"' THEN 1 ELSE 0 END) AS TAG, I.SALESFLAG as SALEFLAG FROM ITEM I LEFT JOIN ITEM_TAG IT ON I.ID = IT.IDITEM LEFT JOIN TAG T ON IT.IDTAG = T.ID GROUP BY I.FNAME, I.SALESFLAG ORDER BY I.FNAME; ";
+            DTManger.Instance.LoadList(query, dtgvSaleTag);
         }
 
-        private void dtgvAccount_CellClick(object sender, DataGridViewCellEventArgs e)
+        private void dtgvFandB_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
-                index = e.RowIndex;
-                // Lấy hàng hiện tại
-                DataGridViewRow row = dtgvAccount.Rows[e.RowIndex];
-                // Gán dữ liệu từ các cột vào TextBox
-                txtFullName.Text = row.Cells[1].Value?.ToString();
-                txtEmail.Text = row.Cells[3].Value?.ToString();
-                cbBRole.Text = row.Cells[5].Value?.ToString();
+                // Lấy giá trị của cột "SalesFlag" tại dòng được chọn
+                DataGridViewRow row = dtgvFandB.Rows[e.RowIndex];
+                bool isSalesFlagChecked = Convert.ToBoolean(row.Cells[4].Value);
+                // Hiển thị hoặc ẩn Label và TextBox "Discount Rate" dựa vào trạng thái checkbox
+                lbDiscount.Visible = isSalesFlagChecked;    
+                txtDiscountR.Visible = isSalesFlagChecked;
+                txtNameFB.Text = row.Cells[0].Value?.ToString();
+                cbCategoriesFB.Text = row.Cells[1].Value?.ToString();
+                txtPriceFB.Text = row.Cells[2].Value?.ToString();
+                if (row.Cells[2].Value != null && row.Cells[5].Value != null)
+                {
+                    decimal price = Convert.ToDecimal(row.Cells[2].Value);
+                    decimal priceDiscount = Convert.ToDecimal(row.Cells[5].Value);
+                    // Tính Discount Rate (%) = ((PRICE - PRICE_DISCOUNT) / PRICE) * 100
+                    decimal discountRate = (price - priceDiscount) / price * 100;
+                    // Gán giá trị tính được vào TextBox
+                    txtDiscountR.Text = discountRate.ToString("0.##")+"%";
+                }
             }
         }
+
+        
     }
 }
