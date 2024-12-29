@@ -1,5 +1,7 @@
 ﻿USE MASTER
 GO
+ALTER DATABASE KTPOS SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+GO
 DROP DATABASE IF EXISTS KTPOS
 GO
 CREATE DATABASE KTPOS
@@ -39,7 +41,7 @@ CREATE TABLE ITEM (
     IDCATEGORY  INT NOT NULL,
     PRICE       FLOAT NOT NULL CHECK(PRICE > 0),
     VISIBLE     INT NOT NULL DEFAULT 1,
-	SALEGROUP   NVARCHAR(20) ,
+	SALEGROUP   NVARCHAR(20) CHECK(SALEGROUP IN ('Best Seller', 'New Arrival', 'Regular', 'Seasonal', 'Limited Edition'))DEFAULT 'Regular',
 	SALESFLAG	BIT NOT NULL DEFAULT 0,    -- Đánh dấu bán ít (0: không, 1: có)
     DISCOUNTRATE FLOAT CHECK(DISCOUNTRATE BETWEEN 0 AND 100) DEFAULT 0, --% giảm giá
 	CONSTRAINT UQ_ITEM_NAME_CATEGORY UNIQUE (FNAME, IDCATEGORY),
@@ -69,24 +71,6 @@ CREATE TABLE BILLINF (
     CONSTRAINT FK_BILLINF_BILL FOREIGN KEY (IDBILL) REFERENCES BILL(ID),
     CONSTRAINT FK_BILLINF_ITEM FOREIGN KEY (IDFD) REFERENCES ITEM(ID)
 );
-CREATE TABLE TAG (
-    ID          INT IDENTITY PRIMARY KEY, -- ID Tag
-    TAGNAME     NVARCHAR(50) UNIQUE CHECK(TAGNAME IN ('Best Seller', 'New Arrival', 'Regular', 'Seasonal', 'Limited Edition'))NOT NULL -- Tên Tag (e.g., 'Best Seller', 'New Arrival')
-);
-
--- bảng liên kết ITEM_TAG để quản lý mối quan hệ N-N giữa ITEM và TAG
-CREATE TABLE ITEM_TAG (
-    ID          INT IDENTITY PRIMARY KEY,
-    IDITEM      INT NOT NULL, -- ID Item
-    IDTAG       INT NOT NULL, -- ID Tag
-    CONSTRAINT FK_ITEMTAG_ITEM FOREIGN KEY (IDITEM) REFERENCES ITEM(ID),
-    CONSTRAINT FK_ITEMTAG_TAG FOREIGN KEY (IDTAG) REFERENCES TAG(ID),
-    CONSTRAINT UQ_ITEMTAG UNIQUE (IDITEM, IDTAG) -- Đảm bảo mỗi cặp Item-Tag là duy nhất
-);
-GO
--- Bước 4: Thêm dữ liệu ví dụ cho bảng TAG
-INSERT INTO TAG (TAGNAME)
-VALUES ('Best Seller'), ('New Arrival'), ('Regular'), ('Seasonal'), ('Limited Edition');
 GO
 CREATE TRIGGER trg_InsertIDStaff
 ON ACCOUNT
@@ -135,6 +119,7 @@ VALUES
 ('Table 7', 0, 4, 1),
 ('Table 8', 1, 2, 1),
 ('Table 9', 1, 4, 1),
+('Table 10', 1, 6, 1),
 ('Table VIP', 1, 10, 1);
 GO
 -- Insert data into [F&BCATEGORY]
@@ -152,62 +137,33 @@ VALUES
 ('Smoothies', 1);
 GO
 -- Insert data into ITEM
-INSERT INTO ITEM (FNAME, IDCATEGORY, PRICE, VISIBLE, SALESFLAG, DISCOUNTRATE) 
+INSERT INTO ITEM (FNAME, IDCATEGORY, PRICE, VISIBLE, SALEGROUP, SALESFLAG, DISCOUNTRATE) 
 VALUES 
-('Spring Rolls', 1, 35000, 1, 0, 0),
-('Beef Pho', 2, 60000, 1, 0, 0),
-('Flan Cake', 3, 20000, 1, 1, 15),
-('Iced Coffee', 4, 25000, 1, 1, 10),
-('Beer', 5, 30000, 1, 1, 5),
-('Fried Rice', 2, 50000, 1, 1, 6),
-('Salad', 1, 45000, 1, 0, 0),
-('Baguette', 3, 15000, 1, 0, 0),
-('Orange Juice', 4, 20000, 1, 0, 0),
-('Watermelon Smoothie', 4, 25000, 1, 1, 20);
+('Spring Rolls', 1, 35000, 1, 'Best Seller', 0, 0),
+('Beef Pho', 2, 60000, 1, 'New Arrival', 0, 0),
+('Flan Cake', 3, 20000, 1, 'Regular', 1, 15),
+('Iced Coffee', 4, 25000, 1, 'Regular', 1, 10),
+('Beer', 5, 30000, 1, 'Limited Edition', 1, 5),
+('Fried Rice', 2, 50000, 1, 'Seasonal', 1, 6),
+('Salad', 1, 45000, 1, 'Best Seller', 0, 0),
+('Baguette', 3, 15000, 1, 'Regular', 0, 0),
+('Orange Juice', 4, 20000, 1, 'Best Seller', 0, 0),
+('Watermelon Smoothie', 4, 25000, 1, 'Regular', 1, 20);
 GO
 -- Insert data into Bill
 INSERT INTO BILL (IDTABLE, IDSTAFF, CHKIN_TIME, CHKOUT_TIME, STATUS, BILLTYPE) 
 VALUES 
-(1, 'KT001', '2024-12-20 09:00', '2024-12-20 10:00', 1, 1), -- Dine-In
+(1, 'KT001', '2024-12-20 09:00', '2024-12-20 10:00', 0, 1), -- Dine-In
 (2, 'KT002', '2024-12-20 10:15', '2024-12-20 11:15', 0, 1), -- Dine-In
-(3, 'KT003', '2024-12-20 11:30', '2024-12-20 12:30', 1, 1), -- Dine-In
+(3, 'KT003', '2024-12-20 11:30', '2024-12-20 12:30', 0, 1), -- Dine-In
 (NULL, 'KT004', '2024-12-20 12:45', '2024-12-20 13:45', 0, 0), -- Take Away
-(5, 'KT001', '2024-12-20 14:00', '2024-12-20 15:00', 1, 1), -- Dine-In
+(5, 'KT001', '2024-12-20 14:00', '2024-12-20 15:00', 0, 1), -- Dine-In
 (NULL, 'KT002', '2024-12-20 15:15', '2024-12-20 16:15', 0, 0), -- Take Away
-(7, 'KT003', '2024-12-20 16:30', '2024-12-20 17:30', 1, 1), -- Dine-In
+(7, 'KT003', '2024-12-20 16:30', '2024-12-20 17:30', 0, 1), -- Dine-In
 (NULL, 'KT004', '2024-12-20 17:45', '2024-12-20 18:45', 0, 0), -- Take Away
-(9, 'KT001', '2024-12-20 19:00', '2024-12-20 20:00', 1, 1), -- Dine-In
+(9, 'KT001', '2024-12-20 19:00', '2024-12-20 20:00', 0, 1), -- Dine-In
 (NULL, 'KT002', '2024-12-20 20:15', '2024-12-20 21:15', 0, 0); -- Take Away
 GO
-INSERT INTO ITEM_TAG (IDITEM, IDTAG)
-VALUES
--- Spring Rolls (Regular)
-(1, 3),
--- Beef Pho (Best Seller, Regular)
-(2, 1),
-(2, 3),
--- Flan Cake (Best Seller, Seasonal)
-(3, 1),
-(3, 4),
--- Iced Coffee (Best Seller, Regular)
-(4, 1),
-(4, 3),
--- Beer (Best Seller)
-(5, 1),
--- Fried Rice (New Arrival, Regular)
-(6, 2),
-(6, 3),
--- Salad ( Regular)
-(7, 3),
--- Baguette (Regular)
-(8, 3),
--- Orange Juice (Regular, Seasonal)
-(9, 3),
-(9, 4),
--- Watermelon Smoothie (Seasonal, Limited Edition)
-(10, 4),
-(10, 5);
-GO 
 -- Insert data into BILLINF
 INSERT INTO BILLINF (IDBILL, IDFD, COUNT)
 VALUES 
@@ -232,6 +188,7 @@ FROM [TABLE];
 SELECT 
     ITEM.FNAME AS Food_Name, 
     [F&BCATEGORY].FNAME AS Category_Name, 
+    ITEM.SALEGROUP AS Sale_Group,
     ITEM.PRICE
 FROM ITEM
 JOIN [F&BCATEGORY] ON ITEM.IDCATEGORY = [F&BCATEGORY].ID;
@@ -251,14 +208,12 @@ JOIN ITEM ON BILLINF.IDFD = ITEM.ID
 JOIN [TABLE] ON BILL.IDTABLE = [TABLE].ID
 WHERE BILL.STATUS = 1; -- Assuming 1 means paid*/
 
+
 SELECT 
-    T.FNAME AS TableName,
-    T.CAPACITY,
-    T.STATUS,
-    ISNULL(SUM(BI.COUNT * I.PRICE), 0) AS [TOTAL PRICE]
-FROM [TABLE] T
-LEFT JOIN BILL B ON T.ID = B.IDTABLE AND B.STATUS = 1
-LEFT JOIN BILLINF BI ON B.ID = BI.IDBILL
-LEFT JOIN ITEM I ON BI.IDFD = I.ID
-WHERE T.VISIBLE = 1
-GROUP BY T.FNAME, T.CAPACITY, T.STATUS
+    i.FNAME as NAME,
+    bi.COUNT as QTY,
+    i.PRICE as PRICE,
+    i.ID as ID
+FROM BILLINF bi
+JOIN ITEM i ON bi.IDFD = i.ID
+WHERE bi.IDBILL = 2;

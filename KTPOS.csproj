@@ -64,7 +64,6 @@
     <Compile Include="MANAGER\fManager.Designer.cs">
       <DependentUpon>fManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="Proccess\DTManger.cs" />
     <Compile Include="Proccess\GetDatabase.cs" />
     <Compile Include="Proccess\LgAccount.cs" />
     <Compile Include="Program.cs" />
@@ -122,6 +121,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\cocktail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Image Items\" />
+    <Folder Include="Note\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

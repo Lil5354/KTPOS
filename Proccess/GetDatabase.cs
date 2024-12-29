@@ -5,14 +5,13 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace KTPOS.Proccess
 {
     public class GetDatabase
     {
         private static GetDatabase instance;
-        private string connectionString = "Data Source=KHOAZO\\MSSQLSERVER03;Initial Catalog=KTPOS;Integrated Security=True";
+        private string connectionString = "Data Source=DESKTOP-IGU7U62\\SQLEXPRESS;Initial Catalog=KTPOS;Integrated Security=True;";
 
         public static GetDatabase Instance
         {
@@ -101,25 +100,10 @@ namespace KTPOS.Proccess
             }
             return data;
         }
-        public void LoadDataToComboBox(string query, ComboBox comboBox)
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-                using (SqlCommand command = new SqlCommand(query, connection))
-                {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        comboBox.Items.Clear();
-                        while (reader.Read())
-                        {
-                            comboBox.Items.Add(reader[0].ToString()); // Add the first column value
-                        }
-                    }
-                }
-                connection.Close();
-            }
-        }
 
+        internal void ExecuteQuery(string insertBillItemQuery, Dictionary<string, object> dictionary)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

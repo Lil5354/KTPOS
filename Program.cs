@@ -18,7 +18,7 @@ namespace KTPOS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new fStaff_F("Manager"));
+            Application.Run(new fStaff_F("Staff"));
         }
     }
 }
