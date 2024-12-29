@@ -50,6 +50,12 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="zxing, Version=0.16.9.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>packages\ZXing.Net.0.16.9\lib\net47\zxing.dll</HintPath>
+    </Reference>
+    <Reference Include="zxing.presentation, Version=0.16.9.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL">
+      <HintPath>packages\ZXing.Net.0.16.9\lib\net47\zxing.presentation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="fLogin.cs">
@@ -81,6 +87,12 @@
     <Compile Include="STAFF\fStaff_S.Designer.cs">
       <DependentUpon>fStaff_S.cs</DependentUpon>
     </Compile>
+    <Compile Include="STAFF\UC_QRPayment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="STAFF\UC_QRPayment.Designer.cs">
+      <DependentUpon>UC_QRPayment.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="fLogin.resx">
       <DependentUpon>fLogin.cs</DependentUpon>
     </EmbeddedResource>
@@ -103,6 +115,9 @@
     <EmbeddedResource Include="STAFF\fStaff_S.resx">
       <DependentUpon>fStaff_S.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="STAFF\UC_QRPayment.resx">
+      <DependentUpon>UC_QRPayment.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -122,6 +137,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\cocktail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\xmark-solid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\logo_momo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -23,6 +23,8 @@ namespace KTPOS.STAFF
             this.userRole = role;
             ConfigureUIBasedOnRole();
             LoadTables();
+            SetupListBillColumns();
+            LoadBillData();
             SetStyle(ControlStyles.OptimizedDoubleBuffer |
                 ControlStyles.AllPaintingInWmPaint, true);
             this.DoubleBuffered = true;
@@ -204,57 +206,294 @@ namespace KTPOS.STAFF
         }
         public void LoadBillData()
         {
-            ListBill.Rows.Clear(); // Xóa dữ liệu cũ
+            ListBill.Rows.Clear();
 
             string queryString = @"
             SELECT 
+                CASE 
+                    WHEN t.fname IS NULL THEN 'Take Away'
+                    ELSE t.fname 
+                END AS TableName,
+                ISNULL(t.capacity, 1) AS Quantity,
+                b.datepayment AS DatePayment,
+                'Cash' AS Method,
+                CASE 
+                    WHEN b.status = 1 THEN 'Done'
+                    WHEN b.status = 0 THEN 'Not Paid'
+                END AS StatusText,
+                'Print' AS PrintButton,
+                b.ID as BillID,
+                b.status as Status
+            FROM BILL b
+            LEFT JOIN [TABLE] t ON b.IDTABLE = t.ID
+            ORDER BY b.status, b.ID DESC";
+
+            try
+            {
+                DataTable data = GetDatabase.Instance.ExecuteQuery(queryString);
+                foreach (DataRow row in data.Rows)
+                {
+                    int status = Convert.ToInt32(row["Status"]);
+                    DataGridViewRow gridRow = new DataGridViewRow();
+                    gridRow.CreateCells(ListBill);
+
+                    gridRow.Cells[0].Value = row["TableName"];  // TABLE
+                    gridRow.Cells[1].Value = row["Quantity"];   // QTY
+                    gridRow.Cells[2].Value = row["DatePayment"]; // TIME
+                    gridRow.Cells[3].Value = row["Method"];     // METHOD
+                    gridRow.Cells[4].Value = status == 1 ? "Done" : "Not Paid"; // PAYMENT
+                    gridRow.Cells[5].Value = "Print";           // BILL
+                    gridRow.Cells[6].Value = row["BillID"];     // Hidden BillID
+
+                    // Set button cell appearance based on status
+                    if (status == 1)
+                    {
+                        DataGridViewButtonCell paymentCell = gridRow.Cells[4] as DataGridViewButtonCell;
+                        if (paymentCell != null)
+                        {
+                            paymentCell.Style.BackColor = Color.Green;
+                            paymentCell.Style.ForeColor = Color.White;
+                        }
+                    }
+
+                    ListBill.Rows.Add(gridRow);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading bill data: " + ex.Message);
+            }
+        }
+        private void fStaff_F_Load(object sender, EventArgs e)
+        {
+
+        }
+        private UserControl currentUserControl;
+        private object selectedBillId;
+
+        public int SelectedBillId { get; internal set; }
+
+        public void AddUserControl(UserControl userControl)
+        {
+            if (currentUserControl != null)
+            {
+                this.Controls.Remove(currentUserControl);
+                currentUserControl.Dispose(); // Đảm bảo giải phóng tài nguyên đúng cách
+            }
+
+            // Các cải tiến:
+            userControl.SuspendLayout(); // Tạm dừng layout để giảm thiểu việc vẽ lại
+            this.Controls.Add(userControl);
+            userControl.Location = new Point(this.Width - userControl.Width, 103);
+            userControl.Anchor = AnchorStyles.Right;
+            userControl.BringToFront();
+            userControl.ResumeLayout(true); // Khôi phục layout một cách hiệu quả
+
+            currentUserControl = userControl;
+        }
+        private void ListBill_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                DataGridViewRow row = ListBill.Rows[e.RowIndex];
+
+                // Check if clicking the Payment column
+                if (ListBill.Columns[e.ColumnIndex].Name == "PAYMENT")
+                {
+                    string paymentStatus = row.Cells["PAYMENT"].Value?.ToString();
+                    string method = row.Cells["METHOD"].Value?.ToString();
+                    int billId = Convert.ToInt32(row.Cells["BillID"].Value);
+
+                    if (paymentStatus == "Not Paid" && method == "Cash")
+                    {
+                        try
+                        {
+                            string query = "UPDATE BILL SET STATUS = 1, datepayment = GETDATE() WHERE ID = @billId";
+                            int result = GetDatabase.Instance.ExecuteNonQuery(query, new object[] { billId });
+
+                            if (result > 0)
+                            {
+                                row.Cells["PAYMENT"].Value = "Done";
+                                row.Cells["METHOD"].Value = "Cash"; // Set method to Cash
+                                DataGridViewButtonCell paymentCell = row.Cells["PAYMENT"] as DataGridViewButtonCell;
+                                if (paymentCell != null)
+                                {
+                                    paymentCell.Style.BackColor = Color.Green;
+                                    paymentCell.Style.ForeColor = Color.White;
+                                }
+
+                                MessageBox.Show("Payment completed successfully.", "Success",
+                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error updating payment status: " + ex.Message);
+                        }
+                    }
+                    else if (paymentStatus == "Not Paid" && method == "Transfer")
+                    {
+                        try
+                        {
+                            string tableName = row.Cells["TABLE"].Value?.ToString() ?? "Unknown";
+
+                            // Calculate total amount from bill items
+                            string totalQuery = @"
+                        SELECT SUM(bi.COUNT * i.PRICE) as TotalAmount
+                        FROM BILLINF bi
+                        JOIN ITEM i ON bi.IDFD = i.ID
+                        WHERE bi.IDBILL = @billId";
+
+                            object totalResult = GetDatabase.Instance.ExecuteScalar(totalQuery, new object[] { billId });
+                            decimal totalAmount = totalResult != null ? Convert.ToDecimal(totalResult) : 0;
+
+                            // Create and show UC_QRPayment with the correct billId
+                            UC_QRPayment ucQrPayment = new UC_QRPayment();
+                            ucQrPayment.GetBillId(billId); // Pass the actual billId
+
+                            ucQrPayment.UpdateQRCode(
+                                content: $"Bill {billId} - {tableName}",
+                                amount: totalAmount
+                            );
+
+                            AddUserControl(ucQrPayment);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error showing QR payment: " + ex.Message);
+                        }
+                    }
+                }
+            }
+        }
+        private void SetupListBillColumns()
+        {
+            ListBill.Columns.Clear();
+
+            // Setup các columns
+            ListBill.Columns.Add("TABLE", "TABLE");
+            ListBill.Columns.Add("QTY", "QTY");
+            ListBill.Columns.Add("TIME", "TIME");
+
+            // Setup Method ComboBox column
+            DataGridViewComboBoxColumn methodColumn = new DataGridViewComboBoxColumn();
+            methodColumn.Name = "METHOD";
+            methodColumn.HeaderText = "METHOD";
+            methodColumn.Items.AddRange(new string[] { "Cash", "Transfer" });
+            ListBill.Columns.Add(methodColumn);
+
+            // Setup Payment Button column
+            DataGridViewButtonColumn paymentColumn = new DataGridViewButtonColumn();
+            paymentColumn.Name = "PAYMENT";
+            paymentColumn.HeaderText = "PAYMENT";
+            paymentColumn.FlatStyle = FlatStyle.Flat;
+            ListBill.Columns.Add(paymentColumn);
+
+            // Setup Bill Button column
+            DataGridViewButtonColumn billColumn = new DataGridViewButtonColumn();
+            billColumn.Name = "BILL";
+            billColumn.HeaderText = "BILL";
+            billColumn.Text = "Print";
+            billColumn.UseColumnTextForButtonValue = true;
+            ListBill.Columns.Add(billColumn);
+
+            // Add hidden BillID column
+            DataGridViewTextBoxColumn billIdColumn = new DataGridViewTextBoxColumn();
+            billIdColumn.Name = "BillID";
+            billIdColumn.Visible = false;
+            ListBill.Columns.Add(billIdColumn);
+
+            // Set column styles
+            ListBill.EnableHeadersVisualStyles = false;
+            ListBill.ColumnHeadersDefaultCellStyle.BackColor = Color.Maroon;
+            ListBill.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            ListBill.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+        }
+
+        private void Filter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+                if (Filter.SelectedItem == null) return;
+
+                string selectedFilter = Filter.SelectedItem.ToString();
+                ListBill.Rows.Clear();
+
+                string queryString = @"
+        SELECT 
             CASE 
                 WHEN t.fname IS NULL THEN 'Take Away'
                 ELSE t.fname 
             END AS TableName,
-            ISNULL(t.capacity, 1) AS Quantity, -- Lấy giá trị từ CAPACITY, mặc định là 10 nếu NULL
+            ISNULL(t.capacity, 1) AS Quantity,
             b.datepayment AS DatePayment,
             'Cash' AS Method,
             CASE 
                 WHEN b.status = 1 THEN 'Done'
                 WHEN b.status = 0 THEN 'Not Paid'
             END AS StatusText,
-            'Print' AS PrintButton
+            'Print' AS PrintButton,
+            b.ID as BillID,
+            b.status as Status
         FROM BILL b
         LEFT JOIN [TABLE] t ON b.IDTABLE = t.ID
-        ORDER BY b.status, b.ID DESC;";
+        WHERE 1=1 "; // Base condition to make it easier to add filters
 
-            try
-            {
-                // Trước khi load data, cấu hình combobox column
-                DataGridViewComboBoxColumn methodColumn = ListBill.Columns["Method"] as DataGridViewComboBoxColumn;
-                if (methodColumn != null)
+                switch (selectedFilter)
                 {
-                    methodColumn.Items.Clear();
-                    methodColumn.Items.AddRange(new string[] { "Transfer", "Cash" });
+                    case "Newest":
+                        queryString += " ORDER BY b.datepayment DESC, b.ID DESC";
+                        break;
+                    case "Oldest":
+                        queryString += " ORDER BY b.datepayment ASC, b.ID ASC";
+                        break;
+                    case "Not Paid":
+                        queryString += " AND b.status = 0 ORDER BY b.ID DESC";
+                        break;
+                    case "Done":
+                        queryString += " AND b.status = 1 ORDER BY b.ID DESC";
+                        break;
+                    case "Take Away":
+                        queryString += " AND t.fname IS NULL ORDER BY b.ID DESC";
+                        break;
+                    default:
+                        queryString += " ORDER BY b.status, b.ID DESC";
+                        break;
                 }
 
-                DataTable data = GetDatabase.Instance.ExecuteQuery(queryString);
-                foreach (DataRow row in data.Rows)
+                try
                 {
-                    ListBill.Rows.Add(
-                        row["TableName"],
-                        row["Quantity"],
-                        row["DatePayment"],
-                        row["Method"],
-                        row["StatusText"],
-                        row["PrintButton"]
-                    );
+                    DataTable data = GetDatabase.Instance.ExecuteQuery(queryString);
+                    foreach (DataRow row in data.Rows)
+                    {
+                        int status = Convert.ToInt32(row["Status"]);
+                        DataGridViewRow gridRow = new DataGridViewRow();
+                        gridRow.CreateCells(ListBill);
+
+                        gridRow.Cells[0].Value = row["TableName"];
+                        gridRow.Cells[1].Value = row["Quantity"];
+                        gridRow.Cells[2].Value = row["DatePayment"];
+                        gridRow.Cells[3].Value = row["Method"];
+                        gridRow.Cells[4].Value = status == 1 ? "Done" : "Not Paid";
+                        gridRow.Cells[5].Value = "Print";
+                        gridRow.Cells[6].Value = row["BillID"];
+
+                        if (status == 1)
+                        {
+                            DataGridViewButtonCell paymentCell = gridRow.Cells[4] as DataGridViewButtonCell;
+                            if (paymentCell != null)
+                            {
+                                paymentCell.Style.BackColor = Color.Green;
+                                paymentCell.Style.ForeColor = Color.White;
+                            }
+                        }
+
+                        ListBill.Rows.Add(gridRow);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading filtered data: " + ex.Message);
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error loading bill data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        private void fStaff_F_Load(object sender, EventArgs e)
-        {
-            LoadBillData();
         }
     }
-}
+

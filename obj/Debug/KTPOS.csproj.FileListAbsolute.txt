@@ -46,3 +46,23 @@ D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.csproj.CoreCompileInputs.cache
 D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.csproj.Up2Date
 D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.exe
 D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.pdb
+C:\Thư mục mới\KTPOS\bin\Debug\KTPOS.exe.config
+C:\Thư mục mới\KTPOS\bin\Debug\KTPOS.exe
+C:\Thư mục mới\KTPOS\bin\Debug\KTPOS.pdb
+C:\Thư mục mới\KTPOS\bin\Debug\Guna.UI2.dll
+C:\Thư mục mới\KTPOS\obj\Debug\KTPOS.csproj.AssemblyReference.cache
+C:\Thư mục mới\KTPOS\obj\Debug\KTPOS.fLogin.resources
+C:\Thư mục mới\KTPOS\obj\Debug\KTPOS.MANAGER.fManager.resources
+C:\Thư mục mới\KTPOS\obj\Debug\KTPOS.Properties.Resources.resources
+C:\Thư mục mới\KTPOS\obj\Debug\KTPOS.STAFF.fStaff_F.resources
+C:\Thư mục mới\KTPOS\obj\Debug\KTPOS.STAFF.fStaff_S.resources
+C:\Thư mục mới\KTPOS\obj\Debug\KTPOS.csproj.GenerateResource.cache
+C:\Thư mục mới\KTPOS\obj\Debug\KTPOS.csproj.CoreCompileInputs.cache
+C:\Thư mục mới\KTPOS\obj\Debug\KTPOS.csproj.Up2Date
+C:\Thư mục mới\KTPOS\obj\Debug\KTPOS.exe
+C:\Thư mục mới\KTPOS\obj\Debug\KTPOS.pdb
+C:\Thư mục mới\KTPOS\bin\Debug\zxing.dll
+C:\Thư mục mới\KTPOS\bin\Debug\zxing.presentation.dll
+C:\Thư mục mới\KTPOS\bin\Debug\zxing.xml
+C:\Thư mục mới\KTPOS\bin\Debug\zxing.presentation.xml
+C:\Thư mục mới\KTPOS\obj\Debug\KTPOS.STAFF.UC_QRPayment.resources
