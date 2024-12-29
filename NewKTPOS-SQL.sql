@@ -27,23 +27,14 @@ CREATE TABLE [TABLE] (
     VISIBLE    INT NOT NULL DEFAULT 1      -- 0: FALSE / 1: TRUE
 );
 GO
-CREATE TABLE [F&BCATEGORY] (
-    ID          INT IDENTITY PRIMARY KEY,
-    FNAME       NVARCHAR(50) UNIQUE NOT NULL, 
-    VISIBLE     INT NOT NULL DEFAULT 1
-);
-GO
 CREATE TABLE ITEM (
     ID          INT IDENTITY PRIMARY KEY,
     FNAME       NVARCHAR(50) NOT NULL,
-    IDCATEGORY  INT NOT NULL,
+    CATEGORY	NVARCHAR(10) CHECK(CATEGORY IN ('Food', 'Drink')) NOT NULL,
     PRICE       FLOAT NOT NULL CHECK(PRICE > 0),
     VISIBLE     INT NOT NULL DEFAULT 1,
-	SALEGROUP   NVARCHAR(20) ,
 	SALESFLAG	BIT NOT NULL DEFAULT 0,    -- Đánh dấu bán ít (0: không, 1: có)
-    DISCOUNTRATE FLOAT CHECK(DISCOUNTRATE BETWEEN 0 AND 100) DEFAULT 0, --% giảm giá
-	CONSTRAINT UQ_ITEM_NAME_CATEGORY UNIQUE (FNAME, IDCATEGORY),
-	CONSTRAINT FK_ITEM_CATEGORY FOREIGN KEY (IDCATEGORY) REFERENCES [F&BCATEGORY](ID) 
+    DISCOUNTRATE FLOAT CHECK(DISCOUNTRATE BETWEEN 0 AND 80) DEFAULT 0, --% giảm giá
 );
 GO
 CREATE TABLE BILL (
@@ -137,33 +128,19 @@ VALUES
 ('Table 9', 1, 4, 1),
 ('Table VIP', 1, 10, 1);
 GO
--- Insert data into [F&BCATEGORY]
-INSERT INTO [F&BCATEGORY] (FNAME, VISIBLE)
-VALUES
-('Appetizers', 1),
-('Main Dishes', 1),
-('Desserts', 1),
-('Drinks', 1),
-('Alcohol', 1),
-('Vegetarian', 1),
-('Cakes', 1),
-('Snacks', 1),
-('Juices', 1),
-('Smoothies', 1);
-GO
 -- Insert data into ITEM
-INSERT INTO ITEM (FNAME, IDCATEGORY, PRICE, VISIBLE, SALESFLAG, DISCOUNTRATE) 
+INSERT INTO ITEM (FNAME, CATEGORY, PRICE, VISIBLE, SALESFLAG, DISCOUNTRATE) 
 VALUES 
-('Spring Rolls', 1, 35000, 1, 0, 0),
-('Beef Pho', 2, 60000, 1, 0, 0),
-('Flan Cake', 3, 20000, 1, 1, 15),
-('Iced Coffee', 4, 25000, 1, 1, 10),
-('Beer', 5, 30000, 1, 1, 5),
-('Fried Rice', 2, 50000, 1, 1, 6),
-('Salad', 1, 45000, 1, 0, 0),
-('Baguette', 3, 15000, 1, 0, 0),
-('Orange Juice', 4, 20000, 1, 0, 0),
-('Watermelon Smoothie', 4, 25000, 1, 1, 20);
+('Spring Rolls', 'Food', 35000, 1, 0, 0),
+('Beef Pho', 'Food', 60000, 1, 0, 0),
+('Flan Cake', 'Food', 20000, 1, 1, 15),
+('Iced Coffee', 'Drink', 25000, 1, 1, 10),
+('Beer', 'Drink', 30000, 1, 1, 5),
+('Fried Rice', 'Food', 50000, 1, 1, 6),
+('Salad', 'Food', 45000, 1, 0, 0),
+('Baguette', 'Food', 15000, 1, 0, 0),
+('Orange Juice', 'Drink', 20000, 1, 0, 0),
+('Watermelon Smoothie', 'Drink', 25000, 1, 1, 20);
 GO
 -- Insert data into Bill
 INSERT INTO BILL (IDTABLE, IDSTAFF, CHKIN_TIME, CHKOUT_TIME, STATUS, BILLTYPE) 
@@ -231,10 +208,10 @@ FROM [TABLE];
 --DS MÓN ĂN KÈM PHÂN LOẠI 
 SELECT 
     ITEM.FNAME AS Food_Name, 
-    [F&BCATEGORY].FNAME AS Category_Name, 
+    CATEGORY AS Category_Name, 
     ITEM.PRICE
 FROM ITEM
-JOIN [F&BCATEGORY] ON ITEM.IDCATEGORY = [F&BCATEGORY].ID;
+
 --HÓA ĐƠN
 SELECT 
     ACCOUNT.FULLNAME AS Staff_Name, 
@@ -262,3 +239,22 @@ LEFT JOIN BILLINF BI ON B.ID = BI.IDBILL
 LEFT JOIN ITEM I ON BI.IDFD = I.ID
 WHERE T.VISIBLE = 1
 GROUP BY T.FNAME, T.CAPACITY, T.STATUS
+SELECT TAGNAME FROM TAG 
+SELECT I.FNAME AS [ITEM NAME], MAX(CASE WHEN T.TAGNAME = 'Best Seller' THEN 1 ELSE 0 END) AS TAG_CHECKBOX, I.SALESFLAG                              
+FROM ITEM I LEFT JOIN ITEM_TAG IT ON I.ID = IT.IDITEM LEFT JOIN TAG T ON IT.IDTAG = T.ID GROUP BY I.FNAME, I.SALESFLAG               
+ORDER BY I.FNAME;
+
+SELECT 
+    ID AS Bill_ID,
+    CASE 
+        WHEN BILLTYPE = 1 THEN 'Dine-In'
+        ELSE 'Take Away'
+    END AS Bill_Type,
+    CHKIN_TIME AS Check_In_Time,
+    CHKOUT_TIME AS Check_Out_Time,
+    DURATION AS Duration_Minutes,
+    CASE 
+        WHEN STATUS = 1 THEN 'Paid'
+        ELSE 'Unpaid'
+    END AS Payment_Status
+FROM BILL;
