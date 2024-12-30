@@ -15,12 +15,13 @@ namespace KTPOS.STAFF
 {
     public partial class fStaff_S : Form
     {
-        private Dictionary<string, int> Count = new Dictionary<string, int>();
-        private decimal total = 0;
+        private int idBill = 0;
         private DataTable billTable;
-        public fStaff_S()
+        public fStaff_S(int tableId)
         {
             InitializeComponent();
+            LoadFilter();
+            UpdateTotal();
             SetStyle(ControlStyles.OptimizedDoubleBuffer |
                 ControlStyles.AllPaintingInWmPaint, true);
             this.DoubleBuffered = true;
@@ -32,6 +33,8 @@ namespace KTPOS.STAFF
             this.WindowState = FormWindowState.Maximized;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.MinimumSize = new Size(800, 450);
+            nUDItem.Visible = false;
+            idBill = tableId;
             if (dtgvBillCus.DataSource == null)
             {
                 InitializeBillTable();
@@ -49,7 +52,7 @@ namespace KTPOS.STAFF
             billTable.Columns.Add("NAME", typeof(string));
             billTable.Columns.Add("QTY", typeof(int));
             billTable.Columns.Add("PRICE", typeof(string));
-            billTable.Columns.Add("ID", typeof(string));
+            billTable.Columns.Add("ID", typeof(int));
             dtgvBillCus.DataSource = billTable;
         }
 
@@ -91,6 +94,7 @@ namespace KTPOS.STAFF
         }
         private void btnBack_Click(object sender, EventArgs e)
         {
+            btnSave_Click(sender, e);
             // Kiểm tra nếu có thể quay lại trang trước đó
             this.Close(); // Đóng form hiện tại (fStaff_S)
 
@@ -99,23 +103,21 @@ namespace KTPOS.STAFF
             fStaff_F previousForm = Application.OpenForms["fStaff_F"] as fStaff_F;
             previousForm?.Show();
         }
-        private void LoadMenuItems()
+        private void LoadFilter()
+        {
+            
+        }
+        private void LoadMenuItems(string query)
         {
             try
             {
-                string query = "SELECT i.ID, i.FNAME, i.PRICE, i.DISCOUNTRATE, fc.FNAME as CATEGORY " +
-                              "FROM ITEM i " +
-                              "JOIN [F&BCATEGORY] fc ON i.IDCATEGORY = fc.ID " +
-                              "WHERE i.VISIBLE = 1";
-
                 DataTable data = GetDatabase.Instance.ExecuteQuery(query);
                 FlowMenu.Controls.Clear();
-
                 foreach (DataRow row in data.Rows)
                 {
                     int itemId = Convert.ToInt32(row["ID"]);
                     string itemName = row["FNAME"].ToString();
-                    double price = Convert.ToDouble(row["PRICE"]);
+                    decimal price = Convert.ToDecimal(row["PRICE"]);
                     string category = row["CATEGORY"].ToString();
 
                     // Create the main container using Guna2Panel for rounded corners
@@ -147,7 +149,7 @@ namespace KTPOS.STAFF
                     // Load image based on category
                     try
                     {
-                        string imagePath = $@"../../Images/{itemName.Replace(" ", "")}.png";
+                        string imagePath = $@"E:\App\ok\KTPOS\Image Items\" + itemName + ".jpg";
                         if (File.Exists(imagePath))
                         {
                             itemImage.Image = Image.FromFile(imagePath);
@@ -170,7 +172,7 @@ namespace KTPOS.STAFF
                     {
                         itemImage.Image = Properties.Resources.cocktail; // Your default resource
                     }
-
+                    itemImage.Click += (sender, e) => ItemImage_Click(itemId, itemName, price);
                     // Create and configure the name label
                     Label nameLabel = new Label
                     {
@@ -198,11 +200,13 @@ namespace KTPOS.STAFF
                     };
 
                     // Add hover effect using Guna properties
-                    itemPanel.MouseEnter += (sender, e) => {
+                    itemPanel.MouseEnter += (sender, e) =>
+                    {
                         itemPanel.FillColor = Color.FromArgb(240, 240, 240);
                         itemPanel.Cursor = Cursors.Hand;
                     };
-                    itemPanel.MouseLeave += (sender, e) => {
+                    itemPanel.MouseLeave += (sender, e) =>
+                    {
                         itemPanel.FillColor = Color.White;
                     };
 
@@ -223,95 +227,67 @@ namespace KTPOS.STAFF
                 MessageBox.Show("Error loading menu items: " + ex.Message);
             }
         }
-        public void AddOrUpdate(Dictionary<string, int> dict, string key)
+        private void ItemPanel_Click(int itemId, string itemName, decimal price)
         {
-            if (dict.ContainsKey(key))
-                dict[key]++;
-            else
-                dict.Add(key, 1);
-        }
-        private void ItemPanel_Click(int itemId, string itemName, double price)
-        {
-            try
+            bool kt = true;
+            foreach (DataGridViewRow row in dtgvBillCus.Rows)
             {
-                string ID = itemId.ToString();
-
-                // Query to get item details
-                string query = "SELECT * FROM ITEM WHERE ID = @ID";
-                DataTable result = GetDatabase.Instance.ExecuteQuery(query, new object[] { ID });
-
-                if (result.Rows.Count > 0)
+                if (row.Cells["NAME"].Value.ToString() == itemName)
                 {
-                    DataRow row = result.Rows[0];
-                    string name = row["FNAME"].ToString();
-                    decimal itemPrice = Convert.ToDecimal(row["PRICE"]);
-
-                    // Update count dictionary
-                    AddOrUpdate(Count, name);
-
-                    // Get the current DataTable
-                    DataTable currentTable = (DataTable)dtgvBillCus.DataSource;
-
-                    // Find existing row
-                    DataRow[] foundRows = currentTable.Select($"NAME = '{name}'");
-                    if (foundRows.Length > 0)
-                    {
-                        // Update existing row
-                        foundRows[0]["QTY"] = Count[name];
-                        foundRows[0]["PRICE"] = (itemPrice * Count[name]).ToString("N0");
-                    }
-                    else
-                    {
-                        // Add new row to DataTable
-                        DataRow newRow = currentTable.NewRow();
-                        newRow["NAME"] = name;
-                        newRow["QTY"] = 1;
-                        newRow["PRICE"] = itemPrice.ToString("N0");
-                        currentTable.Rows.Add(newRow);
-                    }
-
-                    // Refresh the DataGridView
-                    dtgvBillCus.Refresh();
-
-                    // Update total
-                    UpdateTotal();
+                    kt = false;
+                    int d = int.Parse(row.Cells["QTY"].Value.ToString());
+                    d++;
+                    decimal cost = (decimal)d * price;
+                    row.Cells["QTY"].Value = d.ToString();
+                    row.Cells["PRICE"].Value = cost.ToString();
+                    break;
                 }
             }
-            catch (Exception ex)
+            if (kt)
             {
-                MessageBox.Show("Error processing item: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DataTable currentTable = (DataTable)dtgvBillCus.DataSource;
+                DataRow newRow = currentTable.NewRow();
+                newRow["NAME"] = itemName;
+                newRow["QTY"] = 1;
+                newRow["PRICE"] = price.ToString("N0");
+                newRow["ID"] = itemId;
+                currentTable.Rows.Add(newRow);
             }
-
+            UpdateTotal();
+            nUDItem.Visible = false;
+        }
+        private void ItemImage_Click(int itemId, string itemName, decimal price)
+        {
+            ItemPanel_Click(itemId, itemName, price);
             nUDItem.Visible = false;
         }
         private void UpdateTotal()
         {
-            total = 0;
+            decimal total = 0;
             if (dtgvBillCus.DataSource is DataTable dataTable)
             {
-                foreach (DataRow row in dataTable.Rows)
+                if (dtgvBillCus.Rows.Count > 0)
                 {
-                    if (row["QTY"] != DBNull.Value && row["PRICE"] != DBNull.Value)
+                    foreach (DataGridViewRow row1 in dtgvBillCus.Rows)
                     {
-                        int qty = Convert.ToInt32(row["QTY"]);
-                        string priceStr = row["PRICE"].ToString().Replace(",", "");
+                        string priceStr = row1.Cells["PRICE"].Value.ToString().Replace(",", "");
                         if (decimal.TryParse(priceStr, out decimal price))
                         {
                             total += price;
                         }
                     }
                 }
+                else total = 0;
             }
             txtTotal.Text = total.ToString("N0") + " VND";
         }
-        
-        private bool IsNumeric(string value)
+        private void btnMenu_Click(object sender, EventArgs e)
         {
-            return decimal.TryParse(value.Replace(",", ""), out _);
-        }
-        private void btnMenu_Click_1(object sender, EventArgs e)
-        {
-            LoadMenuItems();
+            txtSearch.Clear();
+            string query = "SELECT ID, FNAME, PRICE, DISCOUNTRATE, CATEGORY " +
+                  "FROM ITEM " +
+                  "WHERE VISIBLE = 1";
+            LoadMenuItems(query);
         }
 
         private void txtSearch_KeyUp(object sender, KeyEventArgs e)
@@ -332,6 +308,86 @@ namespace KTPOS.STAFF
                 }
             }
         }
-        
+
+        private void Filter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtSearch.Clear();
+            string filter = Filter.SelectedItem.ToString();
+            string query = "";
+            LoadMenuItems(query);
+        }
+        private void nUDItem_ValueChanged(object sender, EventArgs e)
+        {
+            int d = int.Parse(dtgvBillCus.SelectedRows[0].Cells["QTY"].Value.ToString());
+            decimal cost = decimal.Parse(dtgvBillCus.SelectedRows[0].Cells["PRICE"].Value.ToString());
+            cost /= d;
+            dtgvBillCus.SelectedRows[0].Cells["QTY"].Value = nUDItem.Value.ToString();
+            dtgvBillCus.SelectedRows[0].Cells["PRICE"].Value = ((int)nUDItem.Value * cost).ToString();
+            UpdateTotal();
+            if (nUDItem.Value == 0)
+            {
+                dtgvBillCus.Rows.Remove(dtgvBillCus.SelectedRows[0]);
+                nUDItem.Visible = false;
+            }
+        }
+
+        private void dtgvBillCus_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dtgvBillCus.Rows.Count > 0)
+            {
+                nUDItem.Value = int.Parse(dtgvBillCus.SelectedRows[0].Cells["QTY"].Value.ToString());
+                nUDItem.Visible = true;
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (dtgvBillCus.RowCount == 0)
+            {
+                MessageBox.Show("You haven't order any yet.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            DialogResult dialog = MessageBox.Show("Do you really want to Order?", "Notice", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialog == DialogResult.Yes)
+            {
+                string filePath = "E:\\App\\ok\\KTPOS\\Note\\BillNote";
+                string query = "DELETE from BILLINF where IDBILL = " + idBill.ToString();
+                GetDatabase.Instance.ExecuteNonQuery(query);
+                filePath = filePath + idBill.ToString() + ".txt";
+                if (txtNoteBill != null) using (StreamWriter writer = new StreamWriter(filePath))
+                    {
+                        writer.Write(txtNoteBill.Text);
+                    }
+
+                foreach (DataGridViewRow row in dtgvBillCus.Rows)
+                {
+                    // Kiểm tra nếu dòng không phải là dòng trống
+                    if (row.IsNewRow) continue;
+                    int count = Convert.ToInt32(row.Cells["QTY"].Value);
+                    int idFD = Convert.ToInt32(row.Cells["ID"].Value);
+
+                    // Chuẩn bị câu lệnh SQL để chèn dữ liệu
+                    string queryin = "INSERT INTO BILLINF (IDBILL, IDFD, COUNT) VALUES (" + idBill.ToString() + "," + idFD.ToString() + "," + count.ToString() + ")";
+
+                    DataTable result1 = GetDatabase.Instance.ExecuteQuery(queryin);
+                }
+                this.Close(); // Đóng form hiện tại (fStaff_S)
+
+                // Hiển thị lại form trước đó, tức là fStaff_F
+                // Nếu form gọi (fStaff_F) vẫn mở, thì có thể chỉ cần gọi lại form đó.
+                fStaff_F previousForm = Application.OpenForms["fStaff_F"] as fStaff_F;
+                previousForm?.Show();
+            }
+            else
+            {
+                MessageBox.Show("Order cancelled. Continue your activity.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Focus();
+            }
+        }
+
+        private void lbCancel_Click(object sender, EventArgs e)
+        {
+            btnBack_Click(sender, e);
+        }
     }
 }

@@ -66,3 +66,23 @@ C:\Thư mục mới\KTPOS\bin\Debug\zxing.presentation.dll
 C:\Thư mục mới\KTPOS\bin\Debug\zxing.xml
 C:\Thư mục mới\KTPOS\bin\Debug\zxing.presentation.xml
 C:\Thư mục mới\KTPOS\obj\Debug\KTPOS.STAFF.UC_QRPayment.resources
+E:\App\ok\KTPOS\bin\Debug\KTPOS.exe.config
+E:\App\ok\KTPOS\bin\Debug\KTPOS.exe
+E:\App\ok\KTPOS\bin\Debug\KTPOS.pdb
+E:\App\ok\KTPOS\bin\Debug\Guna.UI2.dll
+E:\App\ok\KTPOS\bin\Debug\zxing.dll
+E:\App\ok\KTPOS\bin\Debug\zxing.presentation.dll
+E:\App\ok\KTPOS\bin\Debug\zxing.xml
+E:\App\ok\KTPOS\bin\Debug\zxing.presentation.xml
+E:\App\ok\KTPOS\obj\Debug\KTPOS.csproj.AssemblyReference.cache
+E:\App\ok\KTPOS\obj\Debug\KTPOS.fLogin.resources
+E:\App\ok\KTPOS\obj\Debug\KTPOS.MANAGER.fManager.resources
+E:\App\ok\KTPOS\obj\Debug\KTPOS.Properties.Resources.resources
+E:\App\ok\KTPOS\obj\Debug\KTPOS.STAFF.fStaff_F.resources
+E:\App\ok\KTPOS\obj\Debug\KTPOS.STAFF.fStaff_S.resources
+E:\App\ok\KTPOS\obj\Debug\KTPOS.STAFF.UC_QRPayment.resources
+E:\App\ok\KTPOS\obj\Debug\KTPOS.csproj.GenerateResource.cache
+E:\App\ok\KTPOS\obj\Debug\KTPOS.csproj.CoreCompileInputs.cache
+E:\App\ok\KTPOS\obj\Debug\KTPOS.csproj.Up2Date
+E:\App\ok\KTPOS\obj\Debug\KTPOS.exe
+E:\App\ok\KTPOS\obj\Debug\KTPOS.pdb
