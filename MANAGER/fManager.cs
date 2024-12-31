@@ -78,7 +78,7 @@ namespace KTPOS.MANAGER
                 switch (selectedTab)
                 {
                     case "ACCOUNT":
-                        query = "SELECT IDSTAFF AS ID, FULLNAME AS [FULL NAME], DOB AS [D.O.B], EMAIL, PHONE, [ROLE], CASE WHEN STATUS = 1 THEN 'On' ELSE 'Off' END AS STATUS FROM ACCOUNT Order by [STATUS] ASC";
+                        query = "SELECT IDSTAFF AS ID, FULLNAME AS [FULL NAME], DOB AS [D.O.B], EMAIL, PHONE, [ROLE], CASE WHEN STATUS = 1 THEN 'ON' ELSE 'OFF' END AS STATUS FROM ACCOUNT Order by [STATUS] DESC";
                         DTManger.Instance.LoadList(query, dtgvAccount);
                         index = -1;
                         break;
@@ -143,14 +143,66 @@ namespace KTPOS.MANAGER
         
         private void btnAddAcc_Click(object sender, EventArgs e)
         {
-            
+            if (txtFullName.Text.Trim() == "" || txtEmail.Text.Trim() == "" || cbBRole.Text == "" || txtPhone.Text.Trim()=="")
+            {
+                MessageBox.Show("Error add account", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                try
+                {
+                    string name = txtFullName.Text, email = txtEmail.Text,phone = txtPhone.Text , role = cbBRole.Text;
+                    DateTime bday = dtpDOB.Value;
+                    string dob = bday.ToString("yyyy-MM-dd");
+                    int n = DTManger.Instance.InsertAccount(name, email, phone, dob, role);
+                    if (n > 0)
+                    {
+                        MessageBox.Show("Account add successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        tcManager_SelectedIndexChanged(sender, e);
+                        ClearTxtAccount();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error add account", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error add account: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void btnDeleteAcc_Click(object sender, EventArgs e)
         {
-
+            if (index == -1)
+            {
+                MessageBox.Show("Please chose the row need to be delete!", "Notice!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                int CurrentIndex = dtgvAccount.CurrentCell.RowIndex;
+                string ID = Convert.ToString(dtgvAccount.Rows[CurrentIndex].Cells[0].Value.ToString());
+                try
+                {
+                    int n = DTManger.Instance.DeleteAccount(ID);
+                    if (n > 0)
+                    {
+                        MessageBox.Show("Account delete successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        tcManager_SelectedIndexChanged(sender, e);
+                        ClearTxtAccount();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error delete account", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error delete account: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
-
         private void btnUpdateAcc_Click(object sender, EventArgs e)
         {
 

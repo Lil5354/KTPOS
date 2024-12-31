@@ -41,6 +41,26 @@ namespace KTPOS.Proccess
                 MessageBox.Show("Error loading account list: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        public int InsertAccount(string name, string email, string phone, string dob, string role)
+        {
+            string query = "INSERT INTO ACCOUNT (FULLNAME, EMAIL, PHONE, DOB, [ROLE]) VALUES (N'" + name + "','" + email + "','" + phone + "','" + dob + "','" + role +"' )";
+            int result = GetDatabase.Instance.ExecuteNonQuery(query);
+            if (result > 0)
+            {
+                return result;
+            }
+            // Return null if function false
+            return 0;
+        }
+        public int DeleteAccount(string ID) {
+            string query = "UPDATE ACCOUNT SET STATUS = 0 WHERE IDSTAFF = N'" + ID + "' ";
+            int result = GetDatabase.Instance.ExecuteNonQuery(query);
+            if (result > 0)
+            {
+                return result;
+            }
+            return 0;
+        }
 
     }
 }
