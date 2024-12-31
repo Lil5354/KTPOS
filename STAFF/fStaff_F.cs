@@ -254,15 +254,14 @@ namespace KTPOS.STAFF
         public void LoadBillData()
         {
             ListBill.Rows.Clear();
-
             string queryString = @"
 SELECT 
     CASE 
         WHEN t.fname IS NULL THEN 'Take Away'
         ELSE t.fname 
     END AS TableName,
-    ISNULL(t.capacity, 1) AS Quantity,
-    b.datepayment AS DatePayment,
+    FORMAT(b.CHKIN_TIME, 'dd/MM/yyyy HH:mm') AS CheckIn,
+    FORMAT(b.CHKOUT_TIME, 'dd/MM/yyyy HH:mm') AS CheckOut,
     'Cash' AS Method,
     CASE 
         WHEN b.status = 1 THEN 'Done'
@@ -283,10 +282,9 @@ ORDER BY b.status, b.ID DESC";
                     int status = Convert.ToInt32(row["Status"]);
                     DataGridViewRow gridRow = new DataGridViewRow();
                     gridRow.CreateCells(ListBill);
-
                     gridRow.Cells[0].Value = row["TableName"];  // TABLE
-                    gridRow.Cells[1].Value = row["Quantity"];   // QTY
-                    gridRow.Cells[2].Value = row["DatePayment"]; // TIME
+                    gridRow.Cells[1].Value = row["CheckIn"];    // CHECK-IN
+                    gridRow.Cells[2].Value = row["CheckOut"];   // CHECK-OUT
                     gridRow.Cells[3].Value = row["Method"];     // METHOD
                     gridRow.Cells[4].Value = status == 1 ? "Done" : "Not Paid"; // PAYMENT
                     gridRow.Cells[5].Value = "Print";           // BILL
@@ -302,7 +300,6 @@ ORDER BY b.status, b.ID DESC";
                             paymentCell.Style.ForeColor = Color.White;
                         }
                     }
-
                     ListBill.Rows.Add(gridRow);
                 }
             }
@@ -343,7 +340,6 @@ ORDER BY b.status, b.ID DESC";
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
                 DataGridViewRow row = ListBill.Rows[e.RowIndex];
-
                 // Check if clicking the Payment column
                 if (ListBill.Columns[e.ColumnIndex].Name == "PAYMENT")
                 {
@@ -355,13 +351,15 @@ ORDER BY b.status, b.ID DESC";
                     {
                         try
                         {
-                            string query = "UPDATE BILL SET STATUS = 1, datepayment = GETDATE() WHERE ID = @billId";
+                            string query = "UPDATE BILL SET STATUS = 1, CHKOUT_TIME = GETDATE() WHERE ID = @billId";
                             int result = GetDatabase.Instance.ExecuteNonQuery(query, new object[] { billId });
 
                             if (result > 0)
                             {
                                 row.Cells["PAYMENT"].Value = "Done";
-                                row.Cells["METHOD"].Value = "Cash"; // Set method to Cash
+                                row.Cells["METHOD"].Value = "Cash";
+                                row.Cells["CHECKOUT"].Value = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+
                                 DataGridViewButtonCell paymentCell = row.Cells["PAYMENT"] as DataGridViewButtonCell;
                                 if (paymentCell != null)
                                 {
@@ -384,25 +382,48 @@ ORDER BY b.status, b.ID DESC";
                         {
                             string tableName = row.Cells["TABLE"].Value?.ToString() ?? "Unknown";
 
-                            // Calculate total amount from bill items
+                            // Calculate total amount including any applicable discounts
                             string totalQuery = @"
-                        SELECT SUM(bi.COUNT * i.PRICE) as TotalAmount
-                        FROM BILLINF bi
-                        JOIN ITEM i ON bi.IDFD = i.ID
-                        WHERE bi.IDBILL = @billId";
+                WITH BillItems AS (
+                    SELECT 
+                        SUM(bi.COUNT * i.PRICE) AS SubTotal
+                    FROM BILLINF bi
+                    JOIN ITEM i ON bi.IDFD = i.ID
+                    WHERE bi.IDBILL = @billId
+                ),
+                ItemDiscounts AS (
+                    SELECT TOP 1 p.DISCOUNT
+                    FROM PROMOTION p 
+                    JOIN ITEM_PROMOTION ip ON p.ID = ip.IDPROMOTION
+                    JOIN BILLINF bif ON ip.IDITEM = bif.IDFD
+                    WHERE bif.IDBILL = @billId 
+                    AND CAST(GETDATE() AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE
+                    ORDER BY p.DISCOUNT DESC
+                ),
+                BillDiscounts AS (
+                    SELECT TOP 1 p.DISCOUNT
+                    FROM PROMOTION p 
+                    JOIN BILL_PROMOTION bp ON p.ID = bp.IDPROMOTION
+                    WHERE bp.IDBILL = @billId
+                    AND CAST(GETDATE() AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE
+                    ORDER BY p.DISCOUNT DESC
+                )
+                SELECT 
+                    bi.SubTotal - 
+                    (bi.SubTotal * ISNULL((SELECT DISCOUNT/100.0 FROM ItemDiscounts), 0)) -
+                    (bi.SubTotal * ISNULL((SELECT DISCOUNT/100.0 FROM BillDiscounts), 0)) AS FinalTotal
+                FROM BillItems bi";
 
                             object totalResult = GetDatabase.Instance.ExecuteScalar(totalQuery, new object[] { billId });
                             decimal totalAmount = totalResult != null ? Convert.ToDecimal(totalResult) : 0;
 
                             // Create and show UC_QRPayment with the correct billId
                             UC_QRPayment ucQrPayment = new UC_QRPayment();
-                            ucQrPayment.GetBillId(billId); // Pass the actual billId
-
+                            ucQrPayment.GetBillId(billId);
                             ucQrPayment.UpdateQRCode(
                                 content: $"Bill {billId} - {tableName}",
                                 amount: totalAmount
                             );
-
                             AddUserControl(ucQrPayment);
                         }
                         catch (Exception ex)
@@ -419,8 +440,8 @@ ORDER BY b.status, b.ID DESC";
 
             // Setup các columns
             ListBill.Columns.Add("TABLE", "TABLE");
-            ListBill.Columns.Add("QTY", "QTY");
-            ListBill.Columns.Add("TIME", "TIME");
+            ListBill.Columns.Add("CHECKIN", "CHECKIN");
+            ListBill.Columns.Add("CHECKOUT", "CHECKOUT");
 
             // Setup Method ComboBox column
             DataGridViewComboBoxColumn methodColumn = new DataGridViewComboBoxColumn();
@@ -459,87 +480,84 @@ ORDER BY b.status, b.ID DESC";
 
         private void Filter_SelectedIndexChanged(object sender, EventArgs e)
         {
-                if (Filter.SelectedItem == null) return;
+            if (Filter.SelectedItem == null) return;
+            string selectedFilter = Filter.SelectedItem.ToString();
+            ListBill.Rows.Clear();
+            string queryString = @"
+SELECT 
+    CASE 
+        WHEN t.fname IS NULL THEN 'Take Away'
+        ELSE t.fname 
+    END AS TableName,
+    FORMAT(b.CHKIN_TIME, 'dd/MM/yyyy HH:mm') AS CheckIn,
+    FORMAT(b.CHKOUT_TIME, 'dd/MM/yyyy HH:mm') AS CheckOut,
+    'Cash' AS Method,
+    CASE 
+        WHEN b.status = 1 THEN 'Done'
+        WHEN b.status = 0 THEN 'Not Paid'
+    END AS StatusText,
+    'Print' AS PrintButton,
+    b.ID as BillID,
+    b.status as Status
+FROM BILL b
+LEFT JOIN [TABLE] t ON b.IDTABLE = t.ID
+WHERE 1=1 "; // Base condition to make it easier to add filters
 
-                string selectedFilter = Filter.SelectedItem.ToString();
-                ListBill.Rows.Clear();
+            switch (selectedFilter)
+            {
+                case "Newest":
+                    queryString += " ORDER BY b.CHKIN_TIME DESC, b.ID DESC";
+                    break;
+                case "Oldest":
+                    queryString += " ORDER BY b.CHKIN_TIME ASC, b.ID ASC";
+                    break;
+                case "Not Paid":
+                    queryString += " AND b.status = 0 ORDER BY b.ID DESC";
+                    break;
+                case "Done":
+                    queryString += " AND b.status = 1 ORDER BY b.ID DESC";
+                    break;
+                case "Take Away":
+                    queryString += " AND b.BILLTYPE = 0 ORDER BY b.ID DESC";
+                    break;
+                default:
+                    queryString += " ORDER BY b.status, b.ID DESC";
+                    break;
+            }
 
-                string queryString = @"
-        SELECT 
-            CASE 
-                WHEN t.fname IS NULL THEN 'Take Away'
-                ELSE t.fname 
-            END AS TableName,
-            ISNULL(t.capacity, 1) AS Quantity,
-            b.datepayment AS DatePayment,
-            'Cash' AS Method,
-            CASE 
-                WHEN b.status = 1 THEN 'Done'
-                WHEN b.status = 0 THEN 'Not Paid'
-            END AS StatusText,
-            'Print' AS PrintButton,
-            b.ID as BillID,
-            b.status as Status
-        FROM BILL b
-        LEFT JOIN [TABLE] t ON b.IDTABLE = t.ID
-        WHERE 1=1 "; // Base condition to make it easier to add filters
-
-                switch (selectedFilter)
+            try
+            {
+                DataTable data = GetDatabase.Instance.ExecuteQuery(queryString);
+                foreach (DataRow row in data.Rows)
                 {
-                    case "Newest":
-                        queryString += " ORDER BY b.datepayment DESC, b.ID DESC";
-                        break;
-                    case "Oldest":
-                        queryString += " ORDER BY b.datepayment ASC, b.ID ASC";
-                        break;
-                    case "Not Paid":
-                        queryString += " AND b.status = 0 ORDER BY b.ID DESC";
-                        break;
-                    case "Done":
-                        queryString += " AND b.status = 1 ORDER BY b.ID DESC";
-                        break;
-                    case "Take Away":
-                        queryString += " AND t.fname IS NULL ORDER BY b.ID DESC";
-                        break;
-                    default:
-                        queryString += " ORDER BY b.status, b.ID DESC";
-                        break;
-                }
+                    int status = Convert.ToInt32(row["Status"]);
+                    DataGridViewRow gridRow = new DataGridViewRow();
+                    gridRow.CreateCells(ListBill);
+                    gridRow.Cells[0].Value = row["TableName"];  // TABLE
+                    gridRow.Cells[1].Value = row["CheckIn"];    // CHECK-IN
+                    gridRow.Cells[2].Value = row["CheckOut"];   // CHECK-OUT
+                    gridRow.Cells[3].Value = row["Method"];     // METHOD
+                    gridRow.Cells[4].Value = status == 1 ? "Done" : "Not Paid"; // PAYMENT
+                    gridRow.Cells[5].Value = "Print";           // BILL
+                    gridRow.Cells[6].Value = row["BillID"];     // Hidden BillID
 
-                try
-                {
-                    DataTable data = GetDatabase.Instance.ExecuteQuery(queryString);
-                    foreach (DataRow row in data.Rows)
+                    if (status == 1)
                     {
-                        int status = Convert.ToInt32(row["Status"]);
-                        DataGridViewRow gridRow = new DataGridViewRow();
-                        gridRow.CreateCells(ListBill);
-
-                        gridRow.Cells[0].Value = row["TableName"];
-                        gridRow.Cells[1].Value = row["Quantity"];
-                        gridRow.Cells[2].Value = row["DatePayment"];
-                        gridRow.Cells[3].Value = row["Method"];
-                        gridRow.Cells[4].Value = status == 1 ? "Done" : "Not Paid";
-                        gridRow.Cells[5].Value = "Print";
-                        gridRow.Cells[6].Value = row["BillID"];
-
-                        if (status == 1)
+                        DataGridViewButtonCell paymentCell = gridRow.Cells[4] as DataGridViewButtonCell;
+                        if (paymentCell != null)
                         {
-                            DataGridViewButtonCell paymentCell = gridRow.Cells[4] as DataGridViewButtonCell;
-                            if (paymentCell != null)
-                            {
-                                paymentCell.Style.BackColor = Color.Green;
-                                paymentCell.Style.ForeColor = Color.White;
-                            }
+                            paymentCell.Style.BackColor = Color.Green;
+                            paymentCell.Style.ForeColor = Color.White;
                         }
-                        ListBill.Rows.Add(gridRow);
                     }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error loading filtered data: " + ex.Message);
+                    ListBill.Rows.Add(gridRow);
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading filtered data: " + ex.Message);
+            }
+        }
         }
     }
 
