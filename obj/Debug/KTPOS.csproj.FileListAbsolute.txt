@@ -86,3 +86,8 @@ E:\App\ok\KTPOS\obj\Debug\KTPOS.csproj.CoreCompileInputs.cache
 E:\App\ok\KTPOS\obj\Debug\KTPOS.csproj.Up2Date
 E:\App\ok\KTPOS\obj\Debug\KTPOS.exe
 E:\App\ok\KTPOS\obj\Debug\KTPOS.pdb
+D:\Douments\GitHub\KTPOS\bin\Debug\zxing.dll
+D:\Douments\GitHub\KTPOS\bin\Debug\zxing.presentation.dll
+D:\Douments\GitHub\KTPOS\bin\Debug\zxing.xml
+D:\Douments\GitHub\KTPOS\bin\Debug\zxing.presentation.xml
+D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.STAFF.UC_QRPayment.resources
