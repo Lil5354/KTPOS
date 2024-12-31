@@ -78,7 +78,7 @@ namespace KTPOS.MANAGER
                 switch (selectedTab)
                 {
                     case "ACCOUNT":
-                        query = "SELECT IDSTAFF AS ID, FULLNAME AS [FULL NAME], DOB AS [D.O.B], EMAIL, PHONE, [ROLE] FROM ACCOUNT WHERE Visible = 1 Order by [Role] ASC";
+                        query = "SELECT IDSTAFF AS ID, FULLNAME AS [FULL NAME], DOB AS [D.O.B], EMAIL, PHONE, [ROLE], CASE WHEN STATUS = 1 THEN 'On' ELSE 'Off' END AS STATUS FROM ACCOUNT Order by [STATUS] ASC";
                         DTManger.Instance.LoadList(query, dtgvAccount);
                         index = -1;
                         break;
@@ -91,48 +91,19 @@ namespace KTPOS.MANAGER
                         index = -1;
                         break;
                     case "BILL":
-                        query = @"SELECT 
-                        ID,
-                        CASE 
-                            WHEN BILLTYPE = 1 THEN 'Dine-In'
-                            ELSE 'Take Away'
-                        END AS [TYPE],
-                        CHKIN_TIME AS [CHK-IN],
-                        CHKOUT_TIME AS [CHK-OUT],
-                        DURATION,
-                        CASE 
-                            WHEN STATUS = 1 THEN 'Paid'
-                            ELSE 'Unpaid'
-                        END AS PAYMENT
-                    FROM BILL;";
+                        query = "";
                         DTManger.Instance.LoadList(query, dtgvBill);
                         index = -1;
                         break;
                     case "F&B":
-                        query = @"SELECT 
-                            I.FNAME AS [ITEM NAME],
-                            I.CATEGORY,
-                            I.PRICE,
-                            ISNULL(SUM(BI.COUNT), 0) AS QTY,
-                            I.SALESFLAG,
-                            ROUND(I.PRICE * (1 - I.DISCOUNTRATE / 100), 2) AS [PRICE DISCOUNT]
-                        FROM
-                            ITEM I
-                        LEFT JOIN
-                            BILLINF BI ON I.ID = BI.IDFD
-                        WHERE
-                            I.VISIBLE = 1
-                        GROUP BY
-                            I.FNAME, I.CATEGORY, I.PRICE, I.SALESFLAG, I.DISCOUNTRATE; ";
+                        query = " ";
                         DTManger.Instance.LoadList(query, dtgvFandB);
                         q = "SELECT DISTINCT CATEGORY FROM [ITEM]";
                         GetDatabase.Instance.LoadDataToComboBox(q, cbCategoriesFB);
                         index = -1;
                         break;
                     case "REVENUE":
-                        query = "SELECT b.ID AS [ID BILL], t.fname AS [TABLE NAME], SUM(i.price * bi.count) AS [TOTAL PRICE], b.Datepayment AS [DATE CHECKOUT] FROM BILLINF bi " +
-                            "JOIN Bill b ON bi.idBill = b.ID JOIN [TABLE] t ON b.idTable = t.ID JOIN ITEM i ON bi.idFD = i.ID GROUP BY b.ID, t.fname, b.Datepayment ORDER BY b.ID;";
-                        DTManger.Instance.LoadList(query, dtgvRevenue);
+                        query = "";
                         index = -1;
                         break;
                     case "SALETAG":
@@ -146,6 +117,7 @@ namespace KTPOS.MANAGER
                 }
             }
         }
+        //CRUD TC ACCOUNT
         private void dtgvAccount_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -168,15 +140,29 @@ namespace KTPOS.MANAGER
             txtEmail.Clear();
             cbBRole.SelectedIndex = -1;
         }
-
-        private void cbbTag_SelectedIndexChanged(object sender, EventArgs e)
+        
+        private void btnAddAcc_Click(object sender, EventArgs e)
         {
-            query = @"SELECT I.FNAME AS [ITEM NAME], MAX(CASE WHEN T.TAGNAME = '"+cbbTag.Text+"' THEN 1 ELSE 0 END) AS TAG, I.SALESFLAG as SALEFLAG FROM ITEM I LEFT JOIN ITEM_TAG IT ON I.ID = IT.IDITEM LEFT JOIN TAG T ON IT.IDTAG = T.ID GROUP BY I.FNAME, I.SALESFLAG ORDER BY I.FNAME; ";
-            DTManger.Instance.LoadList(query, dtgvSaleTag);
+            
+        }
+
+        private void btnDeleteAcc_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnUpdateAcc_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void cbbTag_SelectedIndexChanged(object sender, EventArgs e)
+        {/*
+            query = @"SELECT I.FNAME AS [ITEM NAME], MAX(CASE WHEN T.TAGNAME = '"+cbbTag.Text+"' THEN 1 ELSE 0 END) AS TAG, FROM ITEM I LEFT JOIN ITEM_TAG IT ON I.ID = IT.IDITEM LEFT JOIN TAG T ON IT.IDTAG = T.ID GROUP BY I.FNAME ORDER BY I.FNAME; ";
+            DTManger.Instance.LoadList(query, dtgvSaleTag);*/
         }
 
         private void dtgvFandB_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
+        {/*
             if (e.RowIndex >= 0)
             {
                 // Lấy giá trị của cột "SalesFlag" tại dòng được chọn
@@ -197,9 +183,9 @@ namespace KTPOS.MANAGER
                     // Gán giá trị tính được vào TextBox
                     txtDiscountR.Text = discountRate.ToString("0.##")+"%";
                 }
-            }
+            }*/
         }
-
+        
         
     }
 }
