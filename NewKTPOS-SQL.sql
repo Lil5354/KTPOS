@@ -72,10 +72,11 @@ GO
 -- Table for item management
 CREATE TABLE ITEM (
 	ID          INT IDENTITY PRIMARY KEY,
-	FNAME       NVARCHAR(50) NOT NULL,
+	FNAME       NVARCHAR(50) UNIQUE NOT NULL,
 	CATEGORY	NVARCHAR(10) CHECK(CATEGORY IN ('Food', 'Drink')) NOT NULL,
 	PRICE       FLOAT NOT NULL CHECK(PRICE > 0),
 	VISIBLE     INT NOT NULL DEFAULT 1,
+	CONSTRAINT UQ_ITEM UNIQUE (FNAME, CATEGORY)
 );
 GO
 
@@ -287,6 +288,32 @@ BEGIN
         WHERE i.STATUS = 0;
     END
 END;
+GO
+CREATE PROCEDURE ManageItemTag
+    @OperationType INT,
+    @ItemName NVARCHAR(50),
+    @TagName NVARCHAR(50)
+AS
+BEGIN
+    -- Biến lưu ID của ITEM và TAG
+    DECLARE @ItemId INT, @TagId INT;
+
+    -- Tìm ID của ITEM và TAG
+    SELECT @ItemId = ID FROM ITEM WHERE FNAME = @ItemName;
+    SELECT @TagId = ID FROM TAG WHERE TAGNAME = @TagName;
+    -- Thực thi theo loại OperationType
+    IF @OperationType = 1
+    BEGIN
+      INSERT INTO ITEM_TAG (IDITEM, IDTAG)
+      VALUES (@ItemId, @TagId);
+	END
+    ELSE IF @OperationType = 2
+    BEGIN
+        DELETE FROM ITEM_TAG
+        WHERE IDITEM = @ItemId AND IDTAG = @TagId;
+    END
+END;
+GO
 GO
 INSERT INTO ACCOUNT (FULLNAME, EMAIL, PHONE, DOB, [PASSWORD], [ROLE], STATUS) VALUES 
     (N'Võ Đăng Khoa',			'khoavd2809@gmail.com',	'0843019548', '2004-09-28', 'khoavo123',		'Manager', 1)
@@ -650,33 +677,7 @@ FROM PROMOTION p
 JOIN ITEM_PROMOTION ip ON p.ID = ip.IDPROMOTION
 JOIN BILLINF bi ON ip.IDITEM = bi.IDFD
 WHERE bi.IDBILL = @BillID;
-
-SELECT p.*
-FROM PROMOTION p
-JOIN BILL_PROMOTION bp ON p.ID = bp.IDPROMOTION 
-WHERE bp.IDBILL = @BillID;
-
 --------------------------------------------------------------------------
-SELECT 
-    i.FNAME AS ITEM_NAME,
-    i.CATEGORY,
-    i.PRICE,
-    ISNULL(SUM(bi.COUNT), 0) AS QTY,  -- Tổng số lượng đã bán
-    STRING_AGG(t.TAGNAME, ', ') AS TAG  -- Nối tên các tag liên quan
-FROM 
-    ITEM i
-LEFT JOIN 
-    BILLINF bi ON i.ID = bi.IDFD
-LEFT JOIN 
-    ITEM_TAG it ON i.ID = it.IDITEM
-LEFT JOIN 
-    TAG t ON it.IDTAG = t.ID
-GROUP BY 
-    i.FNAME, i.CATEGORY, i.PRICE
-ORDER BY 
-    i.FNAME;
------
-SELECT I.FNAME AS [ITEM NAME], I.CATEGORY,  I.PRICE, ISNULL(SUM(bi.COUNT), 0) AS QTY, MAX(CASE WHEN T.TAGNAME = 'Regular' THEN 1 ELSE 0 END) AS TAG
-FROM ITEM I LEFT JOIN BILLINF bi ON i.ID = bi.IDFD LEFT JOIN ITEM_TAG IT ON I.ID = IT.IDITEM LEFT JOIN TAG T ON IT.IDTAG = T.ID GROUP BY I.FNAME, I.CATEGORY,I.PRICE ORDER BY I.FNAME; 
 
----------------
+-----
+

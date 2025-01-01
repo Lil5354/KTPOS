@@ -3,28 +3,20 @@
   "WorkspaceRootPath": "D:\\Douments\\GitHub\\KTPOS\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|d:\\douments\\github\\ktpos\\staff\\fbillviewer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fbillviewer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|d:\\douments\\github\\ktpos\\staff\\fbillviewer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fbillviewer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|d:\\douments\\github\\ktpos\\manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|d:\\douments\\github\\ktpos\\proccess\\getdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:proccess\\getdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|d:\\douments\\github\\ktpos\\staff\\fstaff_f.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fstaff_f.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|d:\\douments\\github\\ktpos\\proccess\\dtmanger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\proccess\\dtmanger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:proccess\\dtmanger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|d:\\douments\\github\\ktpos\\manager\\fmanager.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:manager\\fmanager.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -50,78 +42,54 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "fBillViewer.cs",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\STAFF\\fBillViewer.cs",
-              "RelativeDocumentMoniker": "STAFF\\fBillViewer.cs",
-              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\STAFF\\fBillViewer.cs",
-              "RelativeToolTip": "STAFF\\fBillViewer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAAmAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "fManager.Designer.cs",
+              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\MANAGER\\fManager.Designer.cs",
+              "RelativeDocumentMoniker": "MANAGER\\fManager.Designer.cs",
+              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\MANAGER\\fManager.Designer.cs",
+              "RelativeToolTip": "MANAGER\\fManager.Designer.cs",
+              "ViewState": "AgIAAJgFAAAAAAAAAAASwLcFAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-01T12:00:48.414Z",
+              "WhenOpened": "2025-01-01T14:20:42.94Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "fBillViewer.cs [Design]",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\STAFF\\fBillViewer.cs",
-              "RelativeDocumentMoniker": "STAFF\\fBillViewer.cs",
-              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\STAFF\\fBillViewer.cs [Design]",
-              "RelativeToolTip": "STAFF\\fBillViewer.cs [Design]",
+              "Title": "fManager.cs",
+              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\MANAGER\\fManager.cs",
+              "RelativeDocumentMoniker": "MANAGER\\fManager.cs",
+              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\MANAGER\\fManager.cs",
+              "RelativeToolTip": "MANAGER\\fManager.cs",
+              "ViewState": "AgIAAMUAAAAAAAAAAAAcwKUCAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-01T12:00:46.015Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "fStaff_F.Designer.cs",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\STAFF\\fStaff_F.Designer.cs",
-              "RelativeDocumentMoniker": "STAFF\\fStaff_F.Designer.cs",
-              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\STAFF\\fStaff_F.Designer.cs",
-              "RelativeToolTip": "STAFF\\fStaff_F.Designer.cs",
-              "ViewState": "AgIAAL4AAAAAAAAAAAAcwNEAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-01T11:56:07.259Z",
+              "WhenOpened": "2025-01-01T13:23:20.065Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "GetDatabase.cs",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\Proccess\\GetDatabase.cs",
-              "RelativeDocumentMoniker": "Proccess\\GetDatabase.cs",
-              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\Proccess\\GetDatabase.cs",
-              "RelativeToolTip": "Proccess\\GetDatabase.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-01T11:55:55.394Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "DTManger.cs",
               "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\Proccess\\DTManger.cs",
               "RelativeDocumentMoniker": "Proccess\\DTManger.cs",
               "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\Proccess\\DTManger.cs",
               "RelativeToolTip": "Proccess\\DTManger.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAQwI0AAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-01T11:33:54.842Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "fManager.cs [Design]",
               "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\MANAGER\\fManager.cs",
               "RelativeDocumentMoniker": "MANAGER\\fManager.cs",
               "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\MANAGER\\fManager.cs [Design]",
               "RelativeToolTip": "MANAGER\\fManager.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-01T11:31:33.425Z"
+              "WhenOpened": "2025-01-01T11:31:33.425Z",
+              "EditorCaption": " [Design]"
             }
           ]
         }
