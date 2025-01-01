@@ -14,7 +14,7 @@ namespace KTPOS.STAFF
 {
     public partial class fBillViewer : Form
     {
-        private readonly string strcon = @"Data Source=LAPTOP-T5G4R7PV\SQLEXPRESS01;Initial Catalog=KTPOS;Integrated Security=True";
+        private readonly string strcon = @"Data Source=KHOAZO\MSSQLSERVER03;Initial Catalog=KTPOS;Integrated Security=True";
         public int _billId { get; set; } // 3,8,10 lỗi
 
         public fBillViewer(int billId)
@@ -103,6 +103,11 @@ namespace KTPOS.STAFF
         private void fBillViewer_Load(object sender, EventArgs e)
         {
             LoadBillReport();
+        }
+
+        private void rpBill_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

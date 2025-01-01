@@ -45,6 +45,7 @@
             this.rpBill.ServerReport.BearerToken = null;
             this.rpBill.Size = new System.Drawing.Size(800, 450);
             this.rpBill.TabIndex = 0;
+            this.rpBill.Load += new System.EventHandler(this.rpBill_Load);
             // 
             // kTPOSDataSet
             // 

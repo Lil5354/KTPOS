@@ -203,68 +203,8 @@ BEGIN
                     FROM BILLINF bi2
                     JOIN ITEM_PROMOTION ip ON bi2.IDFD = ip.IDITEM
                     JOIN PROMOTION p ON ip.IDPROMOTION = p.ID
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                    WHERE bi2.IDBILL = b.ID
-                    AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
-=======
                     WHERE bi2.IDBILL = b.ID 
                     --AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                    WHERE bi2.IDBILL = b.ID 
-                    --AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                    WHERE bi2.IDBILL = b.ID 
-                    --AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                    WHERE bi2.IDBILL = b.ID 
-                    --AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                    WHERE bi2.IDBILL = b.ID 
-                    --AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                    WHERE bi2.IDBILL = b.ID 
-                    --AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                    WHERE bi2.IDBILL = b.ID 
-                    --AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                    WHERE bi2.IDBILL = b.ID 
-                    --AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                    WHERE bi2.IDBILL = b.ID 
-                    --AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                    WHERE bi2.IDBILL = b.ID 
-                    --AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                    WHERE bi2.IDBILL = b.ID 
-                    --AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                    WHERE bi2.IDBILL = b.ID 
-                    --AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
                     AND (CAST(b.CHKIN_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                 ) 
                 THEN 
@@ -277,55 +217,7 @@ BEGIN
                      JOIN ITEM_PROMOTION ip ON p.ID = ip.IDPROMOTION
                      JOIN BILLINF bi ON ip.IDITEM = bi.IDFD
                      WHERE bi.IDBILL = b.ID
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                     AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
-=======
                    --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
                      AND (CAST(b.CHKIN_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                      ORDER BY p.DISCOUNT DESC)
                 ELSE 0
@@ -338,55 +230,7 @@ BEGIN
                     FROM BILL_PROMOTION bp
                     JOIN PROMOTION p ON bp.IDPROMOTION = p.ID
                     WHERE bp.IDBILL = b.ID
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                    AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
-=======
                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                  --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                  --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                  --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                  --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                  --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                  --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                  --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                  --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                  --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                  --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                  --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
                     AND (CAST(b.CHKIN_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                 ) 
                 THEN 
@@ -398,55 +242,7 @@ BEGIN
                      FROM PROMOTION p 
                      JOIN BILL_PROMOTION bp ON p.ID = bp.IDPROMOTION
                      WHERE bp.IDBILL = b.ID
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                     AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
-=======
                    --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
-=======
-                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
->>>>>>> Stashed changes
                      AND (CAST(b.CHKIN_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                      ORDER BY p.DISCOUNT DESC)
                 ELSE 0
@@ -456,41 +252,6 @@ BEGIN
     FROM BILL b
     JOIN @AffectedBills ab ON b.ID = ab.BillID;
 END;
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 GO
 CREATE TRIGGER trg_UpdateTableStatus
 ON BILL
@@ -511,41 +272,6 @@ BEGIN
         JOIN INSERTED i ON t.ID = i.IDTABLE
         WHERE i.STATUS = 1;
     END
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-
     -- Khi BILL.STATUS = 0, đảm bảo TABLE.STATUS = 0
     IF EXISTS (
         SELECT 1
@@ -690,54 +416,13 @@ VALUES
 (6, 7, 3),
 (7, 8, 2),
 (8, 9, 4),
-<<<<<<< Updated upstream
 (9, 10, 1),
 (10, 1, 2),  -- 2 phần Spring Rolls
 (10, 4, 1),  -- 1 phần Iced Coffee
 (10, 7, 1);
-
---------------------
-SELECT 
-    B.ID AS BillID,
-=======
-(9, 10, 1);
 ---------------------------------
 SELECT 
     B.ID,
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     A.FULLNAME AS CashierName,
     B.TOTAL AS TotalAmount,
     B.IDTABLE AS TableID,
@@ -889,22 +574,9 @@ LEFT JOIN [TABLE] t ON b.IDTABLE = t.ID
 JOIN BillItems bi ON b.ID = bi.BillID
 LEFT JOIN FinalDiscounts fd ON b.ID = fd.BillID
 ORDER BY b.ID ASC;
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 -------------------------------
-
 GO
-CREATE OR ALTER PROCEDURE sp_CalculateBillDetails
+CREATE PROCEDURE sp_CalculateBillDetails
     @IDBILL INT
 AS
 BEGIN
@@ -958,7 +630,7 @@ BEGIN
     LEFT JOIN ItemDiscounts id ON i.ID = id.IDITEM
     CROSS JOIN BillTotals bt
     WHERE bi.IDBILL = @IDBILL;
-END
+END;
 go
 DECLARE @BillID INT = 1; -- Thay đổi ID bill cần test
 
@@ -984,29 +656,6 @@ FROM PROMOTION p
 JOIN BILL_PROMOTION bp ON p.ID = bp.IDPROMOTION 
 WHERE bp.IDBILL = @BillID;
 
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 --------------------------------------------------------------------------
 SELECT 
     i.FNAME AS ITEM_NAME,
@@ -1031,49 +680,3 @@ SELECT I.FNAME AS [ITEM NAME], I.CATEGORY,  I.PRICE, ISNULL(SUM(bi.COUNT), 0) AS
 FROM ITEM I LEFT JOIN BILLINF bi ON i.ID = bi.IDFD LEFT JOIN ITEM_TAG IT ON I.ID = IT.IDITEM LEFT JOIN TAG T ON IT.IDTAG = T.ID GROUP BY I.FNAME, I.CATEGORY,I.PRICE ORDER BY I.FNAME; 
 
 ---------------
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-SELECT * FROM ACCOUNT
->>>>>>> Stashed changes
-=======
-SELECT * FROM ACCOUNT
->>>>>>> Stashed changes
-=======
-SELECT * FROM ACCOUNT
->>>>>>> Stashed changes
-=======
-SELECT * FROM ACCOUNT
->>>>>>> Stashed changes
-=======
-SELECT * FROM ACCOUNT
->>>>>>> Stashed changes
-=======
-SELECT * FROM ACCOUNT
->>>>>>> Stashed changes
-=======
-SELECT * FROM ACCOUNT
->>>>>>> Stashed changes
-=======
-SELECT * FROM ACCOUNT
->>>>>>> Stashed changes
-=======
-SELECT * FROM ACCOUNT
->>>>>>> Stashed changes
-=======
-SELECT * FROM ACCOUNT
->>>>>>> Stashed changes
-=======
-SELECT * FROM ACCOUNT
->>>>>>> Stashed changes
-=======
-SELECT * FROM ACCOUNT
->>>>>>> Stashed changes
