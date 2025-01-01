@@ -204,8 +204,13 @@ BEGIN
                     JOIN ITEM_PROMOTION ip ON bi2.IDFD = ip.IDITEM
                     JOIN PROMOTION p ON ip.IDPROMOTION = p.ID
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     WHERE bi2.IDBILL = b.ID
                     AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+=======
+                    WHERE bi2.IDBILL = b.ID 
+                    --AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+>>>>>>> Stashed changes
 =======
                     WHERE bi2.IDBILL = b.ID 
                     --AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
@@ -223,7 +228,11 @@ BEGIN
                      JOIN BILLINF bi ON ip.IDITEM = bi.IDFD
                      WHERE bi.IDBILL = b.ID
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                      AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+=======
+                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+>>>>>>> Stashed changes
 =======
                    --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
 >>>>>>> Stashed changes
@@ -240,7 +249,11 @@ BEGIN
                     JOIN PROMOTION p ON bp.IDPROMOTION = p.ID
                     WHERE bp.IDBILL = b.ID
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+=======
+                  --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+>>>>>>> Stashed changes
 =======
                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
 >>>>>>> Stashed changes
@@ -256,7 +269,11 @@ BEGIN
                      JOIN BILL_PROMOTION bp ON p.ID = bp.IDPROMOTION
                      WHERE bp.IDBILL = b.ID
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                      AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+=======
+                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+>>>>>>> Stashed changes
 =======
                    --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
 >>>>>>> Stashed changes
@@ -270,7 +287,10 @@ BEGIN
     JOIN @AffectedBills ab ON b.ID = ab.BillID;
 END;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 GO
 CREATE TRIGGER trg_UpdateTableStatus
 ON BILL
@@ -291,6 +311,9 @@ BEGIN
         JOIN INSERTED i ON t.ID = i.IDTABLE
         WHERE i.STATUS = 1;
     END
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 
     -- Khi BILL.STATUS = 0, đảm bảo TABLE.STATUS = 0
@@ -451,6 +474,9 @@ SELECT
 ---------------------------------
 SELECT 
     B.ID,
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     A.FULLNAME AS CashierName,
     B.TOTAL AS TotalAmount,
@@ -604,6 +630,7 @@ JOIN BillItems bi ON b.ID = bi.BillID
 LEFT JOIN FinalDiscounts fd ON b.ID = fd.BillID
 ORDER BY b.ID ASC;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 -------------------------------
 
 GO
@@ -688,6 +715,8 @@ JOIN BILL_PROMOTION bp ON p.ID = bp.IDPROMOTION
 WHERE bp.IDBILL = @BillID;
 
 =======
+=======
+>>>>>>> Stashed changes
 --------------------------------------------------------------------------
 SELECT 
     i.FNAME AS ITEM_NAME,
@@ -712,5 +741,9 @@ SELECT I.FNAME AS [ITEM NAME], I.CATEGORY,  I.PRICE, ISNULL(SUM(bi.COUNT), 0) AS
 FROM ITEM I LEFT JOIN BILLINF bi ON i.ID = bi.IDFD LEFT JOIN ITEM_TAG IT ON I.ID = IT.IDITEM LEFT JOIN TAG T ON IT.IDTAG = T.ID GROUP BY I.FNAME, I.CATEGORY,I.PRICE ORDER BY I.FNAME; 
 
 ---------------
+<<<<<<< Updated upstream
+SELECT * FROM ACCOUNT
+>>>>>>> Stashed changes
+=======
 SELECT * FROM ACCOUNT
 >>>>>>> Stashed changes

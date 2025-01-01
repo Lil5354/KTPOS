@@ -210,7 +210,11 @@
             this.TableName.MinimumWidth = 6;
             this.TableName.Name = "TableName";
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             this.TableName.Width = 83;
+=======
+            this.TableName.Width = 92;
+>>>>>>> Stashed changes
 =======
             this.TableName.Width = 92;
 >>>>>>> Stashed changes
