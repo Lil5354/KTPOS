@@ -1,4 +1,5 @@
-﻿using System;
+﻿//code tham khảo để lấy data từ txtNote đưa vào parameter Note trong report
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
