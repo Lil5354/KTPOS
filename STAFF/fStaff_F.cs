@@ -150,21 +150,21 @@ namespace KTPOS.STAFF
             }
 
             const string billQuery = @"
-SELECT b.ID 
-FROM Bill b 
-WHERE b.idTable = @tableId AND b.status = 0";
+            SELECT b.ID 
+            FROM Bill b 
+            WHERE b.idTable = @tableId AND b.status = 0";
 
             object billIdResult = GetDatabase.Instance.ExecuteScalar(billQuery, new object[] { tableId });
             int billId = Convert.ToInt32(billIdResult);
             const string detailsQuery = @"
-SELECT 
-    i.FNAME as NAME,
-    bi.COUNT as QTY,
-    i.PRICE as PRICE,
-    i.ID as ID
-FROM BILLINF bi
-JOIN ITEM i ON bi.IDFD = i.ID
-WHERE bi.IDBILL = @billId";
+            SELECT 
+                i.FNAME as NAME,
+                bi.COUNT as QTY,
+                i.PRICE as PRICE,
+                i.ID as ID
+            FROM BILLINF bi
+            JOIN ITEM i ON bi.IDFD = i.ID
+            WHERE bi.IDBILL = @billId";
 
             DataTable billDetails = GetDatabase.Instance.ExecuteQuery(detailsQuery, new object[] { billId });
             using (fStaff_S staffForm = new fStaff_S(tableId))
@@ -277,8 +277,8 @@ SELECT
         WHEN t.fname IS NULL THEN 'Take Away'
         ELSE t.fname 
     END AS TableName,
-    FORMAT(b.CHKIN_TIME, 'dd/MM/yyyy HH:mm') AS CheckIn,
-    FORMAT(b.CHKOUT_TIME, 'dd/MM/yyyy HH:mm') AS CheckOut,
+    b.CHKIN_TIME AS CheckInTime,
+    b.CHKOUT_TIME AS CheckOutTime,
     'Cash' AS Method,
     CASE 
         WHEN b.status = 1 THEN 'Done'
@@ -296,16 +296,35 @@ ORDER BY b.status, b.ID DESC";
                 DataTable data = GetDatabase.Instance.ExecuteQuery(queryString);
                 foreach (DataRow row in data.Rows)
                 {
+                    DateTime checkInTime = Convert.ToDateTime(row["CheckInTime"]);
+                    DateTime? checkOutTime = row["CheckOutTime"] != DBNull.Value ?
+                        (DateTime?)Convert.ToDateTime(row["CheckOutTime"]) : null;
+
+                    // Format check-in time
+                    string formattedCheckIn = checkInTime.ToString("dd/MM/yyyy HH:mm");
+
+                    // Handle check-out time formatting with validation
+                    string formattedCheckOut = "";
+                    if (checkOutTime.HasValue)
+                    {
+                        // If checkout is on a different day, set it to 23:59 of check-in day
+                        if (checkOutTime.Value.Date > checkInTime.Date)
+                        {
+                            checkOutTime = checkInTime.Date.AddHours(23).AddMinutes(59);
+                        }
+                        formattedCheckOut = checkOutTime.Value.ToString("dd/MM/yyyy HH:mm");
+                    }
+
                     int status = Convert.ToInt32(row["Status"]);
                     DataGridViewRow gridRow = new DataGridViewRow();
                     gridRow.CreateCells(ListBill);
-                    gridRow.Cells[0].Value = row["TableName"];  // TABLE
-                    gridRow.Cells[1].Value = row["CheckIn"];    // CHECK-IN
-                    gridRow.Cells[2].Value = row["CheckOut"];   // CHECK-OUT
-                    gridRow.Cells[3].Value = row["Method"];     // METHOD
+                    gridRow.Cells[0].Value = row["TableName"];    // TABLE
+                    gridRow.Cells[1].Value = formattedCheckIn;    // CHECK-IN
+                    gridRow.Cells[2].Value = formattedCheckOut;   // CHECK-OUT
+                    gridRow.Cells[3].Value = row["Method"];       // METHOD
                     gridRow.Cells[4].Value = status == 1 ? "Done" : "Not Paid"; // PAYMENT
-                    gridRow.Cells[5].Value = "Print";           // BILL
-                    gridRow.Cells[6].Value = row["BillID"];     // Hidden BillID
+                    gridRow.Cells[5].Value = "Print";             // BILL
+                    gridRow.Cells[6].Value = row["BillID"];       // Hidden BillID
 
                     // Set button cell appearance based on status
                     if (status == 1)
