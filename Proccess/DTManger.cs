@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Security;
 using System.Windows.Forms;
+using System.Windows.Forms.Design;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace KTPOS.Proccess
@@ -107,5 +108,47 @@ namespace KTPOS.Proccess
             // Return null if login fails
             return 0;
         }
+        public int ResolveFB(int s, string name)
+        {
+            string query = "UPDATE [ITEM] SET VISIBLE = " + s + " WHERE FNAME = '" + name + "' ";
+            int result = GetDatabase.Instance.ExecuteNonQuery(query);
+            if (result > 0)
+            {
+                return result;
+            }
+            return 0;
+        }
+        public int ResolveTag(int s,string fname, string tag)
+        {
+            string query = "EXEC ManageItemTag @OperationType = "+s+", @ItemName = '"+fname+"', @TagName = '"+tag+"';";
+            int result = GetDatabase.Instance.ExecuteNonQuery(query);
+            if (result > 0)
+            {
+                return result;
+            }
+            return 0;
+        }
+        public int InsertItem(string name, string cate, string price)
+        {
+            string query = "INSERT INTO ITEM (FNAME, CATEGORY, PRICE) VALUES ('"+name+"', '"+cate+"', "+price+")";
+            int result = GetDatabase.Instance.ExecuteNonQuery(query);
+            if (result > 0)
+            {
+                return result;
+            }
+            // Return null if function false
+            return 0;
+        }
+        public int UpdateItem(string name, string cate, string price, string fname) {
+            string query = "UPDATE ITEM SET FNAME = '"+name+"', CATEGORY = '"+cate+"', PRICE =  "+price+" WHERE FNAME = '"+fname+"'";
+            int result = GetDatabase.Instance.ExecuteNonQuery(query);
+            if (result > 0)
+            {
+                return result;
+            }
+            // Return null if login fails
+            return 0;
+        }
+
     }
 }

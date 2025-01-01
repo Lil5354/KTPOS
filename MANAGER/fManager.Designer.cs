@@ -123,15 +123,16 @@
             this.DURATIONTABLE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.STATETABLE = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnAddFB = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2HtmlLabel7 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.btnEditFB = new Guna.UI2.WinForms.Guna2Button();
+            this.guna2HtmlLabel7 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.cbbTag = new Guna.UI2.WinForms.Guna2ComboBox();
             this.cbCategoriesFB = new Guna.UI2.WinForms.Guna2ComboBox();
             this.guna2HtmlLabel4 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
-            this.guna2TextBox3 = new Guna.UI2.WinForms.Guna2TextBox();
+            this.txtSearchFB = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtPriceFB = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtNameFB = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2CustomGradientPanel1 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
@@ -142,18 +143,14 @@
             this.QUANTITY = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TAGITEM = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.STATEFB = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.guna2TextBox4 = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2HtmlLabel12 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.guna2TextBox5 = new Guna.UI2.WinForms.Guna2TextBox();
-            this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
-            this.guna2Button4 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Button5 = new Guna.UI2.WinForms.Guna2Button();
-            this.guna2Button6 = new Guna.UI2.WinForms.Guna2Button();
             this.guna2CustomGradientPanel6 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.dtgvBill = new Guna.UI2.WinForms.Guna2DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.STAFF = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -174,11 +171,10 @@
             this.guna2CustomGradientPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvTable)).BeginInit();
             this.tabPage2.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.guna2CustomGradientPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvFandB)).BeginInit();
-            this.flowLayoutPanel1.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.flowLayoutPanel5.SuspendLayout();
             this.guna2CustomGradientPanel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvBill)).BeginInit();
             this.SuspendLayout();
@@ -1288,7 +1284,7 @@
             this.tabPage2.Controls.Add(this.guna2HtmlLabel4);
             this.tabPage2.Controls.Add(this.guna2HtmlLabel3);
             this.tabPage2.Controls.Add(this.guna2HtmlLabel2);
-            this.tabPage2.Controls.Add(this.guna2TextBox3);
+            this.tabPage2.Controls.Add(this.txtSearchFB);
             this.tabPage2.Controls.Add(this.txtPriceFB);
             this.tabPage2.Controls.Add(this.txtNameFB);
             this.tabPage2.Controls.Add(this.guna2CustomGradientPanel1);
@@ -1298,6 +1294,15 @@
             this.tabPage2.Size = new System.Drawing.Size(1040, 677);
             this.tabPage2.TabIndex = 7;
             this.tabPage2.Text = "F&B";
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.btnAddFB);
+            this.flowLayoutPanel1.Controls.Add(this.btnEditFB);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(805, 6);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(232, 55);
+            this.flowLayoutPanel1.TabIndex = 101;
             // 
             // btnAddFB
             // 
@@ -1319,18 +1324,7 @@
             this.btnAddFB.TabIndex = 40;
             this.btnAddFB.Text = "ADD";
             this.btnAddFB.UseTransparentBackground = true;
-            // 
-            // guna2HtmlLabel7
-            // 
-            this.guna2HtmlLabel7.BackColor = System.Drawing.Color.Transparent;
-            this.guna2HtmlLabel7.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.guna2HtmlLabel7.ForeColor = System.Drawing.Color.Maroon;
-            this.guna2HtmlLabel7.Location = new System.Drawing.Point(606, 28);
-            this.guna2HtmlLabel7.Name = "guna2HtmlLabel7";
-            this.guna2HtmlLabel7.Size = new System.Drawing.Size(36, 27);
-            this.guna2HtmlLabel7.TabIndex = 113;
-            this.guna2HtmlLabel7.Text = "Tag";
-            this.guna2HtmlLabel7.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
+            this.btnAddFB.Click += new System.EventHandler(this.btnAddFB_Click);
             // 
             // btnEditFB
             // 
@@ -1352,6 +1346,19 @@
             this.btnEditFB.TabIndex = 42;
             this.btnEditFB.Text = "EDIT";
             this.btnEditFB.UseTransparentBackground = true;
+            this.btnEditFB.Click += new System.EventHandler(this.btnEditFB_Click);
+            // 
+            // guna2HtmlLabel7
+            // 
+            this.guna2HtmlLabel7.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel7.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.guna2HtmlLabel7.ForeColor = System.Drawing.Color.Maroon;
+            this.guna2HtmlLabel7.Location = new System.Drawing.Point(606, 28);
+            this.guna2HtmlLabel7.Name = "guna2HtmlLabel7";
+            this.guna2HtmlLabel7.Size = new System.Drawing.Size(36, 27);
+            this.guna2HtmlLabel7.TabIndex = 113;
+            this.guna2HtmlLabel7.Text = "Tag";
+            this.guna2HtmlLabel7.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
             // 
             // cbbTag
             // 
@@ -1424,35 +1431,36 @@
             this.guna2HtmlLabel2.Text = "Name";
             this.guna2HtmlLabel2.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // guna2TextBox3
+            // txtSearchFB
             // 
-            this.guna2TextBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.guna2TextBox3.AutoRoundedCorners = true;
-            this.guna2TextBox3.AutoSize = true;
-            this.guna2TextBox3.BackColor = System.Drawing.Color.Transparent;
-            this.guna2TextBox3.BorderColor = System.Drawing.Color.Black;
-            this.guna2TextBox3.BorderRadius = 18;
-            this.guna2TextBox3.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.guna2TextBox3.DefaultText = "";
-            this.guna2TextBox3.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.guna2TextBox3.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.guna2TextBox3.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox3.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.guna2TextBox3.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox3.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.guna2TextBox3.ForeColor = System.Drawing.Color.Black;
-            this.guna2TextBox3.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.guna2TextBox3.IconLeft = ((System.Drawing.Image)(resources.GetObject("guna2TextBox3.IconLeft")));
-            this.guna2TextBox3.IconLeftOffset = new System.Drawing.Point(6, 0);
-            this.guna2TextBox3.Location = new System.Drawing.Point(21, 59);
-            this.guna2TextBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.guna2TextBox3.MaximumSize = new System.Drawing.Size(240, 38);
-            this.guna2TextBox3.Name = "guna2TextBox3";
-            this.guna2TextBox3.PasswordChar = '\0';
-            this.guna2TextBox3.PlaceholderText = "Search";
-            this.guna2TextBox3.SelectedText = "";
-            this.guna2TextBox3.Size = new System.Drawing.Size(240, 38);
-            this.guna2TextBox3.TabIndex = 111;
+            this.txtSearchFB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSearchFB.AutoRoundedCorners = true;
+            this.txtSearchFB.AutoSize = true;
+            this.txtSearchFB.BackColor = System.Drawing.Color.Transparent;
+            this.txtSearchFB.BorderColor = System.Drawing.Color.Black;
+            this.txtSearchFB.BorderRadius = 18;
+            this.txtSearchFB.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtSearchFB.DefaultText = "";
+            this.txtSearchFB.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.txtSearchFB.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
+            this.txtSearchFB.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtSearchFB.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
+            this.txtSearchFB.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtSearchFB.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.txtSearchFB.ForeColor = System.Drawing.Color.Black;
+            this.txtSearchFB.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
+            this.txtSearchFB.IconLeft = ((System.Drawing.Image)(resources.GetObject("txtSearchFB.IconLeft")));
+            this.txtSearchFB.IconLeftOffset = new System.Drawing.Point(6, 0);
+            this.txtSearchFB.Location = new System.Drawing.Point(21, 59);
+            this.txtSearchFB.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtSearchFB.MaximumSize = new System.Drawing.Size(240, 38);
+            this.txtSearchFB.Name = "txtSearchFB";
+            this.txtSearchFB.PasswordChar = '\0';
+            this.txtSearchFB.PlaceholderText = "Search";
+            this.txtSearchFB.SelectedText = "";
+            this.txtSearchFB.Size = new System.Drawing.Size(240, 38);
+            this.txtSearchFB.TabIndex = 111;
+            this.txtSearchFB.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtSearchFB_KeyUp);
             // 
             // txtPriceFB
             // 
@@ -1587,6 +1595,9 @@
             this.dtgvFandB.ThemeStyle.RowsStyle.Height = 24;
             this.dtgvFandB.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(220)))), ((int)(((byte)(185)))));
             this.dtgvFandB.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.dtgvFandB.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvFandB_CellClick);
+            this.dtgvFandB.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvFandB_CellContentDoubleClick);
+            this.dtgvFandB.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvFandB_CellValueChanged);
             // 
             // ITEMNAME
             // 
@@ -1628,22 +1639,12 @@
             this.STATEFB.MinimumWidth = 6;
             this.STATEFB.Name = "STATEFB";
             // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Controls.Add(this.btnAddFB);
-            this.flowLayoutPanel1.Controls.Add(this.btnEditFB);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(805, 6);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(232, 55);
-            this.flowLayoutPanel1.TabIndex = 101;
-            // 
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.SlateGray;
             this.tabPage3.Controls.Add(this.guna2TextBox4);
             this.tabPage3.Controls.Add(this.guna2HtmlLabel12);
             this.tabPage3.Controls.Add(this.guna2TextBox5);
-            this.tabPage3.Controls.Add(this.flowLayoutPanel5);
             this.tabPage3.Controls.Add(this.guna2CustomGradientPanel6);
             this.tabPage3.Location = new System.Drawing.Point(184, 4);
             this.tabPage3.Name = "tabPage3";
@@ -1717,79 +1718,6 @@
             this.guna2TextBox5.Size = new System.Drawing.Size(240, 38);
             this.guna2TextBox5.TabIndex = 101;
             // 
-            // flowLayoutPanel5
-            // 
-            this.flowLayoutPanel5.Controls.Add(this.guna2Button4);
-            this.flowLayoutPanel5.Controls.Add(this.guna2Button5);
-            this.flowLayoutPanel5.Controls.Add(this.guna2Button6);
-            this.flowLayoutPanel5.Location = new System.Drawing.Point(380, 48);
-            this.flowLayoutPanel5.Name = "flowLayoutPanel5";
-            this.flowLayoutPanel5.Size = new System.Drawing.Size(351, 54);
-            this.flowLayoutPanel5.TabIndex = 100;
-            // 
-            // guna2Button4
-            // 
-            this.guna2Button4.Animated = true;
-            this.guna2Button4.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button4.BorderColor = System.Drawing.Color.Maroon;
-            this.guna2Button4.BorderRadius = 20;
-            this.guna2Button4.BorderThickness = 1;
-            this.guna2Button4.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button4.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button4.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button4.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button4.FillColor = System.Drawing.Color.White;
-            this.guna2Button4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.guna2Button4.ForeColor = System.Drawing.Color.Maroon;
-            this.guna2Button4.Location = new System.Drawing.Point(3, 3);
-            this.guna2Button4.Name = "guna2Button4";
-            this.guna2Button4.Size = new System.Drawing.Size(108, 45);
-            this.guna2Button4.TabIndex = 40;
-            this.guna2Button4.Text = "ADD";
-            this.guna2Button4.UseTransparentBackground = true;
-            // 
-            // guna2Button5
-            // 
-            this.guna2Button5.Animated = true;
-            this.guna2Button5.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button5.BorderColor = System.Drawing.Color.Maroon;
-            this.guna2Button5.BorderRadius = 20;
-            this.guna2Button5.BorderThickness = 1;
-            this.guna2Button5.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button5.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button5.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button5.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button5.FillColor = System.Drawing.Color.White;
-            this.guna2Button5.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.guna2Button5.ForeColor = System.Drawing.Color.Maroon;
-            this.guna2Button5.Location = new System.Drawing.Point(117, 3);
-            this.guna2Button5.Name = "guna2Button5";
-            this.guna2Button5.Size = new System.Drawing.Size(108, 45);
-            this.guna2Button5.TabIndex = 41;
-            this.guna2Button5.Text = "DELETE";
-            this.guna2Button5.UseTransparentBackground = true;
-            // 
-            // guna2Button6
-            // 
-            this.guna2Button6.Animated = true;
-            this.guna2Button6.BackColor = System.Drawing.Color.Transparent;
-            this.guna2Button6.BorderColor = System.Drawing.Color.Maroon;
-            this.guna2Button6.BorderRadius = 20;
-            this.guna2Button6.BorderThickness = 1;
-            this.guna2Button6.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button6.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.guna2Button6.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.guna2Button6.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.guna2Button6.FillColor = System.Drawing.Color.White;
-            this.guna2Button6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.guna2Button6.ForeColor = System.Drawing.Color.Maroon;
-            this.guna2Button6.Location = new System.Drawing.Point(231, 3);
-            this.guna2Button6.Name = "guna2Button6";
-            this.guna2Button6.Size = new System.Drawing.Size(115, 45);
-            this.guna2Button6.TabIndex = 42;
-            this.guna2Button6.Text = "UPDATE";
-            this.guna2Button6.UseTransparentBackground = true;
-            // 
             // guna2CustomGradientPanel6
             // 
             this.guna2CustomGradientPanel6.BorderRadius = 20;
@@ -1826,6 +1754,7 @@
             this.dtgvBill.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dtgvBill.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
+            this.STAFF,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4,
@@ -1886,6 +1815,13 @@
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
             // 
+            // STAFF
+            // 
+            this.STAFF.HeaderText = "CASHIER";
+            this.STAFF.MinimumWidth = 6;
+            this.STAFF.Name = "STAFF";
+            this.STAFF.ReadOnly = true;
+            // 
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.HeaderText = "TYPE";
@@ -1924,7 +1860,7 @@
             // fManager
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.BackgroundImage = global::KTPOS.Properties.Resources.bground;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1418, 927);
             this.Controls.Add(btnBack);
@@ -1952,12 +1888,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.dtgvTable)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.guna2CustomGradientPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtgvFandB)).EndInit();
-            this.flowLayoutPanel1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            this.flowLayoutPanel5.ResumeLayout(false);
             this.guna2CustomGradientPanel6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtgvBill)).EndInit();
             this.ResumeLayout(false);
@@ -2016,7 +1951,7 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel4;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
-        private Guna.UI2.WinForms.Guna2TextBox guna2TextBox3;
+        private Guna.UI2.WinForms.Guna2TextBox txtSearchFB;
         private Guna.UI2.WinForms.Guna2TextBox txtPriceFB;
         private Guna.UI2.WinForms.Guna2TextBox txtNameFB;
         private Guna.UI2.WinForms.Guna2CustomGradientPanel guna2CustomGradientPanel1;
@@ -2041,23 +1976,20 @@
         private Guna.UI2.WinForms.Guna2TextBox guna2TextBox4;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel12;
         private Guna.UI2.WinForms.Guna2TextBox guna2TextBox5;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel5;
-        private Guna.UI2.WinForms.Guna2Button guna2Button4;
-        private Guna.UI2.WinForms.Guna2Button guna2Button5;
-        private Guna.UI2.WinForms.Guna2Button guna2Button6;
         private Guna.UI2.WinForms.Guna2CustomGradientPanel guna2CustomGradientPanel6;
         private Guna.UI2.WinForms.Guna2DataGridView dtgvBill;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn ITEMNAME;
         private System.Windows.Forms.DataGridViewTextBoxColumn CATEGORYITEM;
         private System.Windows.Forms.DataGridViewTextBoxColumn PRICE;
         private System.Windows.Forms.DataGridViewTextBoxColumn QUANTITY;
         private System.Windows.Forms.DataGridViewCheckBoxColumn TAGITEM;
         private System.Windows.Forms.DataGridViewButtonColumn STATEFB;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn STAFF;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
     }
 }
