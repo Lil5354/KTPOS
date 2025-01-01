@@ -5,6 +5,7 @@
     {
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|d:\\master\\ktpos\\ktposdataset.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}",
       "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:ktposdataset.xsd||{07AC752B-D2B0-4DCD-AD9C-237BF561A30A}"
     },
@@ -50,6 +51,8 @@
 =======
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
       "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|d:\\douments\\github\\ktpos\\manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -81,6 +84,9 @@
       "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\proccess\\getdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:proccess\\getdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -93,6 +99,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
           "SelectedChildIndex": 2,
@@ -196,10 +203,27 @@
               "WhenOpened": "2024-12-31T06:01:21.341Z",
               "IsPinned": true,
 >>>>>>> Stashed changes
+=======
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "fManager.cs",
+              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\MANAGER\\fManager.cs",
+              "RelativeDocumentMoniker": "MANAGER\\fManager.cs",
+              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\MANAGER\\fManager.cs",
+              "RelativeToolTip": "MANAGER\\fManager.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAYwPEBAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T06:01:21.341Z",
+              "IsPinned": true,
+>>>>>>> Stashed changes
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
               "DocumentIndex": 8,
@@ -215,12 +239,15 @@
 =======
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
               "DocumentIndex": 1,
               "Title": "fManager.cs [Design]",
               "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\MANAGER\\fManager.cs",
               "RelativeDocumentMoniker": "MANAGER\\fManager.cs",
               "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\MANAGER\\fManager.cs [Design]",
               "RelativeToolTip": "MANAGER\\fManager.cs [Design]",
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-31T05:59:19.643Z",
@@ -344,6 +371,13 @@
               "IsPinned": true
             },
             {
+=======
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T05:59:19.643Z",
+              "IsPinned": true
+            },
+            {
+>>>>>>> Stashed changes
               "$type": "Bookmark",
               "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
             },
@@ -400,6 +434,9 @@
               "RelativeToolTip": "Proccess\\DTManger.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAgwCAAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
               "WhenOpened": "2024-12-31T07:21:56.44Z"
             },
@@ -427,6 +464,9 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-30T09:07:08.409Z"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
