@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Security;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace KTPOS.Proccess
 {
@@ -52,8 +55,9 @@ namespace KTPOS.Proccess
             // Return null if function false
             return 0;
         }
-        public int DeleteAccount(string ID) {
-            string query = "UPDATE ACCOUNT SET STATUS = 0 WHERE IDSTAFF = N'" + ID + "' ";
+        public int ResolveAccount(int s, string ID)
+        {
+            string query = "UPDATE ACCOUNT SET STATUS = "+s+" WHERE IDSTAFF = '" + ID + "' ";
             int result = GetDatabase.Instance.ExecuteNonQuery(query);
             if (result > 0)
             {
@@ -61,6 +65,47 @@ namespace KTPOS.Proccess
             }
             return 0;
         }
-
+        public int UpdateAccount(string ID, string name, string email, string phone, string dob, string role)
+        {
+            string query = "UPDATE ACCOUNT SET FullName = N'" + name + "', Email = '" + email + "',PHONE = '" + phone + "',DOB = '" + dob + "',[Role] = '" + role + "'WHERE IDSTAFF = N'" + ID + "' ";
+            int result = GetDatabase.Instance.ExecuteNonQuery(query);
+            if (result > 0)
+            {
+                return result;
+            }
+            // Return null if function false
+            return 0;
+        }
+        public int ResolveTable(int s, string name) {
+            string query = "UPDATE [TABLE] SET VISIBLE = " + s + " WHERE FNAME = '" + name + "' ";
+            int result = GetDatabase.Instance.ExecuteNonQuery(query);
+            if (result > 0)
+            {
+                return result;
+            }
+            return 0;
+        }
+        public int InsertTable(string name, string capacity)
+        {
+            string query = "INSERT INTO [TABLE] (FNAME, CAPACITY) VALUES ('"+name+"', "+capacity+")";
+            int result = GetDatabase.Instance.ExecuteNonQuery(query);
+            if (result > 0)
+            {
+                return result;
+            }
+            // Return null if function false
+            return 0;
+        }
+        public int UpdateTable(string name, string fname, string capacity)
+        {
+            string query = "UPDATE [TABLE] SET FNAME = N'" + name + "', CAPACITY ="+capacity+" WHERE fname = N'" + fname + "'";
+            int result = GetDatabase.Instance.ExecuteNonQuery(query);
+            if (result > 0)
+            {
+                return result;
+            }
+            // Return null if login fails
+            return 0;
+        }
     }
 }

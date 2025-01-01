@@ -203,8 +203,13 @@ BEGIN
                     FROM BILLINF bi2
                     JOIN ITEM_PROMOTION ip ON bi2.IDFD = ip.IDITEM
                     JOIN PROMOTION p ON ip.IDPROMOTION = p.ID
+<<<<<<< Updated upstream
                     WHERE bi2.IDBILL = b.ID
                     AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+=======
+                    WHERE bi2.IDBILL = b.ID 
+                    --AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+>>>>>>> Stashed changes
                     AND (CAST(b.CHKIN_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                 ) 
                 THEN 
@@ -217,7 +222,11 @@ BEGIN
                      JOIN ITEM_PROMOTION ip ON p.ID = ip.IDPROMOTION
                      JOIN BILLINF bi ON ip.IDITEM = bi.IDFD
                      WHERE bi.IDBILL = b.ID
+<<<<<<< Updated upstream
                      AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+=======
+                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+>>>>>>> Stashed changes
                      AND (CAST(b.CHKIN_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                      ORDER BY p.DISCOUNT DESC)
                 ELSE 0
@@ -230,7 +239,11 @@ BEGIN
                     FROM BILL_PROMOTION bp
                     JOIN PROMOTION p ON bp.IDPROMOTION = p.ID
                     WHERE bp.IDBILL = b.ID
+<<<<<<< Updated upstream
                     AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+=======
+                  --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+>>>>>>> Stashed changes
                     AND (CAST(b.CHKIN_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                 ) 
                 THEN 
@@ -242,7 +255,11 @@ BEGIN
                      FROM PROMOTION p 
                      JOIN BILL_PROMOTION bp ON p.ID = bp.IDPROMOTION
                      WHERE bp.IDBILL = b.ID
+<<<<<<< Updated upstream
                      AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+=======
+                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+>>>>>>> Stashed changes
                      AND (CAST(b.CHKIN_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                      ORDER BY p.DISCOUNT DESC)
                 ELSE 0
@@ -252,7 +269,45 @@ BEGIN
     FROM BILL b
     JOIN @AffectedBills ab ON b.ID = ab.BillID;
 END;
+<<<<<<< Updated upstream
+=======
+GO
+CREATE TRIGGER trg_UpdateTableStatus
+ON BILL
+AFTER UPDATE
+AS
+BEGIN
+    -- Khi BILL.STATUS = 1, đảm bảo TABLE.STATUS = 1
+    IF EXISTS (
+        SELECT 1
+        FROM INSERTED i
+        JOIN [TABLE] t ON i.IDTABLE = t.ID
+        WHERE i.STATUS = 1 AND t.STATUS <> 1
+    )
+    BEGIN
+        UPDATE [TABLE]
+        SET STATUS = 1
+        FROM [TABLE] t
+        JOIN INSERTED i ON t.ID = i.IDTABLE
+        WHERE i.STATUS = 1;
+    END
+>>>>>>> Stashed changes
 
+    -- Khi BILL.STATUS = 0, đảm bảo TABLE.STATUS = 0
+    IF EXISTS (
+        SELECT 1
+        FROM INSERTED i
+        JOIN [TABLE] t ON i.IDTABLE = t.ID
+        WHERE i.STATUS = 0 AND t.STATUS <> 0
+    )
+    BEGIN
+        UPDATE [TABLE]
+        SET STATUS = 0
+        FROM [TABLE] t
+        JOIN INSERTED i ON t.ID = i.IDTABLE
+        WHERE i.STATUS = 0;
+    END
+END;
 GO
 INSERT INTO ACCOUNT (FULLNAME, EMAIL, PHONE, DOB, [PASSWORD], [ROLE], STATUS) VALUES 
     (N'Võ Đăng Khoa',			'khoavd2809@gmail.com',	'0843019548', '2004-09-28', 'khoavo123',		'Manager', 1)
@@ -382,6 +437,7 @@ VALUES
 (6, 7, 3),
 (7, 8, 2),
 (8, 9, 4),
+<<<<<<< Updated upstream
 (9, 10, 1),
 (10, 1, 2),  -- 2 phần Spring Rolls
 (10, 4, 1),  -- 1 phần Iced Coffee
@@ -390,6 +446,12 @@ VALUES
 --------------------
 SELECT 
     B.ID AS BillID,
+=======
+(9, 10, 1);
+---------------------------------
+SELECT 
+    B.ID,
+>>>>>>> Stashed changes
     A.FULLNAME AS CashierName,
     B.TOTAL AS TotalAmount,
     B.IDTABLE AS TableID,
@@ -541,6 +603,7 @@ LEFT JOIN [TABLE] t ON b.IDTABLE = t.ID
 JOIN BillItems bi ON b.ID = bi.BillID
 LEFT JOIN FinalDiscounts fd ON b.ID = fd.BillID
 ORDER BY b.ID ASC;
+<<<<<<< Updated upstream
 -------------------------------
 
 GO
@@ -624,3 +687,30 @@ FROM PROMOTION p
 JOIN BILL_PROMOTION bp ON p.ID = bp.IDPROMOTION 
 WHERE bp.IDBILL = @BillID;
 
+=======
+--------------------------------------------------------------------------
+SELECT 
+    i.FNAME AS ITEM_NAME,
+    i.CATEGORY,
+    i.PRICE,
+    ISNULL(SUM(bi.COUNT), 0) AS QTY,  -- Tổng số lượng đã bán
+    STRING_AGG(t.TAGNAME, ', ') AS TAG  -- Nối tên các tag liên quan
+FROM 
+    ITEM i
+LEFT JOIN 
+    BILLINF bi ON i.ID = bi.IDFD
+LEFT JOIN 
+    ITEM_TAG it ON i.ID = it.IDITEM
+LEFT JOIN 
+    TAG t ON it.IDTAG = t.ID
+GROUP BY 
+    i.FNAME, i.CATEGORY, i.PRICE
+ORDER BY 
+    i.FNAME;
+-----
+SELECT I.FNAME AS [ITEM NAME], I.CATEGORY,  I.PRICE, ISNULL(SUM(bi.COUNT), 0) AS QTY, MAX(CASE WHEN T.TAGNAME = 'Regular' THEN 1 ELSE 0 END) AS TAG
+FROM ITEM I LEFT JOIN BILLINF bi ON i.ID = bi.IDFD LEFT JOIN ITEM_TAG IT ON I.ID = IT.IDITEM LEFT JOIN TAG T ON IT.IDTAG = T.ID GROUP BY I.FNAME, I.CATEGORY,I.PRICE ORDER BY I.FNAME; 
+
+---------------
+SELECT * FROM ACCOUNT
+>>>>>>> Stashed changes
