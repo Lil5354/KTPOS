@@ -213,8 +213,13 @@ BEGIN
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     WHERE bi2.IDBILL = b.ID
                     AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+=======
+                    WHERE bi2.IDBILL = b.ID 
+                    --AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+>>>>>>> Stashed changes
 =======
                     WHERE bi2.IDBILL = b.ID 
                     --AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
@@ -277,7 +282,11 @@ BEGIN
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                      AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+=======
+                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+>>>>>>> Stashed changes
 =======
                    --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
 >>>>>>> Stashed changes
@@ -330,7 +339,11 @@ BEGIN
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+=======
+                  --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+>>>>>>> Stashed changes
 =======
                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
 >>>>>>> Stashed changes
@@ -382,7 +395,11 @@ BEGIN
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                      AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+=======
+                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+>>>>>>> Stashed changes
 =======
                    --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
 >>>>>>> Stashed changes
@@ -432,7 +449,10 @@ END;
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 =======
@@ -480,6 +500,9 @@ BEGIN
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -667,6 +690,9 @@ SELECT
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -847,6 +873,7 @@ ORDER BY b.ID ASC;
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 -------------------------------
 
 GO
@@ -949,6 +976,8 @@ WHERE bp.IDBILL = @BillID;
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 --------------------------------------------------------------------------
 SELECT 
     i.FNAME AS ITEM_NAME,
@@ -982,6 +1011,10 @@ FROM ITEM I LEFT JOIN BILLINF bi ON i.ID = bi.IDFD LEFT JOIN ITEM_TAG IT ON I.ID
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+SELECT * FROM ACCOUNT
+>>>>>>> Stashed changes
+=======
 SELECT * FROM ACCOUNT
 >>>>>>> Stashed changes
 =======

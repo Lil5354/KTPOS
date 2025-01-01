@@ -5,9 +5,12 @@
     {
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|d:\\douments\\github\\ktpos\\proccess\\dtmanger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:proccess\\dtmanger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
       "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|d:\\douments\\github\\ktpos\\manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -44,6 +47,9 @@
       "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\proccess\\getdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:proccess\\getdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -56,6 +62,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
           "SelectedChildIndex": 3,
@@ -115,6 +122,22 @@
               "WhenOpened": "2024-12-31T06:01:21.341Z",
               "IsPinned": true,
 >>>>>>> Stashed changes
+=======
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "fManager.cs",
+              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\MANAGER\\fManager.cs",
+              "RelativeDocumentMoniker": "MANAGER\\fManager.cs",
+              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\MANAGER\\fManager.cs",
+              "RelativeToolTip": "MANAGER\\fManager.cs",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAYwK8AAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-31T06:01:21.341Z",
+              "IsPinned": true,
+>>>>>>> Stashed changes
               "EditorCaption": ""
             },
             {
@@ -128,8 +151,11 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
               "WhenOpened": "2025-01-01T11:31:33.425Z"
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
               "WhenOpened": "2024-12-31T05:59:19.643Z",
@@ -218,6 +244,9 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-30T09:07:08.409Z"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
