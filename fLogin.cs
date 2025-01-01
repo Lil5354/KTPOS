@@ -76,7 +76,14 @@ namespace KTPOS
                 string role = LgAccount.Instance.LgManage(email, password);
                 if (role != null)
                 {
-                    fStaff_F f = new fStaff_F(role);
+                    string query = "SELECT IDSTAFF FROM ACCOUNT where EMAIL = '" + email + "'";
+                    string idstaff = "";
+                    DataTable data = GetDatabase.Instance.ExecuteQuery(query);
+                    foreach (DataRow row in data.Rows)
+                    {
+                        idstaff = row["IDSTAFF"].ToString();
+                    }
+                    fStaff_F f = new fStaff_F(role, idstaff);
                     this.Hide();
                     f.ShowDialog();
                 }

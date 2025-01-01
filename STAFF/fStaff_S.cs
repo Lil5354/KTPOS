@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,9 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using Guna.UI2.WinForms;
 using KTPOS.Proccess;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace KTPOS.STAFF
 {
@@ -18,6 +19,8 @@ namespace KTPOS.STAFF
     {
         private int idBill = 0;
         private DataTable billTable;
+        private Dictionary<int, int> discount;
+        private int billdiscount = 0;
         public fStaff_S(int tableId)
         {
             InitializeComponent();
@@ -45,6 +48,31 @@ namespace KTPOS.STAFF
                 // Get the existing DataTable from the DataGridView
                 billTable = ((DataTable)dtgvBillCus.DataSource).Copy();
                 dtgvBillCus.DataSource = billTable;
+            }
+            set();
+            CheckDiscount();
+        }
+        private void set()
+        {
+            string query = $"SELECT i.FNAME as NAME, bi.COUNT as QTY, i.PRICE as PRICE, i.ID as ID FROM BILLINF bi JOIN ITEM i ON bi.IDFD = i.ID WHERE bi.IDBILL = '{idBill}'";
+            DataTable billDetails = GetDatabase.Instance.ExecuteQuery(query);
+            dtgvBillCus.DataSource = billDetails;
+        }
+        private void CheckDiscount()
+        {
+            try
+            {
+                string query2 = "SELECT DISCOUNT FROM PROMOTION WHERE GETDATE() BETWEEN [START_DATE] AND END_DATE AND APPLY_TO = 'Bill' ORDER BY DISCOUNT DESC;";
+                DataTable data2 = GetDatabase.Instance.ExecuteQuery(query2);
+                foreach (DataRow row2 in data2.Rows)
+                {
+                    billdiscount = Convert.ToInt32(row2["DISCOUNT"]);
+                    break;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading menu items: " + ex.Message);
             }
         }
         private void InitializeBillTable()
@@ -106,11 +134,13 @@ namespace KTPOS.STAFF
         }
         private void LoadFilter()
         {
-            string query = "SELECT DISTINCT SALEGROUP FROM ITEM;";
+            Filter.Items.Clear();
+            string query = "SELECT TAGNAME FROM Tag;";
             DataTable data = GetDatabase.Instance.ExecuteQuery(query);
-            Filter.Controls.Clear();
             foreach (DataRow row in data.Rows)
-                Filter.Items.Add(row["SALEGROUP"]);
+            {
+                Filter.Items.Add(row["TAGNAME"]);
+            }
         }
         private void LoadMenuItems(string query)
         {
@@ -122,8 +152,22 @@ namespace KTPOS.STAFF
                 {
                     int itemId = Convert.ToInt32(row["ID"]);
                     string itemName = row["FNAME"].ToString();
-                    decimal price = Convert.ToDecimal(row["PRICE"]);
+                    decimal price1 = Convert.ToDecimal(row["PRICE"]);
                     string category = row["CATEGORY"].ToString();
+                    decimal discountitem = Convert.ToInt32(row["DISCOUNT"]);
+                    if (discountitem > 0) discountitem /= 100;
+                    decimal cost1 = price1 - (price1 * discountitem);
+                    int cost = (int) cost1;
+                    int price = (int) price1;
+                    string pricetext;
+                    if (price != cost)
+                    {
+                        pricetext = $"{price:N0} VND -> {cost:N0} VND";
+                    }
+                    else
+                    {
+                        pricetext = $"{price:N0} VND";
+                    }
 
                     // Create the main container using Guna2Panel for rounded corners
                     Guna2Panel itemPanel = new Guna2Panel
@@ -154,7 +198,7 @@ namespace KTPOS.STAFF
                     // Load image based on category
                     try
                     {
-                        string imagePath = $@"E:\App\Menu\Image Items\" + itemName + ".jpg";
+                        string imagePath = $@"E:\App\ok\KTPOS\Image Items\" + itemName + ".jpg";
                         if (File.Exists(imagePath))
                         {
                             itemImage.Image = Image.FromFile(imagePath);
@@ -177,7 +221,7 @@ namespace KTPOS.STAFF
                     {
                         itemImage.Image = Properties.Resources.cocktail; // Your default resource
                     }
-                    itemImage.Click += (sender, e) => ItemImage_Click(itemId, itemName, price);
+                    itemImage.Click += (sender, e) => ItemImage_Click(itemId, itemName, cost);
                     // Create and configure the name label
                     Label nameLabel = new Label
                     {
@@ -194,7 +238,7 @@ namespace KTPOS.STAFF
                     // Create and configure the price label
                     Label priceLabel = new Label
                     {
-                        Text = string.Format("{0:N0} VND", price),
+                        Text = pricetext,
                         AutoSize = false,
                         Width = 130,
                         Height = 20,
@@ -242,7 +286,7 @@ namespace KTPOS.STAFF
                     kt = false;
                     int d = int.Parse(row.Cells["QTY"].Value.ToString());
                     d++;
-                    decimal cost = (decimal) d * price;
+                    decimal cost = (decimal)d * price;
                     row.Cells["QTY"].Value = d.ToString();
                     row.Cells["PRICE"].Value = cost.ToString();
                     break;
@@ -286,16 +330,6 @@ namespace KTPOS.STAFF
             }
             txtTotal.Text = total.ToString("N0") + " VND";
         }
-        private void btnMenu_Click_1(object sender, EventArgs e)
-        {
-            txtSearch.Clear();
-            string query = "SELECT i.ID, i.FNAME, i.PRICE, i.DISCOUNTRATE, fc.FNAME as CATEGORY " +
-                  "FROM ITEM i " +
-                  "JOIN [F&BCATEGORY] fc ON i.IDCATEGORY = fc.ID " +
-                  "WHERE i.VISIBLE = 1";
-            LoadMenuItems(query);
-        }
-
         private void txtSearch_KeyUp(object sender, KeyEventArgs e)
         {
             foreach (Control control in FlowMenu.Controls)
@@ -319,10 +353,7 @@ namespace KTPOS.STAFF
         {
             txtSearch.Clear();
             string filter = Filter.SelectedItem.ToString();
-            string query = "SELECT i.ID, i.FNAME, i.PRICE, i.DISCOUNTRATE, fc.FNAME as CATEGORY " +
-                  "FROM ITEM i " +
-                  "JOIN [F&BCATEGORY] fc ON i.IDCATEGORY = fc.ID " +
-                  "WHERE i.SALEGROUP = '" + filter + "'";
+            string query = "";
             LoadMenuItems(query);
         }
         private void nUDItem_ValueChanged(object sender, EventArgs e)
@@ -359,7 +390,7 @@ namespace KTPOS.STAFF
             DialogResult dialog = MessageBox.Show("Do you really want to Order?", "Notice", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialog == DialogResult.Yes)
             {
-                string filePath = "E:\\App\\KTPOS\\Note\\BillNote";
+                string filePath = "E:\\App\\ok\\KTPOS\\Note\\BillNote";
                 string query = "DELETE from BILLINF where IDBILL = " + idBill.ToString();
                 GetDatabase.Instance.ExecuteNonQuery(query);
                 filePath = filePath + idBill.ToString() + ".txt";
@@ -396,7 +427,43 @@ namespace KTPOS.STAFF
 
         private void lbCancel_Click(object sender, EventArgs e)
         {
-            btnBack_Click(sender, e);
+            billTable = ((DataTable)dtgvBillCus.DataSource).Copy();
+            dtgvBillCus.DataSource = billTable;
+        }
+
+        private void btnAll_Click(object sender, EventArgs e)
+        {
+            txtSearch.Clear();
+            string query = "SELECT  DISTINCT I.ID AS ID , I.FNAME AS FNAME, I.CATEGORY AS CATEGORY, I.PRICE AS PRICE, ISNULL(P.DISCOUNT, 0) AS DISCOUNT FROM ITEM I LEFT JOIN ITEM_PROMOTION IP ON I.ID = IP.IDITEM LEFT JOIN PROMOTION P ON IP.IDPROMOTION = P.ID ORDER BY ISNULL(P.DISCOUNT, 0) DESC;";
+            LoadMenuItems(query);
+        }
+
+        private void Filter_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            txtSearch.Clear();
+            if (Filter.SelectedItem == null) return;
+            string filter = Filter.SelectedItem.ToString();
+            string query = $"SELECT DISTINCT I.ID AS ID, I.FNAME AS FNAME, I.CATEGORY AS CATEGORY, I.PRICE AS PRICE, ISNULL(P.DISCOUNT, 0) AS DISCOUNT, P.FNAME AS PromotionName, P.[START_DATE] AS StartDate, P.END_DATE AS EndDate FROM ITEM I LEFT JOIN ITEM_PROMOTION IP ON I.ID = IP.IDITEM LEFT JOIN PROMOTION P ON IP.IDPROMOTION = P.ID JOIN ITEM_TAG IT ON I.ID = IT.IDITEM JOIN TAG T ON IT.IDTAG = T.ID AND T.TAGNAME = '{filter}' ORDER BY ISNULL(P.DISCOUNT, 0) DESC;";
+            LoadMenuItems(query);
+        }
+
+        private void btnFood_Click(object sender, EventArgs e)
+        {
+            txtSearch.Clear();
+            string query = "SELECT DISTINCT I.ID AS ID , I.FNAME AS FNAME, I.CATEGORY AS CATEGORY, I.PRICE AS PRICE, ISNULL(P.DISCOUNT, 0) AS DISCOUNT, P.FNAME AS PromotionName, P.[START_DATE] AS StartDate, P.END_DATE AS EndDate FROM ITEM I LEFT JOIN ITEM_PROMOTION IP ON I.ID = IP.IDITEM LEFT JOIN PROMOTION P ON IP.IDPROMOTION = P.ID WHERE CATEGORY = 'Food' ORDER BY ISNULL(P.DISCOUNT, 0) DESC;";
+            LoadMenuItems(query);
+        }
+
+        private void btnDrink_Click(object sender, EventArgs e)
+        {
+            txtSearch.Clear();
+            string query = "SELECT DISTINCT I.ID AS ID , I.FNAME AS FNAME, I.CATEGORY AS CATEGORY, I.PRICE AS PRICE, ISNULL(P.DISCOUNT, 0) AS DISCOUNT, P.FNAME AS PromotionName, P.[START_DATE] AS StartDate, P.END_DATE AS EndDate FROM ITEM I LEFT JOIN ITEM_PROMOTION IP ON I.ID = IP.IDITEM LEFT JOIN PROMOTION P ON IP.IDPROMOTION = P.ID WHERE CATEGORY = 'Drink' ORDER BY ISNULL(P.DISCOUNT, 0) DESC;";
+            LoadMenuItems(query);
+        }
+
+        private void tnCancel_Click(object sender, EventArgs e)
+        {
+            set();
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
+using KTPOS.MANAGER;
 using KTPOS.STAFF;
 
 namespace KTPOS
@@ -18,7 +19,7 @@ namespace KTPOS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new fStaff_F("Staff"));
+            Application.Run(new fStaff_S(1));
         }
     }
 }
