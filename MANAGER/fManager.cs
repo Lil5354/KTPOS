@@ -153,7 +153,23 @@ namespace KTPOS.MANAGER
                         index = -1;
                         break;
                     case "BILL":
-                        query = "";
+                        query = @"SELECT 
+                           B.ID,
+                           B.CHKIN_TIME AS [DATE],
+                           C.FULLNAME AS [CUSTOMER],
+                           CASE WHEN B.BILLTYPE = 1 THEN 'Dine-In' ELSE 'Take away' END AS [TYPE],
+                           (SELECT SUM(bi.COUNT * i.PRICE)
+                            FROM BILLINF bi
+                            JOIN ITEM i ON bi.IDFD = i.ID 
+                            WHERE bi.IDBILL = B.ID) AS TOTAL,
+                           (SELECT SUM(bi.COUNT * i.PRICE)
+                            FROM BILLINF bi
+                            JOIN ITEM i ON bi.IDFD = i.ID 
+                            WHERE bi.IDBILL = B.ID) - B.TOTAL AS DISCOUNT,
+                           B.TOTAL AS PAYMENT
+                        FROM BILL B
+                        LEFT JOIN ACCOUNT A ON B.IDSTAFF = A.IDSTAFF 
+                        LEFT JOIN CUSTOMER C ON B.IDCUSTOMER = C.ID;";
                         DTManger.Instance.LoadList(query, dtgvBill);
                         index = -1;
                         break;
@@ -169,9 +185,6 @@ namespace KTPOS.MANAGER
                     case "REVENUE":
                         query = "";
                         index = -1;
-                        break;
-                    case "SALETAG":
-                        
                         break;
                     default:
                         query = "";
@@ -668,6 +681,12 @@ namespace KTPOS.MANAGER
                 }
             }
         }
+
+        private void dtgvBill_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
         private void txtSearchFB_KeyUp(object sender, KeyEventArgs e)
         {
             query = "SELECT I.FNAME AS [ITEM NAME], I.CATEGORY,  I.PRICE, ISNULL(SUM(bi.COUNT), 0) AS QTY, MAX(CASE WHEN T.TAGNAME = '" + cbbTag.Text + "' THEN 1 ELSE 0 END) AS TAG," +

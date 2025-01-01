@@ -680,4 +680,20 @@ WHERE bi.IDBILL = @BillID;
 --------------------------------------------------------------------------
 
 -----
-
+SELECT 
+   B.ID,
+   B.CHKIN_TIME AS [DATE],
+   C.FULLNAME AS [CUSTOMER],
+   CASE WHEN B.BILLTYPE = 1 THEN 'Dine-In' ELSE 'Take away' END AS [TYPE],
+   (SELECT SUM(bi.COUNT * i.PRICE)
+    FROM BILLINF bi
+    JOIN ITEM i ON bi.IDFD = i.ID 
+    WHERE bi.IDBILL = B.ID) AS TOTAL,
+   (SELECT SUM(bi.COUNT * i.PRICE)
+    FROM BILLINF bi
+    JOIN ITEM i ON bi.IDFD = i.ID 
+    WHERE bi.IDBILL = B.ID) - B.TOTAL AS DISCOUNT,
+   B.TOTAL AS PAYMENT
+FROM BILL B
+LEFT JOIN ACCOUNT A ON B.IDSTAFF = A.IDSTAFF 
+LEFT JOIN CUSTOMER C ON B.IDCUSTOMER = C.ID;

@@ -150,12 +150,12 @@
             this.guna2CustomGradientPanel6 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.dtgvBill = new Guna.UI2.WinForms.Guna2DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.STAFF = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CUS = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SUM = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PAY = new System.Windows.Forms.DataGridViewTextBoxColumn();
             btnClose = new Guna.UI2.WinForms.Guna2Button();
             btnBack = new Guna.UI2.WinForms.Guna2Button();
             this.account.SuspendLayout();
@@ -1754,12 +1754,12 @@
             this.dtgvBill.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
             this.dtgvBill.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
-            this.STAFF,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6});
+            this.CUS,
+            this.dataGridViewTextBoxColumn2,
+            this.SUM,
+            this.dc,
+            this.PAY});
             dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle35.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle35.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1807,6 +1807,7 @@
             this.dtgvBill.ThemeStyle.RowsStyle.Height = 24;
             this.dtgvBill.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(220)))), ((int)(((byte)(185)))));
             this.dtgvBill.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.dtgvBill.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgvBill_CellContentClick);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -1815,12 +1816,19 @@
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
             // 
-            // STAFF
+            // dataGridViewTextBoxColumn4
             // 
-            this.STAFF.HeaderText = "CASHIER";
-            this.STAFF.MinimumWidth = 6;
-            this.STAFF.Name = "STAFF";
-            this.STAFF.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.HeaderText = "DATE";
+            this.dataGridViewTextBoxColumn4.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // CUS
+            // 
+            this.CUS.HeaderText = "CUSTOMER";
+            this.CUS.MinimumWidth = 6;
+            this.CUS.Name = "CUS";
+            this.CUS.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -1829,33 +1837,26 @@
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn3
+            // SUM
             // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "CHK-IN";
-            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.SUM.HeaderText = "TOTAL";
+            this.SUM.MinimumWidth = 6;
+            this.SUM.Name = "SUM";
+            this.SUM.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn4
+            // dc
             // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "CHK-OUT";
-            this.dataGridViewTextBoxColumn4.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dc.HeaderText = "DISCOUNT";
+            this.dc.MinimumWidth = 6;
+            this.dc.Name = "dc";
+            this.dc.ReadOnly = true;
             // 
-            // dataGridViewTextBoxColumn5
+            // PAY
             // 
-            this.dataGridViewTextBoxColumn5.HeaderText = "DURATION";
-            this.dataGridViewTextBoxColumn5.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.HeaderText = "PAYMENT";
-            this.dataGridViewTextBoxColumn6.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            this.PAY.HeaderText = "PAYMENT";
+            this.PAY.MinimumWidth = 6;
+            this.PAY.Name = "PAY";
+            this.PAY.ReadOnly = true;
             // 
             // fManager
             // 
@@ -1985,11 +1986,11 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn TAGITEM;
         private System.Windows.Forms.DataGridViewButtonColumn STATEFB;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn STAFF;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CUS;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SUM;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PAY;
     }
 }
