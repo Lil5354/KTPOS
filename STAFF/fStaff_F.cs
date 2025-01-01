@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -21,6 +23,7 @@ namespace KTPOS.STAFF
         public fStaff_F(string role)
         {
             InitializeComponent();
+            ListBill.CellClick += ListBill_CellClick;
             this.userRole = role;
             ConfigureUIBasedOnRole();
             LoadTables();
@@ -83,6 +86,25 @@ namespace KTPOS.STAFF
 
                 flTable.Controls.Clear();
 
+                // Add TakeAway button first
+                Guna2Button takeAwayButton = new Guna2Button
+                {
+                    Text = "Take Away\nAvailable",
+                    Width = 100,
+                    Height = 100,
+                    BorderRadius = 20,
+                    FillColor = Color.LightGreen, // Different color to distinguish from tables
+                    ForeColor = Color.Maroon,
+                    Font = new Font("Segoe UI Semibold", 9, FontStyle.Bold),
+                    Margin = new Padding(10),
+                    HoverState = { FillColor = Color.Gray },
+                    Tag = -1 // Use -1 as special ID for TakeAway
+                };
+
+                takeAwayButton.Click += TableButton_Click;
+                flTable.Controls.Add(takeAwayButton);
+
+                // Add regular table buttons
                 foreach (DataRow row in data.Rows)
                 {
                     int tableId = Convert.ToInt32(row["ID"]);
@@ -105,7 +127,6 @@ namespace KTPOS.STAFF
                     };
 
                     tableButton.Click += TableButton_Click;
-
                     flTable.Controls.Add(tableButton);
                 }
             }
@@ -114,6 +135,7 @@ namespace KTPOS.STAFF
                 MessageBox.Show("Error: " + ex.Message);
             }
         }
+        
         private void TableButton_Click(object sender, EventArgs e)
         {
             if (!(sender is Guna2Button clickedButton)) return;
@@ -121,30 +143,28 @@ namespace KTPOS.STAFF
             int tableId = Convert.ToInt32(clickedButton.Tag);
             string tableName = clickedButton.Text.Split('\n')[0];
 
-            const string billQuery = @"
-        SELECT b.ID 
-        FROM Bill b 
-        WHERE b.idTable = @tableId AND b.status = 0";
-
-            object billIdResult = GetDatabase.Instance.ExecuteScalar(billQuery, new object[] { tableId });
-
-            if (billIdResult == null)
+            // Special handling for TakeAway
+            if (tableId == -1)
             {
-                MessageBox.Show("No unpaid bill found for this table.",
-                    "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                tableName = "Take Away";
             }
 
+            const string billQuery = @"
+SELECT b.ID 
+FROM Bill b 
+WHERE b.idTable = @tableId AND b.status = 0";
+
+            object billIdResult = GetDatabase.Instance.ExecuteScalar(billQuery, new object[] { tableId });
             int billId = Convert.ToInt32(billIdResult);
             const string detailsQuery = @"
-        SELECT 
-            i.FNAME as NAME,
-            bi.COUNT as QTY,
-            i.PRICE as PRICE,
-            i.ID as ID
-        FROM BILLINF bi
-        JOIN ITEM i ON bi.IDFD = i.ID
-        WHERE bi.IDBILL = @billId";
+SELECT 
+    i.FNAME as NAME,
+    bi.COUNT as QTY,
+    i.PRICE as PRICE,
+    i.ID as ID
+FROM BILLINF bi
+JOIN ITEM i ON bi.IDFD = i.ID
+WHERE bi.IDBILL = @billId";
 
             DataTable billDetails = GetDatabase.Instance.ExecuteQuery(detailsQuery, new object[] { billId });
             using (fStaff_S staffForm = new fStaff_S(tableId))
@@ -162,7 +182,8 @@ namespace KTPOS.STAFF
                         txtNoteBill.Text = note;
                     }
                 }
-                if (staffForm.Controls.Find("dtgvBillCus", true).FirstOrDefault() is Guna2DataGridView dtgvBillCus && staffForm.Controls.Find("txtTotal", true).FirstOrDefault() is Guna2HtmlLabel txtTotal)
+                if (staffForm.Controls.Find("dtgvBillCus", true).FirstOrDefault() is Guna2DataGridView dtgvBillCus &&
+                    staffForm.Controls.Find("txtTotal", true).FirstOrDefault() is Guna2HtmlLabel txtTotal)
                 {
                     dtgvBillCus.DataSource = billDetails;
                     dtgvBillCus.Columns["ID"].Visible = false;
@@ -186,9 +207,9 @@ namespace KTPOS.STAFF
                         else total = 0;
                     }
                     txtTotal.Text = total.ToString("N0") + " VND";
-                    // Thiết lập canh giữa tiêu đề các cột
+
                     dtgvBillCus.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    // Kiểm tra nếu cột "DEL" chưa tồn tại, thì thêm cột Button
+
                     if (!dtgvBillCus.Columns.Contains("DEL_BUTTON"))
                     {
                         DataGridViewButtonColumn delButtonColumn = new DataGridViewButtonColumn
@@ -196,23 +217,20 @@ namespace KTPOS.STAFF
                             Name = "DEL_BUTTON",
                             HeaderText = "DEL",
                             Text = "x",
-                            UseColumnTextForButtonValue = true, // Hiển thị "Delete" làm nút
+                            UseColumnTextForButtonValue = true,
                             AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
                         };
                         dtgvBillCus.Columns.Add(delButtonColumn);
                     }
 
-                    // Xử lý sự kiện khi click vào cột "DEL_BUTTON"
                     dtgvBillCus.CellClick += (s, evt) =>
                     {
                         if (evt.RowIndex >= 0 && evt.ColumnIndex == dtgvBillCus.Columns["DEL_BUTTON"].Index)
                         {
-                            // Lấy thông tin dòng được click
                             var row = dtgvBillCus.Rows[evt.RowIndex];
                             string itemName = row.Cells["NAME"].Value.ToString();
                             int qty = Convert.ToInt32(row.Cells["QTY"].Value);
 
-                            // Hành động xóa dòng (có thể tùy chỉnh theo logic)
                             DialogResult confirm = MessageBox.Show(
                                 $"Do you want to delete {qty} of {itemName}?",
                                 "Confirm Delete",
@@ -222,7 +240,6 @@ namespace KTPOS.STAFF
 
                             if (confirm == DialogResult.Yes)
                             {
-                                // Thực hiện xóa ở DataGridView (hoặc cập nhật trong cơ sở dữ liệu)
                                 dtgvBillCus.Rows.RemoveAt(evt.RowIndex);
                                 {
                                     total = 0;
@@ -313,10 +330,6 @@ ORDER BY b.status, b.ID DESC";
             LoadBillData();
         }
         private UserControl currentUserControl;
-        private object selectedBillId;
-
-        public int SelectedBillId { get; internal set; }
-
         public void AddUserControl(UserControl userControl)
         {
             if (currentUserControl != null)
@@ -380,56 +393,140 @@ ORDER BY b.status, b.ID DESC";
                     {
                         try
                         {
-                            string tableName = row.Cells["TABLE"].Value?.ToString() ?? "Unknown";
+                            // Debug logging
+                            Console.WriteLine($"Starting QR generation for bill");
 
-                            // Calculate total amount including any applicable discounts
-                            string totalQuery = @"
-                WITH BillItems AS (
-                    SELECT 
-                        SUM(bi.COUNT * i.PRICE) AS SubTotal
-                    FROM BILLINF bi
-                    JOIN ITEM i ON bi.IDFD = i.ID
-                    WHERE bi.IDBILL = @billId
-                ),
-                ItemDiscounts AS (
-                    SELECT TOP 1 p.DISCOUNT
-                    FROM PROMOTION p 
-                    JOIN ITEM_PROMOTION ip ON p.ID = ip.IDPROMOTION
-                    JOIN BILLINF bif ON ip.IDITEM = bif.IDFD
-                    WHERE bif.IDBILL = @billId 
-                    AND CAST(GETDATE() AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE
-                    ORDER BY p.DISCOUNT DESC
-                ),
-                BillDiscounts AS (
-                    SELECT TOP 1 p.DISCOUNT
-                    FROM PROMOTION p 
-                    JOIN BILL_PROMOTION bp ON p.ID = bp.IDPROMOTION
-                    WHERE bp.IDBILL = @billId
-                    AND CAST(GETDATE() AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE
-                    ORDER BY p.DISCOUNT DESC
-                )
-                SELECT 
-                    bi.SubTotal - 
-                    (bi.SubTotal * ISNULL((SELECT DISCOUNT/100.0 FROM ItemDiscounts), 0)) -
-                    (bi.SubTotal * ISNULL((SELECT DISCOUNT/100.0 FROM BillDiscounts), 0)) AS FinalTotal
-                FROM BillItems bi";
+                            // Verify billId exists and is valid
+                            if (billId == null)
+                            {
+                                MessageBox.Show("Bill ID is null", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
 
-                            object totalResult = GetDatabase.Instance.ExecuteScalar(totalQuery, new object[] { billId });
-                            decimal totalAmount = totalResult != null ? Convert.ToDecimal(totalResult) : 0;
+                            // Convert billId to string then parse to int to ensure valid format
+                            string billIdStr = billId.ToString();
+                            if (!int.TryParse(billIdStr, out int parsedBillId))
+                            {
+                                MessageBox.Show($"Invalid bill ID format: {billIdStr}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
 
-                            // Create and show UC_QRPayment with the correct billId
-                            UC_QRPayment ucQrPayment = new UC_QRPayment();
-                            ucQrPayment.GetBillId(billId);
-                            ucQrPayment.UpdateQRCode(
-                                content: $"Bill {billId} - {tableName}",
-                                amount: totalAmount
-                            );
-                            AddUserControl(ucQrPayment);
+                            Console.WriteLine($"Parsed bill ID: {parsedBillId}");
+
+                            // Get table name with null check
+                            string tableName = "Unknown";
+                            if (row?.Cells != null && row.Cells["TABLE"]?.Value != null)
+                            {
+                                tableName = row.Cells["TABLE"].Value.ToString();
+                            }
+
+                            Console.WriteLine($"Table name: {tableName}");
+
+                            // Simplified query to test database connection
+                            string testQuery = "SELECT COUNT(*) FROM BILL WHERE ID = @billId";
+                            object testResult = GetDatabase.Instance.ExecuteScalar(testQuery, new object[] { parsedBillId });
+
+                            if (Convert.ToInt32(testResult) == 0)
+                            {
+                                MessageBox.Show("Bill not found in database", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+
+                            // Calculate total with simplified query first
+                            string finalTotalQuery = @"
+                            SELECT CAST(b.TOTAL as decimal(10,0)) as FinalTotal 
+                            FROM BILL b 
+                            WHERE b.ID = @billId";
+
+                            object finalTotalResult = GetDatabase.Instance.ExecuteScalar(finalTotalQuery, new object[] { parsedBillId });
+                            decimal finalTotal = finalTotalResult != null ? Convert.ToDecimal(finalTotalResult) : 0;
+                            Console.WriteLine($"Final total calculated: {finalTotal}");
+
+
+                            if (finalTotal <= 0)
+                            {
+                                MessageBox.Show("Invalid bill amount (zero or negative)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+
+                            // Create QR payment control with explicit error handling
+                            try
+                            {
+                                Console.WriteLine("Creating UC_QRPayment control");
+                                UC_QRPayment ucQrPayment = new UC_QRPayment();
+                                ucQrPayment.GetBillId(parsedBillId);
+
+                                Console.WriteLine("Updating QR code");
+                                ucQrPayment.UpdateQRCode(
+                                    content: $"Bill {parsedBillId} - {tableName}",
+                                    amount: finalTotal
+                                );
+
+                                Console.WriteLine("Adding control to form");
+                                AddUserControl(ucQrPayment);
+                            }
+                            catch (Exception innerEx)
+                            {
+                                MessageBox.Show($"Error in QR control creation: {innerEx.Message}\nStack trace: {innerEx.StackTrace}",
+                                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Error showing QR payment: " + ex.Message);
+                            MessageBox.Show($"Error showing QR payment: {ex.Message}\nStack trace: {ex.StackTrace}",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Console.WriteLine($"Exception details: {ex}");
                         }
+                    }
+                } 
+                else if (ListBill.Columns[e.ColumnIndex].Name == "BILL")
+                {
+                    try
+                    {
+                        object checkoutTime = ListBill.Rows[e.RowIndex].Cells["CHECKOUT"].Value;
+                        if (checkoutTime == null || checkoutTime == DBNull.Value)
+                        {
+                            MessageBox.Show("This bill has not been paid yet", "Unpaid Bill",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+                        // Get BillID directly from the row with null check
+                        if (ListBill.Rows[e.RowIndex].Cells["BillID"].Value == null)
+                        {
+                            MessageBox.Show("Invalid Bill ID", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        int billId = Convert.ToInt32(ListBill.Rows[e.RowIndex].Cells["BillID"].Value);
+                    
+                        // Validate billId
+                        if (billId <= 0)
+                        {
+                            MessageBox.Show("Invalid Bill ID value", "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        // Create and show the bill viewer form with try-finally
+                        fBillViewer billViewer = new fBillViewer(billId);
+                        try
+                        {
+                            billViewer.MinimizeBox = false;
+                            billViewer.MaximizeBox = false;
+                            billViewer.StartPosition = FormStartPosition.CenterParent;
+                            billViewer.ShowDialog(this);
+                        }
+                        finally
+                        {
+                            billViewer.Dispose();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error printing bill: {ex.Message}\nStack Trace: {ex.StackTrace}", "Error",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -558,6 +655,10 @@ WHERE 1=1 "; // Base condition to make it easier to add filters
                 MessageBox.Show("Error loading filtered data: " + ex.Message);
             }
         }
+
+        private void ListBill_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
         }
     }
+}
 

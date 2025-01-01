@@ -20,14 +20,14 @@ namespace KTPOS.STAFF
     {
         private const string MOMO_PHONE = "0941440611"; // Replace with actual MoMo merchant phone
         private const string MOMO_NAME = "Dương Thị Thanh Thảo";
-        private object billId;
+        private int? billId;
         private decimal currentAmount;
 
         public EventHandler TxtContent_TextChanged { get; }
 
-        internal void GetBillId(object value)
+        internal void GetBillId(int id)
         {
-            billId = value;
+             billId = id;
         }
 
         public UC_QRPayment()
@@ -37,16 +37,30 @@ namespace KTPOS.STAFF
         }
         public void UpdateQRCode(string content, decimal amount)
         {
-            currentAmount = amount;  // Store the amount
+            try
+            {
+                if (string.IsNullOrEmpty(content) || amount <= 0)
+                {
+                    throw new ArgumentException("Invalid content or amount for QR code");
+                }
+                currentAmount = amount;  // Store the amount
 
-            // Update the text fields
-            txtContent.Text = content;
-            txtCost.Text = amount.ToString("N0") + " VND";
-            txt_phone.Text = MOMO_PHONE;
-            name.Text = MOMO_NAME;
+                // Update the text fields
+                txtContent.Text = content;
+                txtCost.Text = amount.ToString("N0") + " VND";
+                txt_phone.Text = MOMO_PHONE;
+                name.Text = MOMO_NAME;
 
-            // Generate initial QR code
-            GenerateQRCode(content, amount);
+                // Generate initial QR code
+                GenerateQRCode(content, amount);
+                // Add your QR code generation logic here
+                // Make sure to handle the content and amount appropriately
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error generating QR code: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
         private void GenerateQRCode(string content, decimal amount)
         {
@@ -130,20 +144,14 @@ namespace KTPOS.STAFF
         {
             try
             {
-                if (billId == null)
+                if (!billId.HasValue)
                 {
                     MessageBox.Show("Invalid bill ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                if (!int.TryParse(billId.ToString(), out int billIdInt))
-                {
-                    MessageBox.Show("Invalid bill ID format.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                string query = "UPDATE BILL SET STATUS = 1, datepayment = GETDATE() WHERE ID = @billId";
-                int result = GetDatabase.Instance.ExecuteNonQuery(query, new object[] { billIdInt });
+                string query = "UPDATE BILL SET STATUS = 1, CHKOUT_TIME = GETDATE() WHERE ID = @billId";
+                int result = GetDatabase.Instance.ExecuteNonQuery(query, new object[] { billId.Value });
 
                 if (result > 0)
                 {
@@ -153,16 +161,17 @@ namespace KTPOS.STAFF
                     Form parentForm = this.FindForm();
                     if (parentForm is fStaff_F staffForm)
                     {
-                        // Find the corresponding row in ListBill and update it
+                        // Find and update the corresponding row in ListBill
                         foreach (DataGridViewRow row in staffForm.ListBill.Rows)
                         {
                             if (row.Cells["BillID"].Value != null &&
-                                Convert.ToInt32(row.Cells["BillID"].Value) == billIdInt)
+                                Convert.ToInt32(row.Cells["BillID"].Value) == billId.Value)
                             {
                                 row.Cells["PAYMENT"].Value = "Done";
-                                row.Cells["METHOD"].Value = "Transfer"; // Set method to Transfer
-                                DataGridViewButtonCell paymentCell = row.Cells["PAYMENT"] as DataGridViewButtonCell;
-                                if (paymentCell != null)
+                                row.Cells["METHOD"].Value = "Transfer"; // Changed from "Cash" to "Transfer"
+                                row.Cells["CHECKOUT"].Value = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+
+                                if (row.Cells["PAYMENT"] is DataGridViewButtonCell paymentCell)
                                 {
                                     paymentCell.Style.BackColor = Color.Green;
                                     paymentCell.Style.ForeColor = Color.White;
@@ -186,7 +195,7 @@ namespace KTPOS.STAFF
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error processing payment: " + ex.Message, "Error",
+                MessageBox.Show($"Error processing payment: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
