@@ -42,17 +42,17 @@
             this.guna2CustomGradientPanel2 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.Filter = new Guna.UI2.WinForms.Guna2ComboBox();
             this.ListBill = new Guna.UI2.WinForms.Guna2DataGridView();
-            this.guna2CustomGradientPanel1 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
-            this.flTable = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnMinSize = new Guna.UI2.WinForms.Guna2Button();
-            this.btnMaxSize = new Guna.UI2.WinForms.Guna2Button();
-            this.btnManage = new Guna.UI2.WinForms.Guna2Button();
             this.TableName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CHECKIN = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CHECKOUT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.METHOD = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.StatusText = new System.Windows.Forms.DataGridViewButtonColumn();
             this.PrintButton = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.guna2CustomGradientPanel1 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            this.flTable = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnMinSize = new Guna.UI2.WinForms.Guna2Button();
+            this.btnMaxSize = new Guna.UI2.WinForms.Guna2Button();
+            this.btnManage = new Guna.UI2.WinForms.Guna2Button();
             btnClose = new Guna.UI2.WinForms.Guna2Button();
             this.guna2CustomGradientPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ListBill)).BeginInit();
@@ -198,7 +198,58 @@
             this.ListBill.ThemeStyle.RowsStyle.Height = 24;
             this.ListBill.ThemeStyle.RowsStyle.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(220)))), ((int)(((byte)(185)))));
             this.ListBill.ThemeStyle.RowsStyle.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ListBill.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ListBill_CellClick);
             this.ListBill.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ListBill_CellDoubleClick);
+            // 
+            // TableName
+            // 
+            this.TableName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.TableName.DefaultCellStyle = dataGridViewCellStyle3;
+            this.TableName.HeaderText = "TABLE";
+            this.TableName.MinimumWidth = 6;
+            this.TableName.Name = "TableName";
+            this.TableName.Width = 83;
+            // 
+            // CHECKIN
+            // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.CHECKIN.DefaultCellStyle = dataGridViewCellStyle4;
+            this.CHECKIN.HeaderText = "CHECK IN";
+            this.CHECKIN.MinimumWidth = 6;
+            this.CHECKIN.Name = "CHECKIN";
+            // 
+            // CHECKOUT
+            // 
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.CHECKOUT.DefaultCellStyle = dataGridViewCellStyle5;
+            this.CHECKOUT.HeaderText = "CHECK OUT";
+            this.CHECKOUT.MinimumWidth = 6;
+            this.CHECKOUT.Name = "CHECKOUT";
+            // 
+            // METHOD
+            // 
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.METHOD.DefaultCellStyle = dataGridViewCellStyle6;
+            this.METHOD.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.METHOD.HeaderText = "METHOD";
+            this.METHOD.Items.AddRange(new object[] {
+            "Cash",
+            "Transfer"});
+            this.METHOD.MinimumWidth = 6;
+            this.METHOD.Name = "METHOD";
+            // 
+            // StatusText
+            // 
+            this.StatusText.HeaderText = "PAYMENT";
+            this.StatusText.MinimumWidth = 6;
+            this.StatusText.Name = "StatusText";
+            // 
+            // PrintButton
+            // 
+            this.PrintButton.HeaderText = "BILL";
+            this.PrintButton.MinimumWidth = 6;
+            this.PrintButton.Name = "PrintButton";
             // 
             // guna2CustomGradientPanel1
             // 
@@ -290,56 +341,6 @@
             this.btnManage.Text = "Management";
             this.btnManage.UseTransparentBackground = true;
             this.btnManage.Click += new System.EventHandler(this.btnManage_Click);
-            // 
-            // TableName
-            // 
-            this.TableName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.TableName.DefaultCellStyle = dataGridViewCellStyle3;
-            this.TableName.HeaderText = "TABLE";
-            this.TableName.MinimumWidth = 6;
-            this.TableName.Name = "TableName";
-            this.TableName.Width = 83;
-            // 
-            // CHECKIN
-            // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.CHECKIN.DefaultCellStyle = dataGridViewCellStyle4;
-            this.CHECKIN.HeaderText = "CHECK IN";
-            this.CHECKIN.MinimumWidth = 6;
-            this.CHECKIN.Name = "CHECKIN";
-            // 
-            // CHECKOUT
-            // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.CHECKOUT.DefaultCellStyle = dataGridViewCellStyle5;
-            this.CHECKOUT.HeaderText = "CHECK OUT";
-            this.CHECKOUT.MinimumWidth = 6;
-            this.CHECKOUT.Name = "CHECKOUT";
-            // 
-            // METHOD
-            // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.METHOD.DefaultCellStyle = dataGridViewCellStyle6;
-            this.METHOD.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            this.METHOD.HeaderText = "METHOD";
-            this.METHOD.Items.AddRange(new object[] {
-            "Cash",
-            "Transfer"});
-            this.METHOD.MinimumWidth = 6;
-            this.METHOD.Name = "METHOD";
-            // 
-            // StatusText
-            // 
-            this.StatusText.HeaderText = "PAYMENT";
-            this.StatusText.MinimumWidth = 6;
-            this.StatusText.Name = "StatusText";
-            // 
-            // PrintButton
-            // 
-            this.PrintButton.HeaderText = "BILL";
-            this.PrintButton.MinimumWidth = 6;
-            this.PrintButton.Name = "PrintButton";
             // 
             // fStaff_F
             // 

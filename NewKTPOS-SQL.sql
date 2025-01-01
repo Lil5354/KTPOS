@@ -1,7 +1,5 @@
 ﻿USE MASTER
 GO
-ALTER DATABASE KTPOS SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-GO
 DROP DATABASE IF EXISTS KTPOS
 GO
 CREATE DATABASE KTPOS
@@ -91,6 +89,7 @@ CREATE TABLE BILL (
 	CHKIN_TIME  DATETIME NOT NULL DEFAULT GETDATE(),
 	CHKOUT_TIME DATETIME NULL, --= Payment time
 	DURATION    AS DATEDIFF(MINUTE, CHKIN_TIME, CHKOUT_TIME),
+	TOTAL		DECIMAL(10,0) NULL,
 	STATUS      INT NOT NULL DEFAULT 0,
 	CONSTRAINT CK_BILL_BILLTYPE_IDTABLE CHECK (BILLTYPE = 1 OR (BILLTYPE = 0 AND IDTABLE IS NULL)),
 	CONSTRAINT FK_BILL_TABLE FOREIGN KEY (IDTABLE) REFERENCES [TABLE](ID),
@@ -98,7 +97,6 @@ CREATE TABLE BILL (
 	CONSTRAINT FK_BILL_CUSTOMER FOREIGN KEY (IDCUSTOMER) REFERENCES CUSTOMER(ID)
 );
 GO
-
 -- Table for bill details
 CREATE TABLE BILLINF (
 	ID      INT IDENTITY PRIMARY KEY,
@@ -148,7 +146,7 @@ CREATE TABLE BILL_PROMOTION (
 	CONSTRAINT FK_BILLPROMOTION_PROMOTION FOREIGN KEY (IDPROMOTION) REFERENCES PROMOTION(ID),
 	CONSTRAINT UQ_BILLPROMOTION UNIQUE (IDBILL, IDPROMOTION),
 );
-GO
+GO --TRIGGER TỰ ĐỘNG THÊM BILL ID VÀO BILL_PROMOTION NẾU NGÀY TẠO BILL TRÙNG KHỚP VỚI NGÀY GIẢM GIÁ THEO BILL
 CREATE OR ALTER TRIGGER trg_ApplyPromotion
 ON BILL
 AFTER INSERT, UPDATE
@@ -169,6 +167,90 @@ BEGIN
         WHERE bp.IDBILL = i.ID 
         AND bp.IDPROMOTION = p.ID
     );
+END;
+GO --TRIGGER TỰ ĐỘNG TÍNH TOTAL AMOUNT (BAO GỒM KHUYẾN MÃI HOẶC KHÔNG)
+CREATE OR ALTER TRIGGER TR_Calculate_Bill_Total
+ON BILLINF
+AFTER INSERT, UPDATE, DELETE
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    -- Tạo bảng tạm chứa các Bill ID cần cập nhật
+    DECLARE @AffectedBills TABLE (BillID int);
+    
+    -- Thu thập Bill ID từ các thao tác INSERT, UPDATE, DELETE
+    INSERT INTO @AffectedBills (BillID)
+    SELECT IDBILL FROM inserted
+    UNION
+    SELECT IDBILL FROM deleted;
+    
+    -- Cập nhật tổng tiền cho các hóa đơn bị ảnh hưởng
+    UPDATE b
+    SET b.TOTAL = (
+        -- Tính tổng tiền sau khi trừ cả hai loại giảm giá
+        SELECT CAST(
+            -- Tổng tiền gốc
+            (SELECT SUM(bi.COUNT * i.PRICE)
+             FROM BILLINF bi
+             JOIN ITEM i ON bi.IDFD = i.ID
+             WHERE bi.IDBILL = b.ID) -
+            
+            -- Trừ tiền giảm giá món
+            CASE 
+                WHEN EXISTS (
+                    SELECT 1 
+                    FROM BILLINF bi2
+                    JOIN ITEM_PROMOTION ip ON bi2.IDFD = ip.IDITEM
+                    JOIN PROMOTION p ON ip.IDPROMOTION = p.ID
+                    WHERE bi2.IDBILL = b.ID
+                    AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+                    AND (CAST(b.CHKIN_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+                ) 
+                THEN 
+                    (SELECT SUM(bi.COUNT * i.PRICE)
+                     FROM BILLINF bi
+                     JOIN ITEM i ON bi.IDFD = i.ID
+                     WHERE bi.IDBILL = b.ID) *
+                    (SELECT TOP 1 p.DISCOUNT/100.0
+                     FROM PROMOTION p 
+                     JOIN ITEM_PROMOTION ip ON p.ID = ip.IDPROMOTION
+                     JOIN BILLINF bi ON ip.IDITEM = bi.IDFD
+                     WHERE bi.IDBILL = b.ID
+                     AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+                     AND (CAST(b.CHKIN_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+                     ORDER BY p.DISCOUNT DESC)
+                ELSE 0
+            END -
+            
+            -- Trừ tiền giảm giá hóa đơn
+            CASE 
+                WHEN EXISTS (
+                    SELECT 1 
+                    FROM BILL_PROMOTION bp
+                    JOIN PROMOTION p ON bp.IDPROMOTION = p.ID
+                    WHERE bp.IDBILL = b.ID
+                    AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+                    AND (CAST(b.CHKIN_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+                ) 
+                THEN 
+                    (SELECT SUM(bi.COUNT * i.PRICE)
+                     FROM BILLINF bi
+                     JOIN ITEM i ON bi.IDFD = i.ID
+                     WHERE bi.IDBILL = b.ID) *
+                    (SELECT TOP 1 p.DISCOUNT/100.0
+                     FROM PROMOTION p 
+                     JOIN BILL_PROMOTION bp ON p.ID = bp.IDPROMOTION
+                     WHERE bp.IDBILL = b.ID
+                     AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+                     AND (CAST(b.CHKIN_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+                     ORDER BY p.DISCOUNT DESC)
+                ELSE 0
+            END
+        AS decimal(10,0))
+    )
+    FROM BILL b
+    JOIN @AffectedBills ab ON b.ID = ab.BillID;
 END;
 
 GO
@@ -222,7 +304,7 @@ VALUES
 (2, 'KT002', '2024-12-24 10:15', NULL, 0, 1, 2),
 (3, 'KT003', '2024-12-20 11:30', NULL, 0, 1, 3),
 (NULL, 'KT004', '2024-12-31 12:45', '2024-12-31 13:45', 1, 0, 4),
-(5, 'KT001', '2024-12-24 14:00', NULL, 0, 1, 5),
+(5, 'KT001', '2024-12-24 14:00', '2024-12-24 16:00', 1, 1, 5),
 (NULL, 'KT002', '2024-11-01 15:15', '2024-11-01 16:15', 1, 0, 6),
 (7, 'KT003', '2024-12-31 16:30', '2024-12-31 17:30', 1, 1, 7),
 (NULL, 'KT004', '2024-12-24 17:45', NULL, 0, 0, 8),
@@ -300,7 +382,23 @@ VALUES
 (6, 7, 3),
 (7, 8, 2),
 (8, 9, 4),
-(9, 10, 1);
+(9, 10, 1),
+(10, 1, 2),  -- 2 phần Spring Rolls
+(10, 4, 1),  -- 1 phần Iced Coffee
+(10, 7, 1);
+
+--------------------
+SELECT 
+    B.ID AS BillID,
+    A.FULLNAME AS CashierName,
+    B.TOTAL AS TotalAmount,
+    B.IDTABLE AS TableID,
+    B.CHKIN_TIME AS CheckInTime,
+    B.CHKOUT_TIME AS CheckOutTime,
+    C.FULLNAME AS CustomerName
+FROM BILL B
+LEFT JOIN ACCOUNT A ON B.IDSTAFF = A.IDSTAFF
+LEFT JOIN CUSTOMER C ON B.IDCUSTOMER = C.ID;
 -----------------------------------------------------------------------------------
 WITH BillItems AS (
     SELECT 
@@ -433,7 +531,7 @@ SELECT
     AS decimal(10,0)) AS N'Tổng tiền sau giảm giá',
     CASE 
         WHEN b.BILLTYPE = 1 THEN N'Tại quán'
-        ELSE N'Mang về'
+        ELSE	N'Mang về'
     END AS N'Loại hóa đơn',
     t.FNAME AS N'Bàn'
 FROM BILL b
@@ -442,4 +540,87 @@ LEFT JOIN CUSTOMER c ON b.IDCUSTOMER = c.ID
 LEFT JOIN [TABLE] t ON b.IDTABLE = t.ID
 JOIN BillItems bi ON b.ID = bi.BillID
 LEFT JOIN FinalDiscounts fd ON b.ID = fd.BillID
-ORDER BY b.CHKIN_TIME DESC;
+ORDER BY b.ID ASC;
+-------------------------------
+
+GO
+CREATE OR ALTER PROCEDURE sp_CalculateBillDetails
+    @IDBILL INT
+AS
+BEGIN
+    -- Calculate item details with discounts
+    WITH ItemDiscounts AS (
+        SELECT 
+            ip.IDITEM,
+            MAX(p.DISCOUNT) as MaxDiscount
+        FROM ITEM_PROMOTION ip
+        JOIN PROMOTION p ON ip.IDPROMOTION = p.ID
+        JOIN BILL b ON b.ID = @IDBILL
+        WHERE (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+        AND (CAST(b.CHKIN_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+        GROUP BY ip.IDITEM
+    ),
+    BillTotals AS (
+        SELECT 
+            @IDBILL AS BillID,
+            SUM(bi.COUNT * i.PRICE) AS SubTotal,
+            SUM(bi.COUNT * (i.PRICE * ISNULL(id.MaxDiscount/100.0, 0))) AS ItemDiscount,
+            (
+                SELECT TOP 1 p.DISCOUNT
+                FROM BILL_PROMOTION bp
+                JOIN PROMOTION p ON bp.IDPROMOTION = p.ID
+                WHERE bp.IDBILL = @IDBILL
+                AND EXISTS (
+                    SELECT 1 FROM BILL b 
+                    WHERE b.ID = @IDBILL 
+                    AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+                    AND (CAST(b.CHKIN_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
+                )
+                ORDER BY p.DISCOUNT DESC
+            ) AS BillDiscountPercentage
+        FROM BILLINF bi
+        JOIN ITEM i ON bi.IDFD = i.ID
+        LEFT JOIN ItemDiscounts id ON i.ID = id.IDITEM
+        WHERE bi.IDBILL = @IDBILL
+        GROUP BY bi.IDBILL
+    )
+    SELECT 
+        i.FNAME AS mathang,
+        CAST(i.PRICE AS decimal(10,0)) AS gia,
+        CAST(ISNULL(i.PRICE * id.MaxDiscount/100.0, 0) AS decimal(10,0)) AS giammon,
+        bi.COUNT AS sl,
+        CAST(bi.COUNT * (i.PRICE - ISNULL(i.PRICE * id.MaxDiscount/100.0, 0)) AS decimal(10,0)) AS sotien,
+        CAST(bt.SubTotal AS decimal(10,0)) AS subtotal,
+        CAST(bt.ItemDiscount + (ISNULL(bt.BillDiscountPercentage, 0)/100.0 * (bt.SubTotal - bt.ItemDiscount)) AS decimal(10,0)) AS totaldiscount,
+        CAST(bt.SubTotal - (bt.ItemDiscount + (ISNULL(bt.BillDiscountPercentage, 0)/100.0 * (bt.SubTotal - bt.ItemDiscount))) AS decimal(10,0)) AS total
+    FROM BILLINF bi
+    JOIN ITEM i ON bi.IDFD = i.ID
+    LEFT JOIN ItemDiscounts id ON i.ID = id.IDITEM
+    CROSS JOIN BillTotals bt
+    WHERE bi.IDBILL = @IDBILL;
+END
+go
+DECLARE @BillID INT = 1; -- Thay đổi ID bill cần test
+
+-- Check dữ liệu bill
+SELECT b.*, t.FNAME as TableName, a.FULLNAME as StaffName
+FROM BILL b
+LEFT JOIN [TABLE] t ON b.IDTABLE = t.ID 
+LEFT JOIN ACCOUNT a ON b.IDSTAFF = a.IDSTAFF
+WHERE b.ID = @BillID;
+
+-- Check chi tiết bill
+EXEC sp_CalculateBillDetails @IDBILL = @BillID;
+
+-- Check giảm giá áp dụng
+SELECT p.*
+FROM PROMOTION p
+JOIN ITEM_PROMOTION ip ON p.ID = ip.IDPROMOTION
+JOIN BILLINF bi ON ip.IDITEM = bi.IDFD
+WHERE bi.IDBILL = @BillID;
+
+SELECT p.*
+FROM PROMOTION p
+JOIN BILL_PROMOTION bp ON p.ID = bp.IDPROMOTION 
+WHERE bp.IDBILL = @BillID;
+

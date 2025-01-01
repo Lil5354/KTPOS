@@ -121,5 +121,9 @@ namespace KTPOS.Proccess
             }
         }
 
+        internal IDisposable BeginTransaction()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
