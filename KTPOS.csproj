@@ -108,6 +108,24 @@
     <Compile Include="STAFF\fBillViewer.Designer.cs">
       <DependentUpon>fBillViewer.cs</DependentUpon>
     </Compile>
+    <Compile Include="STAFF\fOrderPreview.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="STAFF\fOrderPreview.Designer.cs">
+      <DependentUpon>fOrderPreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="STAFF\fPayment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="STAFF\fPayment.Designer.cs">
+      <DependentUpon>fPayment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="STAFF\fShiftClosing.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="STAFF\fShiftClosing.Designer.cs">
+      <DependentUpon>fShiftClosing.cs</DependentUpon>
+    </Compile>
     <Compile Include="STAFF\fStaff_F.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,6 +162,15 @@
     </Compile>
     <EmbeddedResource Include="STAFF\fBillViewer.resx">
       <DependentUpon>fBillViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="STAFF\fOrderPreview.resx">
+      <DependentUpon>fOrderPreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="STAFF\fPayment.resx">
+      <DependentUpon>fPayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="STAFF\fShiftClosing.resx">
+      <DependentUpon>fShiftClosing.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="STAFF\fStaff_F.resx">
       <DependentUpon>fStaff_F.cs</DependentUpon>

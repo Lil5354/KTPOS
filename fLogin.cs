@@ -15,6 +15,12 @@ namespace KTPOS
 {
     public partial class fLogin : Form
     {
+        public static class LoginInfo
+        {
+            public static DateTime LoginTime { get; set; }
+            public static string EmployeeName { get; set; }
+            public static string EmployeeID { get; set; }
+        }
         public fLogin()
         {
             InitializeComponent();
@@ -76,6 +82,21 @@ namespace KTPOS
                 string role = LgAccount.Instance.LgManage(email, password);
                 if (role != null)
                 {
+                    // Lưu thời gian đăng nhập
+                    LoginInfo.LoginTime = DateTime.Now;
+
+                    // Lấy thông tin nhân viên từ database sử dụng GetDatabase
+                    string query = "SELECT IDSTAFF, FULLNAME FROM ACCOUNT WHERE EMAIL = @email AND PASSWORD = @password";
+                    object[] parameters = new object[] { email, password };
+                    DataTable result = GetDatabase.Instance.ExecuteQuery(query, parameters);
+
+                    if (result.Rows.Count > 0)
+                    {
+                        DataRow row = result.Rows[0];
+                        LoginInfo.EmployeeID = row["IDSTAFF"].ToString();
+                        LoginInfo.EmployeeName = row["FULLNAME"].ToString();
+                    }
+
                     fStaff_F f = new fStaff_F(role);
                     this.Hide();
                     f.ShowDialog();

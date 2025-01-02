@@ -27,6 +27,7 @@ namespace KTPOS.MANAGER
         public fManager()
         {
             InitializeComponent();
+            dtgvTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.Load += ManagementControl_Load;
             this.WindowState = FormWindowState.Maximized;
             this.StartPosition = FormStartPosition.CenterScreen;
@@ -68,7 +69,7 @@ namespace KTPOS.MANAGER
         }
         private void btnBack_Click(object sender, EventArgs e)
         {
-            this.Close(); // Đóng form hiện tại (fStaff_S)
+            this.Hide(); // Đóng form hiện tại (fStaff_S)
             // Nếu form gọi (fStaff_F) vẫn mở, thì có thể chỉ cần gọi lại form đó.
             fStaff_F previousForm = Application.OpenForms["fStaff_F"] as fStaff_F;
             previousForm?.Show();
@@ -681,6 +682,7 @@ namespace KTPOS.MANAGER
                 }
             }
         }
+
         private void txtSearchFB_KeyUp(object sender, KeyEventArgs e)
         {
             query = "SELECT I.FNAME AS [ITEM NAME], I.CATEGORY,  I.PRICE, ISNULL(SUM(bi.COUNT), 0) AS QTY, MAX(CASE WHEN T.TAGNAME = '" + cbbTag.Text + "' THEN 1 ELSE 0 END) AS TAG," +
