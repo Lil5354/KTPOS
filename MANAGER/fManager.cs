@@ -5,11 +5,13 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using System.Xml.Linq;
 using KTPOS.Proccess;
 using KTPOS.STAFF;
@@ -681,6 +683,54 @@ namespace KTPOS.MANAGER
                 }
             }
         }
+
+        private void btnCompile_Click(object sender, EventArgs e)
+        { /*
+            string query = "SELECT " +
+                "CAST(BILL.CHKIN_TIME AS DATE) AS [DATE], " +
+                "SUM(BILL.TOTAL) AS [TotalRevenue] FROM  BILL " +
+                "WHERE \r\n    BILL.STATUS = 1 GROUP BY CAST(BILL.CHKIN_TIME AS DATE) ORDER BY [DATE];";
+            var chartData = GetDatabase.Instance.GetChartData(query);
+
+            // Hiển thị dữ liệu trong biểu đồ (VD: WinForms hoặc WPF)
+            chartRevenue.Series.Clear();
+            chartRevenue.Series.Add("Doanh Thu");
+
+            foreach (var dataPoint in chartData)
+            {
+                chartRevenue.Series["Doanh Thu"].Points.AddXY(dataPoint.Key, dataPoint.Value);
+            }*/
+            query = @"SELECT
+                I.FNAME AS[ItemName],
+                SUM(BI.COUNT * I.PRICE) AS[TotalRevenue]
+            FROM
+                BILLINF BI
+            JOIN
+                ITEM I ON BI.IDFD = I.ID
+            JOIN
+                BILL B ON BI.IDBILL = B.ID
+            WHERE
+                MONTH(B.CHKIN_TIME) = 12 AND YEAR(B.CHKIN_TIME) = 2024
+            GROUP BY
+                I.FNAME
+            ORDER BY
+                [TotalRevenue] DESC;";
+         
+            // Lấy dữ liệu biểu đồ từ GetDatabase
+            var chartData = GetDatabase.Instance.GetChartData(query);
+
+            // Xóa series cũ và thêm series mới
+            chartRevenue.Series.Clear();
+            chartRevenue.Series.Add("Tỷ Trọng Doanh Thu");
+            chartRevenue.Series["Tỷ Trọng Doanh Thu"].ChartType = SeriesChartType.Pie; // Biểu đồ tròn
+
+            // Thêm dữ liệu vào biểu đồ
+            foreach (var dataPoint in chartData)
+            {
+                chartRevenue.Series["Tỷ Trọng Doanh Thu"].Points.AddXY(dataPoint.Key, dataPoint.Value);
+            }
+        }
+
         private void txtSearchFB_KeyUp(object sender, KeyEventArgs e)
         {
             query = "SELECT I.FNAME AS [ITEM NAME], I.CATEGORY,  I.PRICE, ISNULL(SUM(bi.COUNT), 0) AS QTY, MAX(CASE WHEN T.TAGNAME = '" + cbbTag.Text + "' THEN 1 ELSE 0 END) AS TAG," +
@@ -689,7 +739,7 @@ namespace KTPOS.MANAGER
             DTManger.Instance.LoadList(query, dtgvFandB);
         }
         //BILL
-        
+        //REVENUE
         
         
     }

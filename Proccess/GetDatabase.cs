@@ -120,10 +120,39 @@ namespace KTPOS.Proccess
                 connection.Close();
             }
         }
-
-        internal IDisposable BeginTransaction()
+        public List<KeyValuePair<string, double>> GetChartData(string query, object[] parameter = null)
         {
-            throw new NotImplementedException();
+            var chartData = new List<KeyValuePair<string, double>>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(query, connection);
+                if (parameter != null)
+                {
+                    string[] listPara = query.Split(' ');
+                    int i = 0;
+                    foreach (string item in listPara)
+                    {
+                        if (item.Contains('@'))
+                        {
+                            command.Parameters.AddWithValue(item, parameter[i]);
+                            i++;
+                        }
+                    }
+                }
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string key = reader[0].ToString(); // Cột đầu tiên: X (danh mục hoặc tên)
+                        double value = Convert.ToDouble(reader[1]); // Cột thứ hai: Y (giá trị)
+                        chartData.Add(new KeyValuePair<string, double>(key, value));
+                    }
+                }
+                connection.Close();
+            }
+            return chartData;
         }
+       
     }
 }
