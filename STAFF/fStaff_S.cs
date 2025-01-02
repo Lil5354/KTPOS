@@ -97,9 +97,7 @@ namespace KTPOS.STAFF
         {
             btnSave_Click(sender, e);
             // Kiểm tra nếu có thể quay lại trang trước đó
-            this.Close(); // Đóng form hiện tại (fStaff_S)
-
-            // Hiển thị lại form trước đó, tức là fStaff_F
+            this.Hide(); // Đóng form hiện tại (fStaff_S)
             // Nếu form gọi (fStaff_F) vẫn mở, thì có thể chỉ cần gọi lại form đó.
             fStaff_F previousForm = Application.OpenForms["fStaff_F"] as fStaff_F;
             previousForm?.Show();

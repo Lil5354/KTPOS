@@ -373,6 +373,26 @@ ORDER BY b.status, b.ID DESC";
             {
                 DataGridViewRow row = ListBill.Rows[e.RowIndex];
                 // Check if clicking the Payment column
+                if (ListBill.Columns[e.ColumnIndex].Name == "TABLE")
+                {
+                    string tableCell = row.Cells["TABLE"].Value?.ToString();
+                    int billId = Convert.ToInt32(row.Cells["BillID"].Value);
+
+                    // Query order details
+                    string query = @"
+        SELECT i.FNAME as ItemName, bi.COUNT as Quantity
+        FROM BILLINF bi
+        JOIN ITEM i ON bi.IDFD = i.ID
+        WHERE bi.IDBILL = @billId";
+
+                    DataTable orderDetails = GetDatabase.Instance.ExecuteQuery(query, new object[] { billId });
+
+                    // Show preview form
+                    using (fOrderPreview preview = new fOrderPreview(orderDetails))
+                    {
+                        preview.ShowDialog();
+                    }
+                }
                 if (ListBill.Columns[e.ColumnIndex].Name == "PAYMENT")
                 {
                     string paymentStatus = row.Cells["PAYMENT"].Value?.ToString();
@@ -383,29 +403,43 @@ ORDER BY b.status, b.ID DESC";
                     {
                         try
                         {
-                            string query = "UPDATE BILL SET STATUS = 1, CHKOUT_TIME = GETDATE() WHERE ID = @billId";
-                            int result = GetDatabase.Instance.ExecuteNonQuery(query, new object[] { billId });
+                            // Get final total for the bill
+                            string finalTotalQuery = @"
+                    SELECT CAST(b.TOTAL as decimal(10,0)) as FinalTotal 
+                    FROM BILL b 
+                    WHERE b.ID = @billId";
 
-                            if (result > 0)
+                            object finalTotalResult = GetDatabase.Instance.ExecuteScalar(finalTotalQuery, new object[] { billId });
+                            decimal finalTotal = finalTotalResult != null ? Convert.ToDecimal(finalTotalResult) : 0;
+
+                            if (finalTotal <= 0)
                             {
-                                row.Cells["PAYMENT"].Value = "Done";
-                                row.Cells["METHOD"].Value = "Cash";
-                                row.Cells["CHECKOUT"].Value = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+                                MessageBox.Show("Invalid bill amount", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
 
-                                DataGridViewButtonCell paymentCell = row.Cells["PAYMENT"] as DataGridViewButtonCell;
-                                if (paymentCell != null)
+                            // Show payment form
+                            using (fPayment paymentForm = new fPayment(finalTotal, billId))
+                            {
+                                if (paymentForm.ShowDialog() == DialogResult.OK)
                                 {
-                                    paymentCell.Style.BackColor = Color.Green;
-                                    paymentCell.Style.ForeColor = Color.White;
-                                }
+                                    // Update the ListBill display
+                                    row.Cells["PAYMENT"].Value = "Done";
+                                    row.Cells["METHOD"].Value = "Cash";
+                                    row.Cells["CHECKOUT"].Value = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
 
-                                MessageBox.Show("Payment completed successfully.", "Success",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    DataGridViewButtonCell paymentCell = row.Cells["PAYMENT"] as DataGridViewButtonCell;
+                                    if (paymentCell != null)
+                                    {
+                                        paymentCell.Style.BackColor = Color.Green;
+                                        paymentCell.Style.ForeColor = Color.White;
+                                    }
+                                }
                             }
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Error updating payment status: " + ex.Message);
+                            MessageBox.Show("Error processing payment: " + ex.Message);
                         }
                     }
                     else if (paymentStatus == "Not Paid" && method == "Transfer")
@@ -498,7 +532,7 @@ ORDER BY b.status, b.ID DESC";
                             Console.WriteLine($"Exception details: {ex}");
                         }
                     }
-                } 
+                }
                 else if (ListBill.Columns[e.ColumnIndex].Name == "BILL")
                 {
                     try
@@ -519,7 +553,7 @@ ORDER BY b.status, b.ID DESC";
                         }
 
                         int billId = Convert.ToInt32(ListBill.Rows[e.RowIndex].Cells["BillID"].Value);
-                    
+
                         // Validate billId
                         if (billId <= 0)
                         {
@@ -677,6 +711,12 @@ WHERE 1=1 "; // Base condition to make it easier to add filters
 
         private void ListBill_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+        }
+
+        private void btnCloseShift_Click(object sender, EventArgs e)
+        {
+            fShiftClosing shiftClosingForm = new fShiftClosing();
+            shiftClosingForm.ShowDialog();
         }
     }
 }

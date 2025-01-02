@@ -53,6 +53,7 @@
             this.btnMinSize = new Guna.UI2.WinForms.Guna2Button();
             this.btnMaxSize = new Guna.UI2.WinForms.Guna2Button();
             this.btnManage = new Guna.UI2.WinForms.Guna2Button();
+            this.btnCloseShift = new Guna.UI2.WinForms.Guna2Button();
             btnClose = new Guna.UI2.WinForms.Guna2Button();
             this.guna2CustomGradientPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ListBill)).BeginInit();
@@ -209,7 +210,7 @@
             this.TableName.HeaderText = "TABLE";
             this.TableName.MinimumWidth = 6;
             this.TableName.Name = "TableName";
-            this.TableName.Width = 92;
+            this.TableName.Width = 83;
             // 
             // CHECKIN
             // 
@@ -342,12 +343,41 @@
             this.btnManage.UseTransparentBackground = true;
             this.btnManage.Click += new System.EventHandler(this.btnManage_Click);
             // 
+            // btnCloseShift
+            // 
+            this.btnCloseShift.Animated = true;
+            this.btnCloseShift.AutoRoundedCorners = true;
+            this.btnCloseShift.BackColor = System.Drawing.Color.Transparent;
+            this.btnCloseShift.BorderRadius = 25;
+            this.btnCloseShift.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            this.btnCloseShift.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.RadioButton;
+            this.btnCloseShift.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCloseShift.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            this.btnCloseShift.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            this.btnCloseShift.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            this.btnCloseShift.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            this.btnCloseShift.FillColor = System.Drawing.Color.Transparent;
+            this.btnCloseShift.Font = new System.Drawing.Font("Segoe UI Semibold", 10.2F, System.Drawing.FontStyle.Bold);
+            this.btnCloseShift.ForeColor = System.Drawing.Color.White;
+            this.btnCloseShift.HoverState.BorderColor = System.Drawing.Color.White;
+            this.btnCloseShift.HoverState.CustomBorderColor = System.Drawing.Color.Transparent;
+            this.btnCloseShift.HoverState.FillColor = System.Drawing.Color.White;
+            this.btnCloseShift.HoverState.ForeColor = System.Drawing.Color.Maroon;
+            this.btnCloseShift.Location = new System.Drawing.Point(857, 38);
+            this.btnCloseShift.Name = "btnCloseShift";
+            this.btnCloseShift.Size = new System.Drawing.Size(185, 52);
+            this.btnCloseShift.TabIndex = 45;
+            this.btnCloseShift.Text = "SHIFT CLOSING";
+            this.btnCloseShift.UseTransparentBackground = true;
+            this.btnCloseShift.Click += new System.EventHandler(this.btnCloseShift_Click);
+            // 
             // fStaff_F
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackgroundImage = global::KTPOS.Properties.Resources.bground;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1418, 927);
+            this.Controls.Add(this.btnCloseShift);
             this.Controls.Add(this.btnManage);
             this.Controls.Add(this.guna2CustomGradientPanel2);
             this.Controls.Add(this.guna2CustomGradientPanel1);
@@ -380,5 +410,6 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn METHOD;
         private System.Windows.Forms.DataGridViewButtonColumn StatusText;
         private System.Windows.Forms.DataGridViewButtonColumn PrintButton;
+        private Guna.UI2.WinForms.Guna2Button btnCloseShift;
     }
 }
