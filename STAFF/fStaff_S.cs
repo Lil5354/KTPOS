@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -17,11 +18,16 @@ namespace KTPOS.STAFF
 {
     public partial class fStaff_S : Form
     {
+        private int idTable = 0;
         private int idBill = 0;
+        private string idStaff;
+        private int idCus = 0;
         private DataTable billTable;
         private Dictionary<int, int> discount;
         private int billdiscount = 0;
-        public fStaff_S(int tableId)
+        private bool checkbill = false;
+        private string Time;
+        public fStaff_S(int tableId, string staffId)
         {
             InitializeComponent();
             LoadFilter();
@@ -38,7 +44,9 @@ namespace KTPOS.STAFF
             this.StartPosition = FormStartPosition.CenterScreen;
             this.MinimumSize = new Size(800, 450);
             nUDItem.Visible = false;
-            idBill = tableId;
+            idTable = tableId;
+            idStaff = staffId;
+            Time = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
             if (dtgvBillCus.DataSource == null)
             {
                 InitializeBillTable();
@@ -50,7 +58,22 @@ namespace KTPOS.STAFF
                 dtgvBillCus.DataSource = billTable;
             }
             set();
+            getidbill();
             CheckDiscount();
+        }
+        private void getidbill()
+        {
+            if (idTable > 0)
+            {
+                string query = $"SELECT ID FROM BILL WHERE IDTABLE = {idTable} AND STATUS = 0";
+                DataTable table = GetDatabase.Instance.ExecuteQuery(query);
+                foreach (DataRow row in table.Rows)
+                {
+                    idBill = Convert.ToInt32(row["ID"]);
+                    checkbill = true;
+                    break;
+                }
+            }
         }
         private void set()
         {
@@ -328,7 +351,16 @@ namespace KTPOS.STAFF
                 }
                 else total = 0;
             }
-            txtTotal.Text = total.ToString("N0") + " VND";
+            if (billdiscount > 0)
+            {
+                decimal cost1 = total - (total * billdiscount / 100);
+                int cost = (int) cost1;
+                txtTotal.Text = $"{total:N0} VND -> {cost:N0} VND";
+            }
+            else
+            {
+                txtTotal.Text = total.ToString("N0") + " VND";
+            }
         }
         private void txtSearch_KeyUp(object sender, KeyEventArgs e)
         {
@@ -379,7 +411,44 @@ namespace KTPOS.STAFF
                 nUDItem.Visible = true;
             }
         }
+        private void SaveCus()
+        {
+            if (txtPhone.Text == "")
+            {
+                idCus = 0;
+                return;
+            }
+            string number = txtPhone.Text;
+            string query = $"SELECT ID FROM CUSTOMER WHERE PHONE = '{number}';";
+            DataTable table = GetDatabase.Instance.ExecuteQuery(query);
+            foreach (DataRow row in table.Rows)
+            {
+                idCus = Convert.ToInt32(row["ID"]);
+                break;
+            }
+            if (idCus == 0)
+            { 
 
+            }
+        }
+        private void AddBill()
+        {
+            string type;
+            if (idTable > 0) type = "1";
+                else type = "0";
+            string cus;
+            if (idCus == 0) cus = "NULL"; 
+            else cus = idCus.ToString();
+            string query = $"INSERT INTO BILL (IDTABLE, IDSTAFF, CHKIN_TIME, CHKOUT_TIME, STATUS, BILLTYPE, IDCUSTOMER) VALUES ({idTable.ToString()}, '{idStaff}', '{Time}', NULL, 0, {type}, {cus})";
+            GetDatabase.Instance.ExecuteNonQuery(query);
+            query = "SELECT MAX(ID) AS ID FROM BILL;";
+            DataTable result1 = GetDatabase.Instance.ExecuteQuery(query);
+            foreach(DataRow row in result1.Rows)
+            {
+                idBill = Convert.ToInt32(row["ID"]);
+                break;
+            }
+        }
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (dtgvBillCus.RowCount == 0)
@@ -390,6 +459,9 @@ namespace KTPOS.STAFF
             DialogResult dialog = MessageBox.Show("Do you really want to Order?", "Notice", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialog == DialogResult.Yes)
             {
+                SaveCus();
+                if (checkbill == false)
+                    AddBill();
                 string filePath = "E:\\App\\ok\\KTPOS\\Note\\BillNote";
                 string query = "DELETE from BILLINF where IDBILL = " + idBill.ToString();
                 GetDatabase.Instance.ExecuteNonQuery(query);
@@ -407,9 +479,8 @@ namespace KTPOS.STAFF
                     int idFD = Convert.ToInt32(row.Cells["ID"].Value);
 
                     // Chuẩn bị câu lệnh SQL để chèn dữ liệu
-                    string queryin = "INSERT INTO BILLINF (IDBILL, IDFD, COUNT) VALUES (" + idBill.ToString() + "," + idFD.ToString() + "," + count.ToString() + ")";
-
-                    DataTable result1 = GetDatabase.Instance.ExecuteQuery(queryin);
+                    string queryin = $"INSERT INTO BILLINF (IDBILL, IDFD, COUNT) VALUES ({idBill.ToString()}, {idFD.ToString()}, {count.ToString()})";
+                    GetDatabase.Instance.ExecuteNonQuery(queryin);
                 }
                 this.Close(); // Đóng form hiện tại (fStaff_S)
 
@@ -464,6 +535,11 @@ namespace KTPOS.STAFF
         private void tnCancel_Click(object sender, EventArgs e)
         {
             set();
+        }
+
+        private void txtPhone_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

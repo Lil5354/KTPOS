@@ -153,7 +153,7 @@
             this.guna2HtmlLabel3.ForeColor = System.Drawing.Color.Black;
             this.guna2HtmlLabel3.Location = new System.Drawing.Point(37, 198);
             this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
-            this.guna2HtmlLabel3.Size = new System.Drawing.Size(65, 22);
+            this.guna2HtmlLabel3.Size = new System.Drawing.Size(53, 17);
             this.guna2HtmlLabel3.TabIndex = 4;
             this.guna2HtmlLabel3.Text = "Password";
             // 
@@ -185,7 +185,7 @@
             this.guna2HtmlLabel2.ForeColor = System.Drawing.Color.Black;
             this.guna2HtmlLabel2.Location = new System.Drawing.Point(37, 110);
             this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            this.guna2HtmlLabel2.Size = new System.Drawing.Size(57, 22);
+            this.guna2HtmlLabel2.Size = new System.Drawing.Size(48, 17);
             this.guna2HtmlLabel2.TabIndex = 2;
             this.guna2HtmlLabel2.Text = "Account";
             // 
@@ -209,6 +209,7 @@
             this.txtAccount.SelectedText = "";
             this.txtAccount.Size = new System.Drawing.Size(336, 39);
             this.txtAccount.TabIndex = 1;
+            this.txtAccount.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtAccount_KeyDown);
             // 
             // guna2HtmlLabel1
             // 
@@ -217,7 +218,7 @@
             this.guna2HtmlLabel1.ForeColor = System.Drawing.Color.Maroon;
             this.guna2HtmlLabel1.Location = new System.Drawing.Point(37, 29);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(101, 43);
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(82, 34);
             this.guna2HtmlLabel1.TabIndex = 0;
             this.guna2HtmlLabel1.Text = "Sign in";
             // 

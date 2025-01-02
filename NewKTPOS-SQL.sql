@@ -336,15 +336,8 @@ VALUES
 ('Table VIP', 1, 10, 1);
 INSERT INTO BILL (IDTABLE, IDSTAFF, CHKIN_TIME, CHKOUT_TIME, STATUS, BILLTYPE, IDCUSTOMER) 
 VALUES 
-(1, 'KT001', '2024-12-31 09:00', '2024-12-31 10:00', 1, 1, 1),
-(3, 'KT003', '2024-12-20 11:30', NULL, 0, 1, 3),
-(NULL, 'KT004', '2024-12-31 12:45', '2024-12-31 13:45', 1, 0, 4),
-(5, 'KT001', '2024-12-24 14:00', '2024-12-24 16:00', 1, 1, 5),
-(NULL, 'KT002', '2024-11-01 15:15', '2024-11-01 16:15', 1, 0, 6),
-(7, 'KT003', '2024-12-31 16:30', '2024-12-31 17:30', 1, 1, 7),
-(NULL, 'KT004', '2024-12-24 17:45', NULL, 0, 0, 8),
-(9, 'KT001', '2024-12-20 19:00', '2024-12-20 20:00', 1, 1, 9),
-(NULL, 'KT002', '2024-12-31 20:15', '2024-12-31 21:15', 1, 0, 10);
+(1, 'KT001', '2024-12-31 09:00', NULL, 0, 1, 1)
+
 INSERT INTO ITEM (FNAME, CATEGORY, PRICE, VISIBLE) 
 VALUES 
 ('Spring Rolls', 'Food', 35000, 1),
@@ -405,18 +398,7 @@ GO
 INSERT INTO BILLINF (IDBILL, IDFD, COUNT)
 VALUES 
 (1, 1, 2),
-(1, 2, 1),
-(2, 3, 3),
-(3, 4, 1),
-(4, 5, 2),
-(5, 6, 1),
-(6, 7, 3),
-(7, 8, 2),
-(8, 9, 4),
-(9, 10, 1),
-(10, 1, 2),  -- 2 phần Spring Rolls
-(10, 4, 1),  -- 1 phần Iced Coffee
-(10, 7, 1);
+(1, 2, 1)
 ---------------------------------
 SELECT 
     B.ID,
@@ -792,4 +774,10 @@ JOIN
 ORDER BY 
     ISNULL(P.DISCOUNT, 0) DESC; 
 
-	select * from BILL
+
+
+SELECT MAX(ID) AS ID
+FROM BILL;
+
+
+select * from BILLINF

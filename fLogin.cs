@@ -120,5 +120,10 @@ namespace KTPOS
                 btnEye.Visible = true;
             }
         }
+
+        private void txtAccount_KeyDown(object sender, KeyEventArgs e)
+        {
+            
+        }
     }
 }

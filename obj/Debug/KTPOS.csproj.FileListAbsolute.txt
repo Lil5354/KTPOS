@@ -290,3 +290,149 @@ E:\App\Temp\obj\Debug\KTPOS.csproj.CoreCompileInputs.cache
 E:\App\Temp\obj\Debug\KTPOS.csproj.Up2Date
 E:\App\Temp\obj\Debug\KTPOS.exe
 E:\App\Temp\obj\Debug\KTPOS.pdb
+E:\App\KTPOS\bin\Debug\SqlServerTypes\x64\msvcr120.dll
+E:\App\KTPOS\bin\Debug\SqlServerTypes\x64\SqlServerSpatial140.dll
+E:\App\KTPOS\bin\Debug\SqlServerTypes\x86\msvcr120.dll
+E:\App\KTPOS\bin\Debug\SqlServerTypes\x86\SqlServerSpatial140.dll
+E:\App\KTPOS\bin\Debug\KTPOS.exe.config
+E:\App\KTPOS\bin\Debug\KTPOS.exe
+E:\App\KTPOS\bin\Debug\KTPOS.pdb
+E:\App\KTPOS\bin\Debug\Guna.UI2.dll
+E:\App\KTPOS\bin\Debug\Microsoft.ReportViewer.Common.dll
+E:\App\KTPOS\bin\Debug\Microsoft.ReportViewer.DataVisualization.dll
+E:\App\KTPOS\bin\Debug\Microsoft.ReportViewer.Design.dll
+E:\App\KTPOS\bin\Debug\Microsoft.ReportViewer.ProcessingObjectModel.dll
+E:\App\KTPOS\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+E:\App\KTPOS\bin\Debug\Microsoft.SqlServer.Types.dll
+E:\App\KTPOS\bin\Debug\zxing.dll
+E:\App\KTPOS\bin\Debug\zxing.presentation.dll
+E:\App\KTPOS\bin\Debug\EnvDTE.dll
+E:\App\KTPOS\bin\Debug\stdole.dll
+E:\App\KTPOS\bin\Debug\zxing.xml
+E:\App\KTPOS\bin\Debug\zxing.presentation.xml
+E:\App\KTPOS\bin\Debug\de\Microsoft.ReportViewer.Common.resources.dll
+E:\App\KTPOS\bin\Debug\es\Microsoft.ReportViewer.Common.resources.dll
+E:\App\KTPOS\bin\Debug\fr\Microsoft.ReportViewer.Common.resources.dll
+E:\App\KTPOS\bin\Debug\it\Microsoft.ReportViewer.Common.resources.dll
+E:\App\KTPOS\bin\Debug\ja\Microsoft.ReportViewer.Common.resources.dll
+E:\App\KTPOS\bin\Debug\ko\Microsoft.ReportViewer.Common.resources.dll
+E:\App\KTPOS\bin\Debug\pt\Microsoft.ReportViewer.Common.resources.dll
+E:\App\KTPOS\bin\Debug\ru\Microsoft.ReportViewer.Common.resources.dll
+E:\App\KTPOS\bin\Debug\zh-CHS\Microsoft.ReportViewer.Common.resources.dll
+E:\App\KTPOS\bin\Debug\zh-CHT\Microsoft.ReportViewer.Common.resources.dll
+E:\App\KTPOS\bin\Debug\de\Microsoft.ReportViewer.DataVisualization.resources.dll
+E:\App\KTPOS\bin\Debug\es\Microsoft.ReportViewer.DataVisualization.resources.dll
+E:\App\KTPOS\bin\Debug\fr\Microsoft.ReportViewer.DataVisualization.resources.dll
+E:\App\KTPOS\bin\Debug\it\Microsoft.ReportViewer.DataVisualization.resources.dll
+E:\App\KTPOS\bin\Debug\ja\Microsoft.ReportViewer.DataVisualization.resources.dll
+E:\App\KTPOS\bin\Debug\ko\Microsoft.ReportViewer.DataVisualization.resources.dll
+E:\App\KTPOS\bin\Debug\pt\Microsoft.ReportViewer.DataVisualization.resources.dll
+E:\App\KTPOS\bin\Debug\ru\Microsoft.ReportViewer.DataVisualization.resources.dll
+E:\App\KTPOS\bin\Debug\zh-CHS\Microsoft.ReportViewer.DataVisualization.resources.dll
+E:\App\KTPOS\bin\Debug\zh-CHT\Microsoft.ReportViewer.DataVisualization.resources.dll
+E:\App\KTPOS\bin\Debug\de\Microsoft.ReportViewer.Design.resources.dll
+E:\App\KTPOS\bin\Debug\es\Microsoft.ReportViewer.Design.resources.dll
+E:\App\KTPOS\bin\Debug\fr\Microsoft.ReportViewer.Design.resources.dll
+E:\App\KTPOS\bin\Debug\it\Microsoft.ReportViewer.Design.resources.dll
+E:\App\KTPOS\bin\Debug\ja\Microsoft.ReportViewer.Design.resources.dll
+E:\App\KTPOS\bin\Debug\ko\Microsoft.ReportViewer.Design.resources.dll
+E:\App\KTPOS\bin\Debug\pt\Microsoft.ReportViewer.Design.resources.dll
+E:\App\KTPOS\bin\Debug\ru\Microsoft.ReportViewer.Design.resources.dll
+E:\App\KTPOS\bin\Debug\zh-CHS\Microsoft.ReportViewer.Design.resources.dll
+E:\App\KTPOS\bin\Debug\zh-CHT\Microsoft.ReportViewer.Design.resources.dll
+E:\App\KTPOS\bin\Debug\de\Microsoft.ReportViewer.WinForms.resources.dll
+E:\App\KTPOS\bin\Debug\es\Microsoft.ReportViewer.WinForms.resources.dll
+E:\App\KTPOS\bin\Debug\fr\Microsoft.ReportViewer.WinForms.resources.dll
+E:\App\KTPOS\bin\Debug\it\Microsoft.ReportViewer.WinForms.resources.dll
+E:\App\KTPOS\bin\Debug\ja\Microsoft.ReportViewer.WinForms.resources.dll
+E:\App\KTPOS\bin\Debug\ko\Microsoft.ReportViewer.WinForms.resources.dll
+E:\App\KTPOS\bin\Debug\pt\Microsoft.ReportViewer.WinForms.resources.dll
+E:\App\KTPOS\bin\Debug\ru\Microsoft.ReportViewer.WinForms.resources.dll
+E:\App\KTPOS\bin\Debug\zh-CHS\Microsoft.ReportViewer.WinForms.resources.dll
+E:\App\KTPOS\bin\Debug\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll
+E:\App\KTPOS\obj\Debug\KTPOS.csproj.AssemblyReference.cache
+E:\App\KTPOS\obj\Debug\KTPOS.fLogin.resources
+E:\App\KTPOS\obj\Debug\KTPOS.MANAGER.fManager.resources
+E:\App\KTPOS\obj\Debug\KTPOS.Properties.Resources.resources
+E:\App\KTPOS\obj\Debug\KTPOS.STAFF.fBillViewer.resources
+E:\App\KTPOS\obj\Debug\KTPOS.STAFF.fStaff_F.resources
+E:\App\KTPOS\obj\Debug\KTPOS.STAFF.fStaff_S.resources
+E:\App\KTPOS\obj\Debug\KTPOS.STAFF.UC_QRPayment.resources
+E:\App\KTPOS\obj\Debug\KTPOS.csproj.GenerateResource.cache
+E:\App\KTPOS\obj\Debug\KTPOS.csproj.CoreCompileInputs.cache
+E:\App\KTPOS\obj\Debug\KTPOS.csproj.Up2Date
+E:\App\KTPOS\obj\Debug\KTPOS.exe
+E:\App\KTPOS\obj\Debug\KTPOS.pdb
+E:\App\New folder\bin\Debug\SqlServerTypes\x64\msvcr120.dll
+E:\App\New folder\bin\Debug\SqlServerTypes\x64\SqlServerSpatial140.dll
+E:\App\New folder\bin\Debug\SqlServerTypes\x86\msvcr120.dll
+E:\App\New folder\bin\Debug\SqlServerTypes\x86\SqlServerSpatial140.dll
+E:\App\New folder\bin\Debug\KTPOS.exe.config
+E:\App\New folder\bin\Debug\KTPOS.exe
+E:\App\New folder\bin\Debug\KTPOS.pdb
+E:\App\New folder\bin\Debug\Guna.UI2.dll
+E:\App\New folder\bin\Debug\Microsoft.ReportViewer.Common.dll
+E:\App\New folder\bin\Debug\Microsoft.ReportViewer.DataVisualization.dll
+E:\App\New folder\bin\Debug\Microsoft.ReportViewer.Design.dll
+E:\App\New folder\bin\Debug\Microsoft.ReportViewer.ProcessingObjectModel.dll
+E:\App\New folder\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+E:\App\New folder\bin\Debug\Microsoft.SqlServer.Types.dll
+E:\App\New folder\bin\Debug\zxing.dll
+E:\App\New folder\bin\Debug\zxing.presentation.dll
+E:\App\New folder\bin\Debug\EnvDTE.dll
+E:\App\New folder\bin\Debug\stdole.dll
+E:\App\New folder\bin\Debug\zxing.xml
+E:\App\New folder\bin\Debug\zxing.presentation.xml
+E:\App\New folder\bin\Debug\de\Microsoft.ReportViewer.Common.resources.dll
+E:\App\New folder\bin\Debug\es\Microsoft.ReportViewer.Common.resources.dll
+E:\App\New folder\bin\Debug\fr\Microsoft.ReportViewer.Common.resources.dll
+E:\App\New folder\bin\Debug\it\Microsoft.ReportViewer.Common.resources.dll
+E:\App\New folder\bin\Debug\ja\Microsoft.ReportViewer.Common.resources.dll
+E:\App\New folder\bin\Debug\ko\Microsoft.ReportViewer.Common.resources.dll
+E:\App\New folder\bin\Debug\pt\Microsoft.ReportViewer.Common.resources.dll
+E:\App\New folder\bin\Debug\ru\Microsoft.ReportViewer.Common.resources.dll
+E:\App\New folder\bin\Debug\zh-CHS\Microsoft.ReportViewer.Common.resources.dll
+E:\App\New folder\bin\Debug\zh-CHT\Microsoft.ReportViewer.Common.resources.dll
+E:\App\New folder\bin\Debug\de\Microsoft.ReportViewer.DataVisualization.resources.dll
+E:\App\New folder\bin\Debug\es\Microsoft.ReportViewer.DataVisualization.resources.dll
+E:\App\New folder\bin\Debug\fr\Microsoft.ReportViewer.DataVisualization.resources.dll
+E:\App\New folder\bin\Debug\it\Microsoft.ReportViewer.DataVisualization.resources.dll
+E:\App\New folder\bin\Debug\ja\Microsoft.ReportViewer.DataVisualization.resources.dll
+E:\App\New folder\bin\Debug\ko\Microsoft.ReportViewer.DataVisualization.resources.dll
+E:\App\New folder\bin\Debug\pt\Microsoft.ReportViewer.DataVisualization.resources.dll
+E:\App\New folder\bin\Debug\ru\Microsoft.ReportViewer.DataVisualization.resources.dll
+E:\App\New folder\bin\Debug\zh-CHS\Microsoft.ReportViewer.DataVisualization.resources.dll
+E:\App\New folder\bin\Debug\zh-CHT\Microsoft.ReportViewer.DataVisualization.resources.dll
+E:\App\New folder\bin\Debug\de\Microsoft.ReportViewer.Design.resources.dll
+E:\App\New folder\bin\Debug\es\Microsoft.ReportViewer.Design.resources.dll
+E:\App\New folder\bin\Debug\fr\Microsoft.ReportViewer.Design.resources.dll
+E:\App\New folder\bin\Debug\it\Microsoft.ReportViewer.Design.resources.dll
+E:\App\New folder\bin\Debug\ja\Microsoft.ReportViewer.Design.resources.dll
+E:\App\New folder\bin\Debug\ko\Microsoft.ReportViewer.Design.resources.dll
+E:\App\New folder\bin\Debug\pt\Microsoft.ReportViewer.Design.resources.dll
+E:\App\New folder\bin\Debug\ru\Microsoft.ReportViewer.Design.resources.dll
+E:\App\New folder\bin\Debug\zh-CHS\Microsoft.ReportViewer.Design.resources.dll
+E:\App\New folder\bin\Debug\zh-CHT\Microsoft.ReportViewer.Design.resources.dll
+E:\App\New folder\bin\Debug\de\Microsoft.ReportViewer.WinForms.resources.dll
+E:\App\New folder\bin\Debug\es\Microsoft.ReportViewer.WinForms.resources.dll
+E:\App\New folder\bin\Debug\fr\Microsoft.ReportViewer.WinForms.resources.dll
+E:\App\New folder\bin\Debug\it\Microsoft.ReportViewer.WinForms.resources.dll
+E:\App\New folder\bin\Debug\ja\Microsoft.ReportViewer.WinForms.resources.dll
+E:\App\New folder\bin\Debug\ko\Microsoft.ReportViewer.WinForms.resources.dll
+E:\App\New folder\bin\Debug\pt\Microsoft.ReportViewer.WinForms.resources.dll
+E:\App\New folder\bin\Debug\ru\Microsoft.ReportViewer.WinForms.resources.dll
+E:\App\New folder\bin\Debug\zh-CHS\Microsoft.ReportViewer.WinForms.resources.dll
+E:\App\New folder\bin\Debug\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll
+E:\App\New folder\obj\Debug\KTPOS.csproj.AssemblyReference.cache
+E:\App\New folder\obj\Debug\KTPOS.fLogin.resources
+E:\App\New folder\obj\Debug\KTPOS.MANAGER.fManager.resources
+E:\App\New folder\obj\Debug\KTPOS.Properties.Resources.resources
+E:\App\New folder\obj\Debug\KTPOS.STAFF.fBillViewer.resources
+E:\App\New folder\obj\Debug\KTPOS.STAFF.fStaff_F.resources
+E:\App\New folder\obj\Debug\KTPOS.STAFF.fStaff_S.resources
+E:\App\New folder\obj\Debug\KTPOS.STAFF.UC_QRPayment.resources
+E:\App\New folder\obj\Debug\KTPOS.csproj.GenerateResource.cache
+E:\App\New folder\obj\Debug\KTPOS.csproj.CoreCompileInputs.cache
+E:\App\New folder\obj\Debug\KTPOS.csproj.Up2Date
+E:\App\New folder\obj\Debug\KTPOS.exe
+E:\App\New folder\obj\Debug\KTPOS.pdb
