@@ -13,7 +13,6 @@ namespace KTPOS.Proccess
     {
         private static GetDatabase instance;
         private string connectionString = "Data Source=DESKTOP-IGU7U62\\SQLEXPRESS;Initial Catalog=KTPOS;Integrated Security=True";
-
         public static GetDatabase Instance
         {
             get { if (instance == null) instance = new GetDatabase(); return GetDatabase.instance; }

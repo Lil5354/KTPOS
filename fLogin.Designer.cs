@@ -177,6 +177,7 @@
             this.txtPass.SelectedText = "";
             this.txtPass.Size = new System.Drawing.Size(336, 39);
             this.txtPass.TabIndex = 3;
+            this.txtPass.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPass_KeyDown);
             // 
             // guna2HtmlLabel2
             // 
@@ -209,7 +210,6 @@
             this.txtAccount.SelectedText = "";
             this.txtAccount.Size = new System.Drawing.Size(336, 39);
             this.txtAccount.TabIndex = 1;
-            this.txtAccount.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtAccount_KeyDown);
             // 
             // guna2HtmlLabel1
             // 

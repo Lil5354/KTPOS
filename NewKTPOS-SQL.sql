@@ -776,8 +776,8 @@ ORDER BY
 
 
 
-SELECT MAX(ID) AS ID
-FROM BILL;
 
 
-select * from BILLINF
+	select * from billinf
+
+select * from CUSTOMER

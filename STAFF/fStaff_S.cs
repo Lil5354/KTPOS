@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿//code tham khảo để lấy data từ txtNote đưa vào parameter Note trong report
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -12,7 +11,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Guna.UI2.WinForms;
 using KTPOS.Proccess;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace KTPOS.STAFF
 {
@@ -26,6 +24,7 @@ namespace KTPOS.STAFF
         private Dictionary<int, int> discount;
         private int billdiscount = 0;
         private bool checkbill = false;
+        private bool checkclose = true;
         private string Time;
         public fStaff_S(int tableId, string staffId)
         {
@@ -148,9 +147,7 @@ namespace KTPOS.STAFF
         {
             btnSave_Click(sender, e);
             // Kiểm tra nếu có thể quay lại trang trước đó
-            this.Close(); // Đóng form hiện tại (fStaff_S)
-
-            // Hiển thị lại form trước đó, tức là fStaff_F
+            this.Hide(); // Đóng form hiện tại (fStaff_S)
             // Nếu form gọi (fStaff_F) vẫn mở, thì có thể chỉ cần gọi lại form đó.
             fStaff_F previousForm = Application.OpenForms["fStaff_F"] as fStaff_F;
             previousForm?.Show();
@@ -180,8 +177,8 @@ namespace KTPOS.STAFF
                     decimal discountitem = Convert.ToInt32(row["DISCOUNT"]);
                     if (discountitem > 0) discountitem /= 100;
                     decimal cost1 = price1 - (price1 * discountitem);
-                    int cost = (int) cost1;
-                    int price = (int) price1;
+                    int cost = (int)cost1;
+                    int price = (int)price1;
                     string pricetext;
                     if (price != cost)
                     {
@@ -221,7 +218,7 @@ namespace KTPOS.STAFF
                     // Load image based on category
                     try
                     {
-                        string imagePath = $@"E:\App\ok\KTPOS\Image Items\" + itemName + ".jpg";
+                        string imagePath = $@"E:\App\KTPOS-main\Image Items\" + itemName + ".jpg";
                         if (File.Exists(imagePath))
                         {
                             itemImage.Image = Image.FromFile(imagePath);
@@ -244,7 +241,7 @@ namespace KTPOS.STAFF
                     {
                         itemImage.Image = Properties.Resources.cocktail; // Your default resource
                     }
-                    itemImage.Click += (sender, e) => ItemImage_Click(itemId, itemName, cost);
+                    itemImage.Click += (sender, e) => ItemImage_Click(itemId, itemName, price);
                     // Create and configure the name label
                     Label nameLabel = new Label
                     {
@@ -354,7 +351,7 @@ namespace KTPOS.STAFF
             if (billdiscount > 0)
             {
                 decimal cost1 = total - (total * billdiscount / 100);
-                int cost = (int) cost1;
+                int cost = (int)cost1;
                 txtTotal.Text = $"{total:N0} VND -> {cost:N0} VND";
             }
             else
@@ -362,6 +359,7 @@ namespace KTPOS.STAFF
                 txtTotal.Text = total.ToString("N0") + " VND";
             }
         }
+
         private void txtSearch_KeyUp(object sender, KeyEventArgs e)
         {
             foreach (Control control in FlowMenu.Controls)
@@ -379,14 +377,6 @@ namespace KTPOS.STAFF
                     }
                 }
             }
-        }
-
-        private void Filter_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            txtSearch.Clear();
-            string filter = Filter.SelectedItem.ToString();
-            string query = "";
-            LoadMenuItems(query);
         }
         private void nUDItem_ValueChanged(object sender, EventArgs e)
         {
@@ -424,26 +414,35 @@ namespace KTPOS.STAFF
             foreach (DataRow row in table.Rows)
             {
                 idCus = Convert.ToInt32(row["ID"]);
-                break;
+                return;
             }
             if (idCus == 0)
-            { 
-
+            {
+                checkclose = false;
+                fCus staffForm = new fCus(number);
+                staffForm.FormClosed += (s, args) => checkclose = true;
+            }
+            query = $"SELECT ID FROM CUSTOMER WHERE PHONE = '{number}';";
+            table = GetDatabase.Instance.ExecuteQuery(query);
+            foreach (DataRow row in table.Rows)
+            {
+                idCus = Convert.ToInt32(row["ID"]);
+                break;
             }
         }
         private void AddBill()
         {
             string type;
             if (idTable > 0) type = "1";
-                else type = "0";
+            else type = "0";
             string cus;
-            if (idCus == 0) cus = "NULL"; 
+            if (idCus == 0) cus = "NULL";
             else cus = idCus.ToString();
             string query = $"INSERT INTO BILL (IDTABLE, IDSTAFF, CHKIN_TIME, CHKOUT_TIME, STATUS, BILLTYPE, IDCUSTOMER) VALUES ({idTable.ToString()}, '{idStaff}', '{Time}', NULL, 0, {type}, {cus})";
             GetDatabase.Instance.ExecuteNonQuery(query);
             query = "SELECT MAX(ID) AS ID FROM BILL;";
             DataTable result1 = GetDatabase.Instance.ExecuteQuery(query);
-            foreach(DataRow row in result1.Rows)
+            foreach (DataRow row in result1.Rows)
             {
                 idBill = Convert.ToInt32(row["ID"]);
                 break;
@@ -462,7 +461,7 @@ namespace KTPOS.STAFF
                 SaveCus();
                 if (checkbill == false)
                     AddBill();
-                string filePath = "E:\\App\\ok\\KTPOS\\Note\\BillNote";
+                string filePath = "E:\\App\\KTPOS-main\\Note\\BillNote";
                 string query = "DELETE from BILLINF where IDBILL = " + idBill.ToString();
                 GetDatabase.Instance.ExecuteNonQuery(query);
                 filePath = filePath + idBill.ToString() + ".txt";
@@ -486,8 +485,11 @@ namespace KTPOS.STAFF
 
                 // Hiển thị lại form trước đó, tức là fStaff_F
                 // Nếu form gọi (fStaff_F) vẫn mở, thì có thể chỉ cần gọi lại form đó.
-                fStaff_F previousForm = Application.OpenForms["fStaff_F"] as fStaff_F;
-                previousForm?.Show();
+                if (checkclose == true)
+                {
+                    fStaff_F previousForm = Application.OpenForms["fStaff_F"] as fStaff_F;
+                    previousForm?.Show();
+                }
             }
             else
             {
@@ -502,19 +504,19 @@ namespace KTPOS.STAFF
             dtgvBillCus.DataSource = billTable;
         }
 
-        private void btnAll_Click(object sender, EventArgs e)
-        {
-            txtSearch.Clear();
-            string query = "SELECT  DISTINCT I.ID AS ID , I.FNAME AS FNAME, I.CATEGORY AS CATEGORY, I.PRICE AS PRICE, ISNULL(P.DISCOUNT, 0) AS DISCOUNT FROM ITEM I LEFT JOIN ITEM_PROMOTION IP ON I.ID = IP.IDITEM LEFT JOIN PROMOTION P ON IP.IDPROMOTION = P.ID ORDER BY ISNULL(P.DISCOUNT, 0) DESC;";
-            LoadMenuItems(query);
-        }
-
         private void Filter_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             txtSearch.Clear();
             if (Filter.SelectedItem == null) return;
             string filter = Filter.SelectedItem.ToString();
             string query = $"SELECT DISTINCT I.ID AS ID, I.FNAME AS FNAME, I.CATEGORY AS CATEGORY, I.PRICE AS PRICE, ISNULL(P.DISCOUNT, 0) AS DISCOUNT, P.FNAME AS PromotionName, P.[START_DATE] AS StartDate, P.END_DATE AS EndDate FROM ITEM I LEFT JOIN ITEM_PROMOTION IP ON I.ID = IP.IDITEM LEFT JOIN PROMOTION P ON IP.IDPROMOTION = P.ID JOIN ITEM_TAG IT ON I.ID = IT.IDITEM JOIN TAG T ON IT.IDTAG = T.ID AND T.TAGNAME = '{filter}' ORDER BY ISNULL(P.DISCOUNT, 0) DESC;";
+            LoadMenuItems(query);
+        }
+
+        private void btnAll_Click(object sender, EventArgs e)
+        {
+            txtSearch.Clear();
+            string query = "SELECT  DISTINCT I.ID AS ID , I.FNAME AS FNAME, I.CATEGORY AS CATEGORY, I.PRICE AS PRICE, ISNULL(P.DISCOUNT, 0) AS DISCOUNT FROM ITEM I LEFT JOIN ITEM_PROMOTION IP ON I.ID = IP.IDITEM LEFT JOIN PROMOTION P ON IP.IDPROMOTION = P.ID ORDER BY ISNULL(P.DISCOUNT, 0) DESC;";
             LoadMenuItems(query);
         }
 
@@ -532,14 +534,9 @@ namespace KTPOS.STAFF
             LoadMenuItems(query);
         }
 
-        private void tnCancel_Click(object sender, EventArgs e)
+        private void lbCancel_Click_1(object sender, EventArgs e)
         {
             set();
-        }
-
-        private void txtPhone_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

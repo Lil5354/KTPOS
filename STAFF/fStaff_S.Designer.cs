@@ -31,16 +31,16 @@
             Guna.UI2.WinForms.Guna2Button btnClose;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(fStaff_S));
             Guna.UI2.WinForms.Guna2Button btnBack;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnMinSize = new Guna.UI2.WinForms.Guna2Button();
             this.btnMaxSize = new Guna.UI2.WinForms.Guna2Button();
             this.Filter = new Guna.UI2.WinForms.Guna2ComboBox();
             this.FlowMenu = new System.Windows.Forms.FlowLayoutPanel();
             this.PanelBillCus = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
-            this.tnCancel = new Guna.UI2.WinForms.Guna2Button();
+            this.lbCancel = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.txtPhone = new Guna.UI2.WinForms.Guna2TextBox();
             this.nUDItem = new Guna.UI2.WinForms.Guna2NumericUpDown();
             this.txtNoteBill = new Guna.UI2.WinForms.Guna2TextBox();
@@ -184,7 +184,7 @@
             this.PanelBillCus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.PanelBillCus.BorderColor = System.Drawing.Color.Maroon;
             this.PanelBillCus.BorderRadius = 15;
-            this.PanelBillCus.Controls.Add(this.tnCancel);
+            this.PanelBillCus.Controls.Add(this.lbCancel);
             this.PanelBillCus.Controls.Add(this.txtPhone);
             this.PanelBillCus.Controls.Add(this.nUDItem);
             this.PanelBillCus.Controls.Add(this.txtNoteBill);
@@ -203,33 +203,17 @@
             this.PanelBillCus.Size = new System.Drawing.Size(395, 639);
             this.PanelBillCus.TabIndex = 52;
             // 
-            // tnCancel
+            // lbCancel
             // 
-            this.tnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.tnCancel.Animated = true;
-            this.tnCancel.AutoRoundedCorners = true;
-            this.tnCancel.BackColor = System.Drawing.Color.Transparent;
-            this.tnCancel.BorderRadius = 25;
-            this.tnCancel.BorderStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-            this.tnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.tnCancel.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            this.tnCancel.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            this.tnCancel.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            this.tnCancel.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            this.tnCancel.FillColor = System.Drawing.Color.Transparent;
-            this.tnCancel.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tnCancel.ForeColor = System.Drawing.Color.White;
-            this.tnCancel.HoverState.BorderColor = System.Drawing.Color.White;
-            this.tnCancel.HoverState.CustomBorderColor = System.Drawing.Color.Transparent;
-            this.tnCancel.HoverState.FillColor = System.Drawing.Color.White;
-            this.tnCancel.HoverState.ForeColor = System.Drawing.Color.Maroon;
-            this.tnCancel.Location = new System.Drawing.Point(244, 8);
-            this.tnCancel.Name = "tnCancel";
-            this.tnCancel.Size = new System.Drawing.Size(148, 52);
-            this.tnCancel.TabIndex = 63;
-            this.tnCancel.Text = "Cancel";
-            this.tnCancel.UseTransparentBackground = true;
-            this.tnCancel.Click += new System.EventHandler(this.tnCancel_Click);
+            this.lbCancel.BackColor = System.Drawing.Color.Transparent;
+            this.lbCancel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.lbCancel.ForeColor = System.Drawing.Color.White;
+            this.lbCancel.Location = new System.Drawing.Point(310, 28);
+            this.lbCancel.Name = "lbCancel";
+            this.lbCancel.Size = new System.Drawing.Size(39, 17);
+            this.lbCancel.TabIndex = 53;
+            this.lbCancel.Text = "Cancel";
+            this.lbCancel.Click += new System.EventHandler(this.lbCancel_Click_1);
             // 
             // txtPhone
             // 
@@ -249,9 +233,8 @@
             this.txtPhone.PasswordChar = '\0';
             this.txtPhone.PlaceholderText = "Phone";
             this.txtPhone.SelectedText = "";
-            this.txtPhone.Size = new System.Drawing.Size(137, 36);
+            this.txtPhone.Size = new System.Drawing.Size(109, 36);
             this.txtPhone.TabIndex = 52;
-            this.txtPhone.TextChanged += new System.EventHandler(this.txtPhone_TextChanged);
             // 
             // nUDItem
             // 
@@ -307,7 +290,7 @@
             this.txtTotal.BackColor = System.Drawing.Color.Transparent;
             this.txtTotal.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTotal.ForeColor = System.Drawing.Color.White;
-            this.txtTotal.Location = new System.Drawing.Point(221, 426);
+            this.txtTotal.Location = new System.Drawing.Point(223, 430);
             this.txtTotal.Name = "txtTotal";
             this.txtTotal.Size = new System.Drawing.Size(34, 17);
             this.txtTotal.TabIndex = 14;
@@ -318,42 +301,42 @@
             this.dtgvBillCus.AllowUserToAddRows = false;
             this.dtgvBillCus.AllowUserToDeleteRows = false;
             this.dtgvBillCus.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Maroon;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            this.dtgvBillCus.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Maroon;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Maroon;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgvBillCus.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle25.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle25.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle25.ForeColor = System.Drawing.Color.Maroon;
+            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle25.SelectionForeColor = System.Drawing.Color.Black;
+            this.dtgvBillCus.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle26.BackColor = System.Drawing.Color.Maroon;
+            dataGridViewCellStyle26.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle26.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.Color.Maroon;
+            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgvBillCus.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle26;
             this.dtgvBillCus.ColumnHeadersHeight = 40;
             this.dtgvBillCus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Maroon;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dtgvBillCus.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle27.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle27.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle27.ForeColor = System.Drawing.Color.Maroon;
+            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dtgvBillCus.DefaultCellStyle = dataGridViewCellStyle27;
             this.dtgvBillCus.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
             this.dtgvBillCus.Location = new System.Drawing.Point(34, 126);
             this.dtgvBillCus.Name = "dtgvBillCus";
             this.dtgvBillCus.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtgvBillCus.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle28.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle28.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle28.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle28.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle28.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtgvBillCus.RowHeadersDefaultCellStyle = dataGridViewCellStyle28;
             this.dtgvBillCus.RowHeadersVisible = false;
             this.dtgvBillCus.RowHeadersWidth = 51;
             this.dtgvBillCus.RowTemplate.Height = 25;
@@ -466,10 +449,10 @@
             this.btnDrink.HoverState.CustomBorderColor = System.Drawing.Color.Transparent;
             this.btnDrink.HoverState.FillColor = System.Drawing.Color.White;
             this.btnDrink.HoverState.ForeColor = System.Drawing.Color.Maroon;
-            this.btnDrink.Location = new System.Drawing.Point(826, 123);
+            this.btnDrink.Location = new System.Drawing.Point(809, 121);
             this.btnDrink.Name = "btnDrink";
             this.btnDrink.Size = new System.Drawing.Size(148, 52);
-            this.btnDrink.TabIndex = 61;
+            this.btnDrink.TabIndex = 64;
             this.btnDrink.Text = "DRINK";
             this.btnDrink.UseTransparentBackground = true;
             this.btnDrink.Click += new System.EventHandler(this.btnDrink_Click);
@@ -494,10 +477,10 @@
             this.btnFood.HoverState.CustomBorderColor = System.Drawing.Color.Transparent;
             this.btnFood.HoverState.FillColor = System.Drawing.Color.White;
             this.btnFood.HoverState.ForeColor = System.Drawing.Color.Maroon;
-            this.btnFood.Location = new System.Drawing.Point(672, 123);
+            this.btnFood.Location = new System.Drawing.Point(655, 121);
             this.btnFood.Name = "btnFood";
             this.btnFood.Size = new System.Drawing.Size(148, 52);
-            this.btnFood.TabIndex = 60;
+            this.btnFood.TabIndex = 63;
             this.btnFood.Text = "FOOD";
             this.btnFood.UseTransparentBackground = true;
             this.btnFood.Click += new System.EventHandler(this.btnFood_Click);
@@ -522,10 +505,10 @@
             this.btnAll.HoverState.CustomBorderColor = System.Drawing.Color.Transparent;
             this.btnAll.HoverState.FillColor = System.Drawing.Color.White;
             this.btnAll.HoverState.ForeColor = System.Drawing.Color.Maroon;
-            this.btnAll.Location = new System.Drawing.Point(518, 123);
+            this.btnAll.Location = new System.Drawing.Point(501, 121);
             this.btnAll.Name = "btnAll";
             this.btnAll.Size = new System.Drawing.Size(148, 52);
-            this.btnAll.TabIndex = 59;
+            this.btnAll.TabIndex = 62;
             this.btnAll.Text = "ALL";
             this.btnAll.UseTransparentBackground = true;
             this.btnAll.Click += new System.EventHandler(this.btnAll_Click);
@@ -573,6 +556,7 @@
         private Guna.UI2.WinForms.Guna2HtmlLabel txtTotal;
         private Guna.UI2.WinForms.Guna2Button btnSave;
         private Guna.UI2.WinForms.Guna2TextBox txtSearch;
+        private Guna.UI2.WinForms.Guna2HtmlLabel lbCancel;
         private Guna.UI2.WinForms.Guna2TextBox txtPhone;
         public Guna.UI2.WinForms.Guna2HtmlLabel txtTable;
         public Guna.UI2.WinForms.Guna2DataGridView dtgvBillCus;
@@ -580,6 +564,5 @@
         private Guna.UI2.WinForms.Guna2Button btnDrink;
         private Guna.UI2.WinForms.Guna2Button btnFood;
         private Guna.UI2.WinForms.Guna2Button btnAll;
-        private Guna.UI2.WinForms.Guna2Button tnCancel;
     }
 }

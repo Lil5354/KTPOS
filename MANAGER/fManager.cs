@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -26,11 +27,11 @@ namespace KTPOS.MANAGER
         public fManager()
         {
             InitializeComponent();
+            dtgvTable.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             this.Load += ManagementControl_Load;
             this.WindowState = FormWindowState.Maximized;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.MinimumSize = new Size(800, 450);
-            
         }
         private void ManagementControl_Load(object sender, EventArgs e)
         {
@@ -68,7 +69,7 @@ namespace KTPOS.MANAGER
         }
         private void btnBack_Click(object sender, EventArgs e)
         {
-            this.Close(); // Đóng form hiện tại (fStaff_S)
+            this.Hide(); // Đóng form hiện tại (fStaff_S)
             // Nếu form gọi (fStaff_F) vẫn mở, thì có thể chỉ cần gọi lại form đó.
             fStaff_F previousForm = Application.OpenForms["fStaff_F"] as fStaff_F;
             previousForm?.Show();
@@ -153,7 +154,23 @@ namespace KTPOS.MANAGER
                         index = -1;
                         break;
                     case "BILL":
-                        query = "";
+                        query = @"SELECT 
+                           B.ID,
+                           B.CHKIN_TIME AS [DATE],
+                           C.FULLNAME AS [CUSTOMER],
+                           CASE WHEN B.BILLTYPE = 1 THEN 'Dine-In' ELSE 'Take away' END AS [TYPE],
+                           (SELECT SUM(bi.COUNT * i.PRICE)
+                            FROM BILLINF bi
+                            JOIN ITEM i ON bi.IDFD = i.ID 
+                            WHERE bi.IDBILL = B.ID) AS TOTAL,
+                           (SELECT SUM(bi.COUNT * i.PRICE)
+                            FROM BILLINF bi
+                            JOIN ITEM i ON bi.IDFD = i.ID 
+                            WHERE bi.IDBILL = B.ID) - B.TOTAL AS DISCOUNT,
+                           B.TOTAL AS PAYMENT
+                        FROM BILL B
+                        LEFT JOIN ACCOUNT A ON B.IDSTAFF = A.IDSTAFF 
+                        LEFT JOIN CUSTOMER C ON B.IDCUSTOMER = C.ID;";
                         DTManger.Instance.LoadList(query, dtgvBill);
                         index = -1;
                         break;
@@ -161,17 +178,14 @@ namespace KTPOS.MANAGER
                         cbbTag_SelectedIndexChanged(sender, e);
                         q = "SELECT TAGNAME FROM TAG";
                         GetDatabase.Instance.LoadDataToComboBox(q, cbbTag);
-                        
                         q = "SELECT DISTINCT CATEGORY FROM [ITEM]";
                         GetDatabase.Instance.LoadDataToComboBox(q, cbCategoriesFB);
                         index = -1;
                         break;
+
                     case "REVENUE":
                         query = "";
                         index = -1;
-                        break;
-                    case "SALETAG":
-                        
                         break;
                     default:
                         query = "";
@@ -259,7 +273,7 @@ namespace KTPOS.MANAGER
         }
         private void btnAddAcc_Click(object sender, EventArgs e)
         {
-            if (txtFullName.Text.Trim() == "" || txtEmail.Text.Trim() == "" || cbBRole.Text == "" || txtPhone.Text.Trim()=="")
+            if (txtFullName.Text.Trim() == "" || txtEmail.Text.Trim() == "" || cbBRole.Text == "" || txtPhone.Text.Trim()=="" || cbBRole.SelectedIndex == -1)
             {
                 MessageBox.Show("Error add account", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -488,13 +502,195 @@ namespace KTPOS.MANAGER
             DTManger.Instance.LoadList(query, dtgvTable);
         }
         //CRUD F&B
-        private void cbbTag_SelectedIndexChanged(object sender, EventArgs e)
+        private void ClearTxtFB()
         {
-            query = "SELECT I.FNAME AS [ITEM NAME], I.CATEGORY,  I.PRICE, ISNULL(SUM(bi.COUNT), 0) AS QTY, MAX(CASE WHEN T.TAGNAME = '"+cbbTag.Text+"' THEN 1 ELSE 0 END) AS TAG," +
+            txtNameFB.Clear();
+            cbCategoriesFB.SelectedIndex = -1;
+            txtPriceFB.Clear();
+        }
+        private void cbbTag_SelectedIndexChanged(object sender, EventArgs e)
+        { 
+            query = "SELECT I.FNAME AS [ITEM NAME], I.CATEGORY,  I.PRICE, ISNULL(SUM(bi.COUNT), 0) AS QTY, MAX(CASE WHEN T.TAGNAME = '" + cbbTag.Text + "' THEN 1 ELSE 0 END) AS TAG," +
                 "CASE WHEN I.VISIBLE = 1 THEN 'ON' ELSE 'OFF' END AS [STATE] FROM ITEM I LEFT JOIN BILLINF bi ON i.ID = bi.IDFD LEFT JOIN ITEM_TAG IT ON I.ID = IT.IDITEM " +
-                "LEFT JOIN TAG T ON IT.IDTAG = T.ID GROUP BY I.FNAME, I.CATEGORY,I.PRICE,I.VISIBLE ORDER BY I.FNAME; "; 
+                "LEFT JOIN TAG T ON IT.IDTAG = T.ID GROUP BY I.FNAME, I.CATEGORY,I.PRICE,I.VISIBLE ORDER BY I.VISIBLE DESC; ";
             DTManger.Instance.LoadList(query, dtgvFandB);
         }
+        private void dtgvFandB_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                index = e.RowIndex;
+                // Lấy hàng hiện tại
+                DataGridViewRow row = dtgvFandB.Rows[e.RowIndex];
+                // Gán dữ liệu từ các cột vào TextBox
+                txtNameFB.Text = row.Cells[0].Value?.ToString();
+                cbCategoriesFB.Text = row.Cells[1].Value?.ToString();
+                txtPriceFB.Text = row.Cells[2].Value?.ToString();
+            }
+        }
+        private void dtgvFandB_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dtgvFandB.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
+            {
+                DialogResult dialog = MessageBox.Show("Do you really want to SHOW/HIDE this item?", "Notice", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialog == DialogResult.Yes)
+                {
+                    if (dtgvFandB.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+                    {
+                        // Get the current row and STATUS cell
+                        DataGridViewRow selectedRow = dtgvFandB.Rows[e.RowIndex];
+                        string currentStatus = selectedRow.Cells["STATEFB"].Value.ToString();
+                        int CurrentIndex = dtgvFandB.CurrentCell.RowIndex;// Adjust "STATUS" to your column name
+                        string ID = Convert.ToString(dtgvFandB.Rows[CurrentIndex].Cells[0].Value.ToString()); // Adjust "ID" to your column name
+                        // Toggle the status
+                        if (currentStatus == "OFF")
+                        {
+                            // Update the DataGridView
+                            selectedRow.Cells["STATEFB"].Value = "ON";
+                            selectedRow.Cells[e.ColumnIndex].Style.BackColor = Color.Green;
+                            selectedRow.Cells[e.ColumnIndex].Style.ForeColor = Color.White;
+                            int n = DTManger.Instance.ResolveFB(1, ID);
+                            if (n > 0)
+                            {
+                                MessageBox.Show("Item set successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                tcManager_SelectedIndexChanged(sender, e);
+                                ClearTxtFB();
+                            }
+                        }
+                        else if (currentStatus == "ON")
+                        {
+                            // Update the DataGridView
+                            selectedRow.Cells["STATEFB"].Value = "OFF";
+                            selectedRow.Cells[e.ColumnIndex].Style.BackColor = Color.Red;
+                            selectedRow.Cells[e.ColumnIndex].Style.ForeColor = Color.White;
+                            // Update the database
+                            int n = DTManger.Instance.ResolveFB(0, ID);
+                            if (n > 0)
+                            {
+                                MessageBox.Show("Item set successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                tcManager_SelectedIndexChanged(sender, e);
+                                ClearTxtFB();
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Exit cancelled. Continue your activity ❤️.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Focus();
+                }
+            }
+        }
+        private void dtgvFandB_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dtgvFandB.Columns[e.ColumnIndex] is DataGridViewCheckBoxColumn && e.RowIndex >= 0)
+            {
+                var cellValue = dtgvFandB.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                bool isChecked = cellValue != DBNull.Value && cellValue != null && Convert.ToBoolean(cellValue);
+
+                string fname = txtNameFB.Text;
+                string tag = cbbTag.Text;
+                int n;
+
+                if (isChecked)
+                {
+                    n = DTManger.Instance.ResolveTag(1,fname, tag);
+                }
+                else
+                {
+                    n = DTManger.Instance.ResolveTag(2, fname, tag);
+                }
+
+                if (n > 0)
+                {
+                    MessageBox.Show("Tag update successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    cbbTag_SelectedIndexChanged(sender, e);
+                    ClearTxtFB();
+                }
+                else
+                {
+                    MessageBox.Show("Error update Tag", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+        }
+        private void btnAddFB_Click(object sender, EventArgs e)
+        {
+            if (txtNameFB.Text.Trim() == "" || txtPriceFB.Text.Trim() == "" || cbCategoriesFB.SelectedIndex == -1)
+            {
+                MessageBox.Show("Error add Item. Please insert information", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                try
+                {
+                    string name = txtNameFB.Text, price = txtPriceFB.Text, cate = cbCategoriesFB.Text;
+
+                    int n = DTManger.Instance.InsertItem(name, cate, price);
+                    if (n > 0)
+                    {
+                        MessageBox.Show("Item add successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        tcManager_SelectedIndexChanged(sender, e);
+                        ClearTxtFB();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error add Item", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error add Item: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void btnEditFB_Click(object sender, EventArgs e)
+        {
+            if (index == -1)
+            {
+                MessageBox.Show("Please chose the row need to be edit!", "Notice!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                if (txtNameFB.Text.Trim() == "" || txtPriceFB.Text.Trim() == "" || cbCategoriesFB.SelectedIndex == -1)
+                {
+                    MessageBox.Show("Error edit Item", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    try
+                    {
+                        int CurrentIndex = dtgvFandB.CurrentCell.RowIndex;
+                        string fname = Convert.ToString(dtgvFandB.Rows[CurrentIndex].Cells[0].Value.ToString());
+                        string name = txtNameFB.Text, price = txtPriceFB.Text, cate = cbCategoriesFB.Text; 
+                        int n = DTManger.Instance.UpdateItem(name, cate, price, fname);
+                        if (n > 0)
+                        {
+                            MessageBox.Show("Item update successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            tcManager_SelectedIndexChanged(sender, e);
+                            ClearTxtFB();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error update Item", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error update Item: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void txtSearchFB_KeyUp(object sender, KeyEventArgs e)
+        {
+            query = "SELECT I.FNAME AS [ITEM NAME], I.CATEGORY,  I.PRICE, ISNULL(SUM(bi.COUNT), 0) AS QTY, MAX(CASE WHEN T.TAGNAME = '" + cbbTag.Text + "' THEN 1 ELSE 0 END) AS TAG," +
+                "CASE WHEN I.VISIBLE = 1 THEN 'ON' ELSE 'OFF' END AS [STATE] FROM ITEM I LEFT JOIN BILLINF bi ON i.ID = bi.IDFD LEFT JOIN ITEM_TAG IT ON I.ID = IT.IDITEM " +
+                "LEFT JOIN TAG T ON IT.IDTAG = T.ID WHERE I.FNAME LIKE '%" + txtSearchFB.Text + "%'GROUP BY I.FNAME, I.CATEGORY,I.PRICE,I.VISIBLE ORDER BY I.VISIBLE DESC; ";
+            DTManger.Instance.LoadList(query, dtgvFandB);
+        }
+        //BILL
         
         
         
