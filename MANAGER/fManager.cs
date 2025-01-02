@@ -681,12 +681,6 @@ namespace KTPOS.MANAGER
                 }
             }
         }
-
-        private void dtgvBill_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void txtSearchFB_KeyUp(object sender, KeyEventArgs e)
         {
             query = "SELECT I.FNAME AS [ITEM NAME], I.CATEGORY,  I.PRICE, ISNULL(SUM(bi.COUNT), 0) AS QTY, MAX(CASE WHEN T.TAGNAME = '" + cbbTag.Text + "' THEN 1 ELSE 0 END) AS TAG," +
