@@ -20,7 +20,7 @@ namespace KTPOS.STAFF
     {
         private static decimal _cashTotal = 0;
         private static decimal _transferTotal = 0;
-
+        private string staffid;
         private string userRole;
         public static event EventHandler<decimal> CashTotalChanged;
         public static event EventHandler<decimal> TransferTotalChanged;
@@ -44,11 +44,12 @@ namespace KTPOS.STAFF
             }
         }
 
-        public fStaff_F(string role)
+        public fStaff_F(string role, string idstaff)
         {
             InitializeComponent();
             ListBill.CellClick += ListBill_CellClick;
             this.userRole = role;
+            staffid = idstaff;
             ConfigureUIBasedOnRole();
             LoadTables();
             SetupListBillColumns();
@@ -172,26 +173,9 @@ namespace KTPOS.STAFF
             {
                 tableName = "Take Away";
             }
-
-            const string billQuery = @"
-            SELECT b.ID 
-            FROM Bill b 
-            WHERE b.idTable = @tableId AND b.status = 0";
-
-            object billIdResult = GetDatabase.Instance.ExecuteScalar(billQuery, new object[] { tableId });
-            int billId = Convert.ToInt32(billIdResult);
-            const string detailsQuery = @"
-            SELECT 
-                i.FNAME as NAME,
-                bi.COUNT as QTY,
-                i.PRICE as PRICE,
-                i.ID as ID
-            FROM BILLINF bi
-            JOIN ITEM i ON bi.IDFD = i.ID
-            WHERE bi.IDBILL = @billId";
-
-            DataTable billDetails = GetDatabase.Instance.ExecuteQuery(detailsQuery, new object[] { billId });
-            using (fStaff_S staffForm = new fStaff_S(tableId))
+            string detailsQuery = $"SELECT IT.FNAME AS NAME, BI.COUNT AS QTY, IT.Price AS PRICE, BI.IDFD AS ID FROM BILL B JOIN BILLINF BI ON B.ID = BI.IDBILL JOIN ITEM IT ON BI.IDFD = IT.ID WHERE B.IDTABLE = {tableId} AND B.STATUS = 0;";
+            DataTable billDetails = GetDatabase.Instance.ExecuteQuery(detailsQuery);
+            using (fStaff_S staffForm = new fStaff_S(tableId, staffid))
             {
                 if (staffForm.Controls.Find("txtTable", true).FirstOrDefault() is Guna2HtmlLabel txtTable)
                 {
@@ -231,7 +215,7 @@ namespace KTPOS.STAFF
                         else total = 0;
                     }
                     txtTotal.Text = total.ToString("N0") + " VND";
-
+                    staffForm.UpdateTotal();
                     dtgvBillCus.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                     if (!dtgvBillCus.Columns.Contains("DEL_BUTTON"))
@@ -291,6 +275,7 @@ namespace KTPOS.STAFF
                 this.Hide();
                 staffForm.ShowDialog();
             }
+            LoadBillData();
         }
         public void LoadBillData()
         {

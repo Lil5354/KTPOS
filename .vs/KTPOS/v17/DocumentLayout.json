@@ -1,30 +1,34 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Th\u01B0 mu\u0323c m\u01A1\u0301i\\KTPOS\\",
+  "WorkspaceRootPath": "E:\\App\\ok\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|c:\\th\u01B0 mu\u0323c m\u01A1\u0301i\\ktpos\\staff\\fstaff_s.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|e:\\app\\ok\\staff\\fstaff_s.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fstaff_s.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|c:\\th\u01B0 mu\u0323c m\u01A1\u0301i\\ktpos\\staff\\fstaff_s.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\ok\\staff\\fstaff_s.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fstaff_s.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|C:\\Th\u01B0 mu\u0323c m\u01A1\u0301i\\KTPOS\\manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|e:\\app\\ok\\staff\\fcus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fcus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|C:\\Th\u01B0 mu\u0323c m\u01A1\u0301i\\KTPOS\\staff\\fstaff_f.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|e:\\app\\ok\\staff\\fcus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fcus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\ok\\staff\\fstaff_f.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fstaff_f.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|C:\\Th\u01B0 mu\u0323c m\u01A1\u0301i\\KTPOS\\staff\\fstaff_f.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\ok\\staff\\fstaff_f.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fstaff_f.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|C:\\Th\u01B0 mu\u0323c m\u01A1\u0301i\\KTPOS\\manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\ok\\manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,17 +38,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "fStaff_F.cs",
-              "DocumentMoniker": "C:\\Th\u01B0 mu\u0323c m\u01A1\u0301i\\KTPOS\\STAFF\\fStaff_F.cs",
+              "DocumentMoniker": "E:\\App\\ok\\STAFF\\fStaff_F.cs",
               "RelativeDocumentMoniker": "STAFF\\fStaff_F.cs",
-              "ToolTip": "C:\\Th\u01B0 mu\u0323c m\u01A1\u0301i\\KTPOS\\STAFF\\fStaff_F.cs",
+              "ToolTip": "E:\\App\\ok\\STAFF\\fStaff_F.cs",
               "RelativeToolTip": "STAFF\\fStaff_F.cs",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAcwGUAAAAVAAAAAAAAAA==",
+              "ViewState": "AgIAAOoAAAAAAAAAAAAwwAoBAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-02T12:32:35.505Z",
               "IsPinned": true,
@@ -52,13 +56,51 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "fStaff_F.cs [Design]",
+              "DocumentMoniker": "E:\\App\\ok\\STAFF\\fStaff_F.cs",
+              "RelativeDocumentMoniker": "STAFF\\fStaff_F.cs",
+              "ToolTip": "E:\\App\\ok\\STAFF\\fStaff_F.cs [Design]",
+              "RelativeToolTip": "STAFF\\fStaff_F.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-02T12:32:33.63Z",
+              "IsPinned": true,
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "fCus.cs",
+              "DocumentMoniker": "E:\\App\\ok\\STAFF\\fCus.cs",
+              "RelativeDocumentMoniker": "STAFF\\fCus.cs",
+              "ToolTip": "E:\\App\\ok\\STAFF\\fCus.cs",
+              "RelativeToolTip": "STAFF\\fCus.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAowDkAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-03T18:27:18.448Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "fCus.cs [Design]",
+              "DocumentMoniker": "E:\\App\\ok\\STAFF\\fCus.cs",
+              "RelativeDocumentMoniker": "STAFF\\fCus.cs",
+              "ToolTip": "E:\\App\\ok\\STAFF\\fCus.cs [Design]",
+              "RelativeToolTip": "STAFF\\fCus.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-03T18:27:16.916Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "fStaff_S.cs",
-              "DocumentMoniker": "C:\\Th\u01B0 mu\u0323c m\u01A1\u0301i\\KTPOS\\STAFF\\fStaff_S.cs",
+              "DocumentMoniker": "E:\\App\\ok\\STAFF\\fStaff_S.cs",
               "RelativeDocumentMoniker": "STAFF\\fStaff_S.cs",
-              "ToolTip": "C:\\Th\u01B0 mu\u0323c m\u01A1\u0301i\\KTPOS\\STAFF\\fStaff_S.cs",
+              "ToolTip": "E:\\App\\ok\\STAFF\\fStaff_S.cs",
               "RelativeToolTip": "STAFF\\fStaff_S.cs",
-              "ViewState": "AgIAAEsAAAAAAAAAAAArwGEAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAADICAAAAAAAAAAAAAEcCAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-03T02:39:27.16Z",
               "EditorCaption": ""
@@ -67,54 +109,25 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "fStaff_S.cs [Design]",
-              "DocumentMoniker": "C:\\Th\u01B0 mu\u0323c m\u01A1\u0301i\\KTPOS\\STAFF\\fStaff_S.cs",
+              "DocumentMoniker": "E:\\App\\ok\\STAFF\\fStaff_S.cs",
               "RelativeDocumentMoniker": "STAFF\\fStaff_S.cs",
-              "ToolTip": "C:\\Th\u01B0 mu\u0323c m\u01A1\u0301i\\KTPOS\\STAFF\\fStaff_S.cs [Design]",
+              "ToolTip": "E:\\App\\ok\\STAFF\\fStaff_S.cs [Design]",
               "RelativeToolTip": "STAFF\\fStaff_S.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-03T02:39:24.885Z",
               "EditorCaption": " [Design]"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "fManager.cs [Design]",
-              "DocumentMoniker": "C:\\Th\u01B0 mu\u0323c m\u01A1\u0301i\\KTPOS\\MANAGER\\fManager.cs",
-              "RelativeDocumentMoniker": "MANAGER\\fManager.cs",
-              "ToolTip": "C:\\Th\u01B0 mu\u0323c m\u01A1\u0301i\\KTPOS\\MANAGER\\fManager.cs [Design]",
-              "RelativeToolTip": "MANAGER\\fManager.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-02T13:34:04.688Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "fStaff_F.cs [Design]",
-              "DocumentMoniker": "C:\\Th\u01B0 mu\u0323c m\u01A1\u0301i\\KTPOS\\STAFF\\fStaff_F.cs",
-              "RelativeDocumentMoniker": "STAFF\\fStaff_F.cs",
-              "ToolTip": "C:\\Th\u01B0 mu\u0323c m\u01A1\u0301i\\KTPOS\\STAFF\\fStaff_F.cs [Design]",
-              "RelativeToolTip": "STAFF\\fStaff_F.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-02T12:32:33.63Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "fManager.cs",
-              "DocumentMoniker": "C:\\Th\u01B0 mu\u0323c m\u01A1\u0301i\\KTPOS\\MANAGER\\fManager.cs",
+              "DocumentMoniker": "E:\\App\\ok\\MANAGER\\fManager.cs",
               "RelativeDocumentMoniker": "MANAGER\\fManager.cs",
-              "ToolTip": "C:\\Th\u01B0 mu\u0323c m\u01A1\u0301i\\KTPOS\\MANAGER\\fManager.cs",
+              "ToolTip": "E:\\App\\ok\\MANAGER\\fManager.cs",
               "RelativeToolTip": "MANAGER\\fManager.cs",
               "ViewState": "AgIAAD8AAAAAAAAAAAAAAEcAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-02T12:24:33.837Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-02T12:24:33.837Z"
             }
           ]
         }
