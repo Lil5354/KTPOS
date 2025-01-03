@@ -5,15 +5,19 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices.ComTypes;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using System.Xml.Linq;
 using KTPOS.Proccess;
 using KTPOS.STAFF;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
+using static System.Windows.Forms.AxHost;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static TheArtOfDevHtmlRenderer.Adapters.RGraphicsPath;
 using static ZXing.QrCode.Internal.Mode;
@@ -153,9 +157,8 @@ namespace KTPOS.MANAGER
                         }
                         index = -1;
                         break;
-                    case "BILL":
+                   case "BILL":
                         query = @"SELECT 
-                           B.ID,
                            B.CHKIN_TIME AS [DATE],
                            C.FULLNAME AS [CUSTOMER],
                            CASE WHEN B.BILLTYPE = 1 THEN 'Dine-In' ELSE 'Take away' END AS [TYPE],
@@ -182,9 +185,44 @@ namespace KTPOS.MANAGER
                         GetDatabase.Instance.LoadDataToComboBox(q, cbCategoriesFB);
                         index = -1;
                         break;
-
                     case "REVENUE":
-                        query = "";
+                        OR1.Hide();
+                        OR2.Hide();
+                        OR3.Hide();
+                        index = -1;
+                        break;
+                    case "PROMOTION":
+                        query = "SELECT FNAME AS NAME, DISCOUNT, START_DATE AS [START], END_DATE AS [END], CASE WHEN STATUS = 1 THEN 'ON' ELSE 'OFF' END AS STATUS , APPLY_TO AS [APPLY TO] FROM PROMOTION";
+                        DTManger.Instance.LoadList(query,dtgvPMB);
+                        q = "SELECT FNAME FROM PROMOTION WHERE APPLY_TO = 'ITEM' AND STATUS = 1";
+                        GetDatabase.Instance.LoadDataToComboBox(q, cbbAddItem);
+                        foreach (DataGridViewRow gridRow in dtgvPMB.Rows)
+                        {
+                            if (gridRow.Cells["STATUSPM"].Value != null) // Check if the STATUS column has a value
+                            {
+                                string status = gridRow.Cells["STATUSPM"].Value.ToString();
+
+                                DataGridViewButtonCell statusCell = gridRow.Cells[4] as DataGridViewButtonCell;
+
+                                if (statusCell != null)
+                                {
+                                    // Set the cell color based on the STATUS value
+                                    if (status == "ON")
+                                    {
+                                        statusCell.Style.BackColor = Color.Green;
+                                        statusCell.Style.ForeColor = Color.White;
+                                    }
+                                    else
+                                    {
+                                        statusCell.Style.BackColor = Color.Red;
+                                        statusCell.Style.ForeColor = Color.White;
+                                    }
+                                }
+                            }
+                        }
+                        btnSaveAdd.Hide();
+                        dtgvPMI.Hide();
+
                         index = -1;
                         break;
                     default:
@@ -682,7 +720,6 @@ namespace KTPOS.MANAGER
                 }
             }
         }
-
         private void txtSearchFB_KeyUp(object sender, KeyEventArgs e)
         {
             query = "SELECT I.FNAME AS [ITEM NAME], I.CATEGORY,  I.PRICE, ISNULL(SUM(bi.COUNT), 0) AS QTY, MAX(CASE WHEN T.TAGNAME = '" + cbbTag.Text + "' THEN 1 ELSE 0 END) AS TAG," +
@@ -691,8 +728,481 @@ namespace KTPOS.MANAGER
             DTManger.Instance.LoadList(query, dtgvFandB);
         }
         //BILL
-        
-        
-        
+        private void btnCompileB_Click(object sender, EventArgs e)
+        {
+            DateTime S = dtpB1.Value;
+            string Start = S.ToString("yyyy-MM-dd");
+            DateTime E = dtpB2.Value;
+            string End = E.ToString("yyyy-MM-dd");
+            query = "SELECT B.CHKIN_TIME AS [DATE], C.FULLNAME AS [CUSTOMER], CASE WHEN B.BILLTYPE = 1 THEN 'Dine-In' ELSE 'Take away' END AS [TYPE], " +
+                "(SELECT SUM(bi.COUNT * i.PRICE) FROM BILLINF bi JOIN ITEM i ON bi.IDFD = i.ID WHERE bi.IDBILL = B.ID) AS TOTAL, " +
+                "(SELECT SUM(bi.COUNT * i.PRICE) FROM BILLINF bi JOIN ITEM i ON bi.IDFD = i.ID WHERE bi.IDBILL = B.ID) - B.TOTAL AS DISCOUNT, " +
+                "B.TOTAL AS PAYMENT FROM BILL B LEFT JOIN ACCOUNT A ON B.IDSTAFF = A.IDSTAFF LEFT JOIN CUSTOMER C ON B.IDCUSTOMER = C.ID " +
+                "WHERE B.CHKIN_TIME BETWEEN '" + Start + "' AND '"+End+"';";
+            DTManger.Instance.LoadList(query, dtgvBill);
+            
+        }
+        //PROMOTION
+        private void ClearTxtPromotion()
+        {
+            txtNameP.Clear();
+            txtDiscP.Clear();
+            dtpSP.Value = DateTime.Now;
+            dtpEP.Value = DateTime.Now;
+            cbbApply.SelectedIndex = -1;
+        }
+        private void dtgvPMB_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dtgvPMB.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
+            {
+                DialogResult dialog = MessageBox.Show("Do you really want to hide/show this program?", "Notice", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialog == DialogResult.Yes)
+                {
+                    if (dtgvPMB.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+                    {
+                        // Get the current row and STATUS cell
+                        DataGridViewRow selectedRow = dtgvPMB.Rows[e.RowIndex];
+                        string currentStatus = selectedRow.Cells["STATUSPM"].Value.ToString();
+                        int CurrentIndex = dtgvPMB.CurrentCell.RowIndex;// Adjust "STATUS" to your column name
+                        string name = Convert.ToString(dtgvPMB.Rows[CurrentIndex].Cells[0].Value.ToString()); // Adjust "ID" to your column name
+                        // Toggle the status
+                        if (currentStatus == "OFF")
+                        {
+                            // Update the DataGridView
+                            selectedRow.Cells["STATUSPM"].Value = "ON";
+                            selectedRow.Cells[e.ColumnIndex].Style.BackColor = Color.Green;
+                            selectedRow.Cells[e.ColumnIndex].Style.ForeColor = Color.White;
+                            int n = DTManger.Instance.ResolvePromo(1, name);
+                            if (n > 0)
+                            {
+                                MessageBox.Show("Promotion set successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                tcManager_SelectedIndexChanged(sender, e);
+                                ClearTxtPromotion();
+                            }
+                        }
+                        else if (currentStatus == "ON")
+                        {
+                            // Update the DataGridView
+                            selectedRow.Cells["STATUSPM"].Value = "OFF";
+                            selectedRow.Cells[e.ColumnIndex].Style.BackColor = Color.Red;
+                            selectedRow.Cells[e.ColumnIndex].Style.ForeColor = Color.White;
+                            // Update the database
+                            int n = DTManger.Instance.ResolvePromo(0, name);
+                            if (n > 0)
+                            {
+                                MessageBox.Show("Promotion set successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                tcManager_SelectedIndexChanged(sender, e);
+                                ClearTxtPromotion();
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Exit cancelled. Continue your activity ❤️.", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Focus();
+                }
+            }
+        }
+        private void dtgvPMB_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+             {
+                 index = e.RowIndex;
+                 // Lấy hàng hiện tại
+                 DataGridViewRow row = dtgvPMB.Rows[e.RowIndex];
+                 // Gán dữ liệu từ các cột vào TextBox
+                 txtNameP.Text = row.Cells[0].Value?.ToString();
+                 txtDiscP.Text = row.Cells[1].Value?.ToString();
+                 dtpSP.Text = row.Cells[2].Value?.ToString();
+                 dtpEP.Text = row.Cells[3].Value?.ToString();
+                 cbbApply.Text = row.Cells[5].Value?.ToString(); 
+             }
+        }
+        private void btnAddPromo_Click(object sender, EventArgs e)
+        {
+            if (txtNameP.Text.Trim() == "" || txtNameP.Text.Trim() == "" || txtDiscP.Text == "")
+            {
+                MessageBox.Show("Error add promotion", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                try
+                {
+                    string name = txtNameP.Text, disc = txtDiscP.Text, apply = cbbApply.Text;
+                    DateTime S= dtpSP.Value;
+                    string Start = S.ToString("yyyy-MM-dd");
+                    DateTime E = dtpEP.Value;
+                    string End = E.ToString("yyyy-MM-dd");
+                    int n = DTManger.Instance.InsertPromo(name, disc, Start, End, apply);
+                    if (n > 0)
+                    {
+                        MessageBox.Show("Promotion add successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        tcManager_SelectedIndexChanged(sender, e);
+                        ClearTxtAccount();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error add promotion", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error add promotion: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        private void btnEditPromo_Click(object sender, EventArgs e)
+        {
+            if (index == -1)
+            {
+                MessageBox.Show("Please chose a employee need to be update!", "Notice!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else
+            {
+                if (txtNameP.Text.Trim() == "" || txtNameP.Text.Trim() == "" || txtDiscP.Text == "")
+                {
+                    MessageBox.Show("Error update account", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    try
+                    {
+                        int CurrentIndex = dtgvPMB.CurrentCell.RowIndex;
+                        string fname = Convert.ToString(dtgvPMB.Rows[CurrentIndex].Cells[0].Value.ToString()); // Adjust "ID" to your column name
+                        string name = txtNameP.Text, disc = txtDiscP.Text, apply = cbbApply.Text;
+                        DateTime S = dtpSP.Value;
+                        string Start = S.ToString("yyyy-MM-dd");
+                        DateTime E = dtpEP.Value;
+                        string End = E.ToString("yyyy-MM-dd");
+                        int n = DTManger.Instance.UpdatePromo(name, disc, Start, End, apply, fname);
+                        if (n > 0)
+                        {
+                            MessageBox.Show("Promotion update successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            tcManager_SelectedIndexChanged(sender, e);
+                            ClearTxtAccount();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error update promotion", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error update promotion: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+        private void cbbAddItem_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cbbAddItem.SelectedIndex != -1)
+            {
+                string name = cbbAddItem.Text;
+                dtgvPMB.Hide();
+                dtgvPMI.Show();                
+                query = "SELECT I.FNAME AS [ITEM NAME], MAX(CASE WHEN P.ID IS NOT NULL THEN 1 ELSE 0 END) AS [APPLY TO] FROM ITEM I LEFT JOIN ITEM_PROMOTION IP ON I.ID = IP.IDITEM " +
+                    "LEFT JOIN PROMOTION P ON IP.IDPROMOTION = P.ID AND P.FNAME = '"+name+ "' AND P.APPLY_TO = 'ITEM' GROUP BY I.FNAME;";
+                DTManger.Instance.LoadList(query, dtgvPMI);
+            }
+        }
+        private void btnSaveAdd_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Tag update successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            tcManager_SelectedIndexChanged(sender, e);
+            dtgvPMB.Show();
+            cbbAddItem.SelectedIndex = -1;
+            ClearTxtPromotion();
+        }
+        private void dtgvPMI_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dtgvPMI.Columns[e.ColumnIndex] is DataGridViewCheckBoxColumn && e.RowIndex >= 0)
+            {
+                var cellValue = dtgvPMI.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                bool isChecked = cellValue != DBNull.Value && cellValue != null && Convert.ToBoolean(cellValue);
+                int CurrentIndex = dtgvPMI.CurrentCell.RowIndex;
+                string iname = Convert.ToString(dtgvPMI.Rows[CurrentIndex].Cells[0].Value.ToString());
+                string promo = cbbAddItem.Text;
+                int n;
+
+                if (isChecked)
+                {
+                    n = DTManger.Instance.ResolvePromoItem(1, iname, promo);
+                }
+                else
+                {
+                    n = DTManger.Instance.ResolvePromoItem(2, iname, promo);
+                }
+
+                if (n > 0)
+                {
+                    cbbTag_SelectedIndexChanged(sender, e);
+                    btnSaveAdd.Show();
+                }
+                else
+                {
+                    MessageBox.Show("Error update Tag", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+        }
+
+        //REVENUE CHART
+        private void LoadChart()
+        {
+            if (!rdoMonth.Checked && !rdoYear.Checked)
+            {
+                MessageBox.Show("Please choose either Month or Year option before proceeding Total Revenue Chart.");
+                return;
+            }
+            else
+            {
+                DateTime Start = dtpStart.Value;
+                string StartD = Start.ToString("yyyy-MM-dd");
+                DateTime End = dtpEnd.Value;
+                string EndD = End.ToString("yyyy-MM-dd");
+                object[] parameters = new object[] { StartD, EndD };
+                string queryProductRevenue = @"SELECT
+                            I.FNAME AS[ItemName],
+                            SUM(BI.COUNT) AS[TotalQuantity]
+                        FROM
+                            BILLINF BI
+                                                JOIN
+                            BILL B ON BI.IDBILL = B.ID
+                        JOIN
+                            ITEM I ON BI.IDFD = I.ID
+                        WHERE
+                            B.CHKIN_TIME BETWEEN @StartDate AND @EndDate AND B.STATUS = 1-- Only include completed bills
+                        GROUP BY
+                            I.FNAME
+                        ORDER BY
+                            [TotalQuantity] DESC";
+                string queryServiceRevenue = @"
+                        SELECT 
+                            CASE WHEN B.[BILLTYPE] = 1 THEN 'Dine-In' ELSE 'Take away' END AS [TYPE],
+                            SUM(BI.COUNT * I.PRICE) AS [TotalRevenue]
+                        FROM 
+                            BILLINF BI
+                        JOIN 
+                            BILL B ON BI.IDBILL = B.ID
+                        JOIN 
+                            ITEM I ON BI.IDFD = I.ID
+                        WHERE  B.CHKIN_TIME BETWEEN @StartDate AND @EndDate AND  B.STATUS = 1 GROUP BY B.BILLTYPE ORDER BY [TotalRevenue] DESC";
+                var productRevenueData = GetDatabase.Instance.GetChartData(queryProductRevenue, parameters);
+                var serviceRevenueData = GetDatabase.Instance.GetChartData(queryServiceRevenue, parameters);
+                // Product Revenue Chart Setup
+                chartProduct.Series.Clear();
+                var productSeries = chartProduct.Series.Add("Doanh Thu Mặt Hàng");
+                productSeries.ChartType = SeriesChartType.Pie;
+                productSeries["PieLabelStyle"] = "Outside";
+                productSeries["PieStartAngle"] = "200";
+                // Configure simplified percentage labels
+                productSeries.Label = "#PERCENT{P2}%";
+                productSeries.Font = new Font("Arial", 10, FontStyle.Bold);
+                double totalProductRevenue = productRevenueData.Sum(x => x.Value);
+                foreach (var dataPoint in productRevenueData)
+                {
+                    DataPoint point = new DataPoint();
+                    point.AxisLabel = dataPoint.Key;
+                    point.YValues = new double[] { dataPoint.Value };
+                    point.LegendText = $"{dataPoint.Key}: {(dataPoint.Value / totalProductRevenue * 100):F2}%";
+                    productSeries.Points.Add(point);
+                }
+                // Service Revenue Chart Setup
+                chartServiceType.Series.Clear();
+                var serviceSeries = chartServiceType.Series.Add("Doanh Thu Phục Vụ");
+                serviceSeries.ChartType = SeriesChartType.Pie;
+                serviceSeries["PieLabelStyle"] = "Outside";
+                serviceSeries["PieStartAngle"] = "270";
+                // Configure simplified percentage labels
+                serviceSeries.Label = "#PERCENT{P2}%";
+                serviceSeries.Font = new Font("Arial", 10, FontStyle.Bold);
+                double totalServiceRevenue = serviceRevenueData.Sum(x => x.Value);
+                foreach (var dataPoint in serviceRevenueData)
+                {
+                    DataPoint point = new DataPoint();
+                    point.AxisLabel = dataPoint.Key;
+                    point.YValues = new double[] { dataPoint.Value };
+                    point.LegendText = $"{dataPoint.Key}: {(dataPoint.Value / totalServiceRevenue * 100):F2}%";
+                    serviceSeries.Points.Add(point);
+                }
+                // Legend configuration
+                chartProduct.Legends[0].Docking = Docking.Right;
+                chartProduct.Legends[0].Alignment = StringAlignment.Center;
+                chartProduct.Legends[0].Font = new Font("Arial", 10);
+                chartServiceType.Legends[0].Docking = Docking.Bottom;
+                chartServiceType.Legends[0].Alignment = StringAlignment.Center;
+                chartServiceType.Legends[0].Font = new Font("Arial", 10);
+                if (rdoMonth.Checked)
+                {
+                    string queryMonthlyBase = @"
+                WITH BillDetails AS (
+                    SELECT 
+                        FORMAT(B.CHKIN_TIME, 'MM-yyyy') AS [MONTH],
+                        SUM(bi.COUNT * i.PRICE) AS TOTAL_SALES,
+                        SUM(bi.COUNT * i.PRICE) - B.TOTAL AS DISCOUNT,
+                        B.TOTAL AS PAYMENT
+                    FROM BILL B
+                    JOIN BILLINF bi ON B.ID = bi.IDBILL
+                    JOIN ITEM i ON bi.IDFD = i.ID
+                    WHERE B.CHKIN_TIME BETWEEN @StartDate AND @EndDate 
+                    GROUP BY FORMAT(B.CHKIN_TIME, 'MM-yyyy'), B.TOTAL
+                )
+                SELECT 
+                    [MONTH],
+                    SUM(TOTAL_SALES) AS Value
+                FROM BillDetails
+                GROUP BY [MONTH]
+                ORDER BY [MONTH]";
+
+                    // Get monthly data for each metric
+                    var monthlySalesData = GetDatabase.Instance.GetChartData(queryMonthlyBase, parameters);
+                    var monthlyDiscountData = GetDatabase.Instance.GetChartData(
+                        queryMonthlyBase.Replace("SUM(TOTAL_SALES)", "SUM(DISCOUNT)"),
+                        parameters
+                    );
+                    var monthlyRevenueData = GetDatabase.Instance.GetChartData(
+                        queryMonthlyBase.Replace("SUM(TOTAL_SALES)", "SUM(PAYMENT)"),
+                        parameters
+                    );
+
+                    // Setup monthly chart series
+                    chartTR.Series.Clear();
+                    var monthlySales = chartTR.Series.Add("Total Sales");
+                    var monthlyDiscounts = chartTR.Series.Add("Discounts");
+                    var monthlyRevenue = chartTR.Series.Add("Final Revenue");
+
+                    // Configure series types
+                    foreach (var series in chartTR.Series)
+                    {
+                        series.ChartType = SeriesChartType.Line;
+                        series.MarkerStyle = MarkerStyle.Circle;
+                    }
+
+                    // Add monthly data points
+                    foreach (var dataPoint in monthlySalesData)
+                        monthlySales.Points.AddXY(dataPoint.Key, dataPoint.Value);
+
+                    foreach (var dataPoint in monthlyDiscountData)
+                        monthlyDiscounts.Points.AddXY(dataPoint.Key, dataPoint.Value);
+
+                    foreach (var dataPoint in monthlyRevenueData)
+                        monthlyRevenue.Points.AddXY(dataPoint.Key, dataPoint.Value);
+                }
+                else if (rdoYear.Checked)
+                {
+                    string queryYearlyBase = @"
+                    WITH BillDetails AS (
+                        SELECT 
+                            YEAR(B.CHKIN_TIME) AS [Year],
+                            SUM(bi.COUNT * i.PRICE) AS TOTAL_SALES,
+                            SUM(bi.COUNT * i.PRICE) - B.TOTAL AS DISCOUNT,
+                            B.TOTAL AS PAYMENT
+                        FROM BILL B
+                        JOIN BILLINF bi ON B.ID = bi.IDBILL
+                        JOIN ITEM i ON bi.IDFD = i.ID
+                        WHERE 
+                            B.CHKIN_TIME BETWEEN @StartDate AND @EndDate 
+                        GROUP BY 
+                            YEAR(B.CHKIN_TIME), B.TOTAL
+                    )
+                    SELECT 
+                        [Year],
+                        SUM(TOTAL_SALES) AS Value
+                    FROM BillDetails
+                    GROUP BY [Year]
+                    ORDER BY [Year]";
+
+                    // Get yearly data for each metric
+                    var salesData = GetDatabase.Instance.GetChartData(queryYearlyBase, parameters);
+                    var discountData = GetDatabase.Instance.GetChartData(
+                        queryYearlyBase.Replace("SUM(TOTAL_SALES)", "SUM(DISCOUNT)"),
+                        parameters
+                    );
+                    var revenueData = GetDatabase.Instance.GetChartData(
+                        queryYearlyBase.Replace("SUM(TOTAL_SALES)", "SUM(PAYMENT)"),
+                        parameters
+                    );
+
+                    // Setup yearly chart series
+                    chartTR.Series.Clear();
+                    var salesSeries = chartTR.Series.Add("Total Sales");
+                    var discountSeries = chartTR.Series.Add("Discounts");
+                    var revenueSeries = chartTR.Series.Add("Final Revenue");
+
+                    // Configure series types
+                    foreach (var series in chartTR.Series)
+                    {
+                        series.ChartType = SeriesChartType.Line;
+                        series.MarkerStyle = MarkerStyle.Circle;
+                    }
+
+                    // Add yearly data points
+                    foreach (var dataPoint in salesData)
+                        salesSeries.Points.AddXY(dataPoint.Key, dataPoint.Value);
+
+                    foreach (var dataPoint in discountData)
+                        discountSeries.Points.AddXY(dataPoint.Key, dataPoint.Value);
+
+                    foreach (var dataPoint in revenueData)
+                        revenueSeries.Points.AddXY(dataPoint.Key, dataPoint.Value);
+                }
+              
+            }
+
+        }
+        private void UpdateTotalLabel()
+        {
+            // Find the Final Revenue series from the chart
+            Series revenueSeries = chartTR.Series.FindByName("Final Revenue");
+
+            // Calculate total by summing all Y values (revenue points) in the series
+            decimal totalRevenue = 0;
+            if (revenueSeries != null && revenueSeries.Points.Count > 0)
+            {
+                totalRevenue = revenueSeries.Points.Sum(point => Convert.ToDecimal(point.YValues[0]));
+            }
+
+            // Format the total with currency symbol and thousands separator
+            lblTotal.Text = totalRevenue.ToString("#,##0");
+        }
+        private void btnCompile_Click(object sender, EventArgs e)
+        {
+            if (cbbFilterRevenue.SelectedIndex != -1)
+            {
+
+                string selectedTab = cbbFilterRevenue.Text;
+                switch (selectedTab)
+                {
+                    case "OVERALL REVENUE":
+                        LoadChart();
+                        UpdateTotalLabel();
+                        break;
+                    default:
+                        query = "";
+                        break;
+                }
+            }
+        }
+
+       
+
+        private void cbbFilterRevenue_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbbFilterRevenue.SelectedIndex != -1)
+            {
+                string selectedTab = cbbFilterRevenue.Text;
+                switch (selectedTab)
+                {
+                    case "OVERALL REVENUE":
+                        OR1.Show();
+                        OR2.Show();
+                        OR3.Show();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     }
 }

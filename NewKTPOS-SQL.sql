@@ -204,7 +204,7 @@ BEGIN
                     FROM BILLINF bi2
                     JOIN ITEM_PROMOTION ip ON bi2.IDFD = ip.IDITEM
                     JOIN PROMOTION p ON ip.IDPROMOTION = p.ID
-                    WHERE bi2.IDBILL = b.ID 
+                    WHERE bi2.IDBILL = b.ID AND P.STATUS = 1
                     --AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                     AND (CAST(b.CHKIN_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                 ) 
@@ -217,7 +217,7 @@ BEGIN
                      FROM PROMOTION p 
                      JOIN ITEM_PROMOTION ip ON p.ID = ip.IDPROMOTION
                      JOIN BILLINF bi ON ip.IDITEM = bi.IDFD
-                     WHERE bi.IDBILL = b.ID
+                     WHERE bi.IDBILL = b.ID AND P.STATUS = 1
                    --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                      AND (CAST(b.CHKIN_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                      ORDER BY p.DISCOUNT DESC)
@@ -230,7 +230,7 @@ BEGIN
                     SELECT 1 
                     FROM BILL_PROMOTION bp
                     JOIN PROMOTION p ON bp.IDPROMOTION = p.ID
-                    WHERE bp.IDBILL = b.ID
+                    WHERE bp.IDBILL = b.ID AND P.STATUS = 1
                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                     AND (CAST(b.CHKIN_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                 ) 
@@ -242,7 +242,7 @@ BEGIN
                     (SELECT TOP 1 p.DISCOUNT/100.0
                      FROM PROMOTION p 
                      JOIN BILL_PROMOTION bp ON p.ID = bp.IDPROMOTION
-                     WHERE bp.IDBILL = b.ID
+                     WHERE bp.IDBILL = b.ID AND P.STATUS = 1
                    --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                      AND (CAST(b.CHKIN_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                      ORDER BY p.DISCOUNT DESC)
@@ -314,6 +314,31 @@ BEGIN
     END
 END;
 GO
+CREATE PROCEDURE ManageItemPromotion
+    @OperationType INT, -- 1: Add, 2: Remove
+    @ItemName NVARCHAR(255), -- Name of the ITEM
+    @PromotionName NVARCHAR(255) -- Name of the PROMOTION
+AS
+BEGIN
+    -- Declare variables to hold IDs
+    DECLARE @ItemID INT, @PromotionID INT;
+    -- Get the ID of the ITEM based on the name
+    SELECT @ItemID = ID FROM ITEM WHERE FNAME = @ItemName;
+    -- Get the ID of the PROMOTION based on the name
+    SELECT @PromotionID = ID FROM PROMOTION WHERE FNAME = @PromotionName;
+    -- Perform operations based on @OperationType
+    IF @OperationType = 1
+    BEGIN
+        -- Insert into ITEM_PROMOTION
+        INSERT INTO ITEM_PROMOTION (IDPROMOTION, IDITEM)
+        VALUES (@PromotionID, @ItemID);
+    END
+    ELSE IF @OperationType = 2
+    BEGIN
+        DELETE FROM ITEM_PROMOTION
+        WHERE IDPROMOTION = @PromotionID AND IDITEM = @ItemID;
+    END
+END;
 GO
 INSERT INTO ACCOUNT (FULLNAME, EMAIL, PHONE, DOB, [PASSWORD], [ROLE], STATUS) VALUES 
     (N'Võ Đăng Khoa',			'khoavd2809@gmail.com',	'0843019548', '2004-09-28', 'khoavo123',		'Manager', 1)
@@ -344,9 +369,9 @@ VALUES
 ('Le Thi O', '0955678901', 'Female', N'Quảng Nam');
 INSERT INTO PROMOTION (FNAME, [DESCRIPTION], DISCOUNT, [START_DATE], END_DATE, STATUS, APPLY_TO)
 VALUES 
-('New Year Discount', 'Discount for all items on New Year', 20, '2024-12-31', '2025-01-01', 1, 'Item'),
-('Merry Christmas', '10% off on all bills during holidays', 10, '2024-12-24', '2024-12-26', 1, 'Bill'),
-('Seasonal Fruits', 'Special price for seasonal drinks', 15, '2024-11-01', '2024-12-31', 1, 'Item');
+('New Year Discount', 'Discount for all items on New Year', 20, '2024-12-31', '2025-01-01', 1, 'ITEM'),
+('Merry Christmas', '10% off on all bills during holidays', 10, '2024-12-24', '2024-12-26', 1, 'BILL'),
+('Seasonal Fruits', 'Special price for seasonal drinks', 15, '2024-11-01', '2024-12-31', 1, 'ITEM');
 INSERT INTO [TABLE] (FNAME, STATUS, CAPACITY, VISIBLE) 
 VALUES
 ('Table 1', 1, 4, 1),
@@ -678,8 +703,7 @@ JOIN ITEM_PROMOTION ip ON p.ID = ip.IDPROMOTION
 JOIN BILLINF bi ON ip.IDITEM = bi.IDFD
 WHERE bi.IDBILL = @BillID;
 --------------------------------------------------------------------------
-
------
+--------------------
 SELECT 
    B.ID,
    B.CHKIN_TIME AS [DATE],
@@ -693,7 +717,93 @@ SELECT
     FROM BILLINF bi
     JOIN ITEM i ON bi.IDFD = i.ID 
     WHERE bi.IDBILL = B.ID) - B.TOTAL AS DISCOUNT,
-   B.TOTAL AS PAYMENT
+   B.TOTAL AS PAYMENT,
+   (SELECT SUM(TOTAL) FROM BILL) AS REVENUE
 FROM BILL B
 LEFT JOIN ACCOUNT A ON B.IDSTAFF = A.IDSTAFF 
-LEFT JOIN CUSTOMER C ON B.IDCUSTOMER = C.ID;
+LEFT JOIN CUSTOMER C ON B.IDCUSTOMER = C.ID
+GROUP BY 
+   B.ID, 
+   B.CHKIN_TIME, 
+   C.FULLNAME, 
+   B.BILLTYPE, 
+   B.TOTAL;
+
+DECLARE @StartDate DATE = '2024-01-01';
+DECLARE @EndDate DATE = '2025-12-31';
+
+WITH BillDetails AS (
+    SELECT 
+        YEAR(B.CHKIN_TIME) AS [Year],
+        SUM(bi.COUNT * i.PRICE) AS TOTAL_SALES,
+        SUM(bi.COUNT * i.PRICE) - B.TOTAL AS DISCOUNT,
+        B.TOTAL AS PAYMENT
+    FROM BILL B
+    JOIN BILLINF bi ON B.ID = bi.IDBILL
+    JOIN ITEM i ON bi.IDFD = i.ID
+    WHERE 
+        B.CHKIN_TIME BETWEEN @StartDate AND @EndDate
+    GROUP BY 
+        YEAR(B.CHKIN_TIME), B.TOTAL
+)
+SELECT 
+    [Year],
+    SUM(TOTAL_SALES) AS TOTAL_SALES,
+    SUM(DISCOUNT) AS TOTAL_DISCOUNT,
+    SUM(PAYMENT) AS FINAL_REVENUE
+FROM BillDetails
+GROUP BY [Year]
+ORDER BY [Year];
+   --
+   WITH BillDetails AS (
+    SELECT 
+        B.ID,
+        FORMAT(B.CHKIN_TIME, 'yyyy-MM') AS [MONTH],
+        SUM(bi.COUNT * i.PRICE) AS TOTAL_SALES,
+        SUM(bi.COUNT * i.PRICE) - B.TOTAL AS DISCOUNT,
+        B.TOTAL AS PAYMENT
+    FROM BILL B
+    JOIN BILLINF bi ON B.ID = bi.IDBILL
+    JOIN ITEM i ON bi.IDFD = i.ID
+    GROUP BY B.ID, FORMAT(B.CHKIN_TIME, 'yyyy-MM'), B.TOTAL
+)
+SELECT 
+    [MONTH],
+    SUM(TOTAL_SALES) AS TOTAL_SALES,
+    SUM(DISCOUNT) AS TOTAL_DISCOUNT,
+    SUM(PAYMENT) AS FINAL_REVENUE
+FROM BillDetails
+GROUP BY [MONTH]
+ORDER BY [MONTH];
+SELECT 
+    B.CHKIN_TIME AS [DATE],
+    C.FULLNAME AS [CUSTOMER],
+    CASE WHEN B.BILLTYPE = 1 THEN 'Dine-In' ELSE 'Take away' END AS [TYPE],
+    (SELECT SUM(bi.COUNT * i.PRICE)
+     FROM BILLINF bi
+     JOIN ITEM i ON bi.IDFD = i.ID 
+     WHERE bi.IDBILL = B.ID) AS TOTAL,
+    (SELECT SUM(bi.COUNT * i.PRICE)
+     FROM BILLINF bi
+     JOIN ITEM i ON bi.IDFD = i.ID 
+     WHERE bi.IDBILL = B.ID) - B.TOTAL AS DISCOUNT,
+    B.TOTAL AS PAYMENT
+FROM BILL B
+LEFT JOIN ACCOUNT A ON B.IDSTAFF = A.IDSTAFF 
+LEFT JOIN CUSTOMER C ON B.IDCUSTOMER = C.ID
+WHERE B.CHKIN_TIME BETWEEN @STARTDATE AND @ENDDATE;
+
+SELECT 
+    C.HOMETOWN,
+    COUNT(DISTINCT C.ID) AS TotalCustomers,
+    COUNT(DISTINCT B.ID) AS TotalVisits,
+    SUM(B.TOTAL) AS TotalSpent
+FROM CUSTOMER C
+JOIN BILL B ON C.ID = B.IDCUSTOMER
+WHERE 
+    B.STATUS = 1 
+    AND C.HOMETOWN IS NOT NULL
+GROUP BY 
+    C.HOMETOWN
+ORDER BY 
+    TotalCustomers DESC, TotalVisits DESC;

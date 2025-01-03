@@ -346,3 +346,6 @@ C:\Thư mục mới\KTPOS\obj\Debug\KTPOS.STAFF.fBillViewer.resources
 C:\Thư mục mới\KTPOS\obj\Debug\KTPOS.STAFF.fOrderPreview.resources
 C:\Thư mục mới\KTPOS\obj\Debug\KTPOS.STAFF.fPayment.resources
 C:\Thư mục mới\KTPOS\obj\Debug\KTPOS.STAFF.fShiftClosing.resources
+D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.STAFF.fOrderPreview.resources
+D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.STAFF.fPayment.resources
+D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.STAFF.fShiftClosing.resources
