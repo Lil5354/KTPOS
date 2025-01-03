@@ -30,9 +30,9 @@
         {
             this.txtName = new Guna.UI2.WinForms.Guna2TextBox();
             this.txtPhone = new Guna.UI2.WinForms.Guna2TextBox();
-            this.txtHomeTown = new Guna.UI2.WinForms.Guna2TextBox();
             this.Gender = new System.Windows.Forms.ComboBox();
             this.btnAdd = new Guna.UI2.WinForms.Guna2Button();
+            this.Home = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // txtName
@@ -77,27 +77,6 @@
             this.txtPhone.Size = new System.Drawing.Size(258, 36);
             this.txtPhone.TabIndex = 54;
             // 
-            // txtHomeTown
-            // 
-            this.txtHomeTown.BorderRadius = 5;
-            this.txtHomeTown.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txtHomeTown.DefaultText = "";
-            this.txtHomeTown.DisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
-            this.txtHomeTown.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(226)))), ((int)(((byte)(226)))));
-            this.txtHomeTown.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtHomeTown.DisabledState.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(138)))), ((int)(((byte)(138)))), ((int)(((byte)(138)))));
-            this.txtHomeTown.FocusedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtHomeTown.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.txtHomeTown.HoverState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(94)))), ((int)(((byte)(148)))), ((int)(((byte)(255)))));
-            this.txtHomeTown.Location = new System.Drawing.Point(416, 180);
-            this.txtHomeTown.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.txtHomeTown.Name = "txtHomeTown";
-            this.txtHomeTown.PasswordChar = '\0';
-            this.txtHomeTown.PlaceholderText = "Home Town";
-            this.txtHomeTown.SelectedText = "";
-            this.txtHomeTown.Size = new System.Drawing.Size(137, 36);
-            this.txtHomeTown.TabIndex = 55;
-            // 
             // Gender
             // 
             this.Gender.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -128,14 +107,23 @@
             this.btnAdd.UseTransparentBackground = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
+            // Home
+            // 
+            this.Home.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Home.FormattingEnabled = true;
+            this.Home.Location = new System.Drawing.Point(425, 180);
+            this.Home.Name = "Home";
+            this.Home.Size = new System.Drawing.Size(249, 33);
+            this.Home.TabIndex = 58;
+            // 
             // fCus
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Home);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.Gender);
-            this.Controls.Add(this.txtHomeTown);
             this.Controls.Add(this.txtPhone);
             this.Controls.Add(this.txtName);
             this.Name = "fCus";
@@ -148,8 +136,8 @@
 
         private Guna.UI2.WinForms.Guna2TextBox txtName;
         private Guna.UI2.WinForms.Guna2TextBox txtPhone;
-        private Guna.UI2.WinForms.Guna2TextBox txtHomeTown;
         private System.Windows.Forms.ComboBox Gender;
         private Guna.UI2.WinForms.Guna2Button btnAdd;
+        private System.Windows.Forms.ComboBox Home;
     }
 }

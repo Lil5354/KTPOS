@@ -779,5 +779,8 @@ ORDER BY
 
 
 	select * from billinf
+	select * from bill
 
 select * from CUSTOMER
+
+SELECT HomeTown FROM CUSTOMER

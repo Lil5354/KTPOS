@@ -167,6 +167,7 @@ namespace KTPOS.STAFF
                         txtNoteBill.Text = note;
                     }
                 }
+                staffForm.set();
                 if (staffForm.Controls.Find("dtgvBillCus", true).FirstOrDefault() is Guna2DataGridView dtgvBillCus &&
                     staffForm.Controls.Find("txtTotal", true).FirstOrDefault() is Guna2HtmlLabel txtTotal)
                 {
@@ -192,7 +193,7 @@ namespace KTPOS.STAFF
                         else total = 0;
                     }
                     txtTotal.Text = total.ToString("N0") + " VND";
-
+                    staffForm.UpdateTotal();
                     dtgvBillCus.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                     if (!dtgvBillCus.Columns.Contains("DEL_BUTTON"))
