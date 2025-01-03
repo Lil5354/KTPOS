@@ -449,13 +449,16 @@ namespace KTPOS.STAFF
         }
         private void SaveCus()
         {
+            string query;
             if (txtPhone.Text == "")
             {
                 idCus = 0;
+                query = $"UPDATE BILL SET IDCUSTOMER = NULL WHERE ID = {idBill.ToString()};";
+                GetDatabase.Instance.ExecuteNonQuery(query);
                 return;
             }
             string number = txtPhone.Text;
-            string query = $"SELECT ID FROM CUSTOMER WHERE PHONE = '{number}';";
+            query = $"SELECT ID FROM CUSTOMER WHERE PHONE = '{number}';";
             DataTable table = GetDatabase.Instance.ExecuteQuery(query);
             foreach (DataRow row in table.Rows)
             {
@@ -659,6 +662,14 @@ namespace KTPOS.STAFF
                 string number = txtPhone.Text;
                 fCus newform = new fCus(number);
                 newform.ShowDialog();
+                if (newform.check == false) return;
+                string query = "SELECT PHONE FROM CUSTOMER WHERE ID = (SELECT MAX(ID) FROM CUSTOMER);";
+                DataTable dt = GetDatabase.Instance.ExecuteQuery(query);
+                foreach (DataRow row in dt.Rows)
+                {
+                    number = row["PHONE"].ToString();
+                }
+                txtPhone.Text = number;
             }
         }
     }
