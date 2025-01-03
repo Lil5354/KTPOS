@@ -257,7 +257,7 @@
             // 
             this.lblShiftStartTime.BackColor = System.Drawing.Color.Transparent;
             this.lblShiftStartTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lblShiftStartTime.Location = new System.Drawing.Point(423, 447);
+            this.lblShiftStartTime.Location = new System.Drawing.Point(409, 729);
             this.lblShiftStartTime.Name = "lblShiftStartTime";
             this.lblShiftStartTime.Size = new System.Drawing.Size(129, 22);
             this.lblShiftStartTime.TabIndex = 11;
@@ -302,6 +302,7 @@
             this.btnDone.Size = new System.Drawing.Size(213, 59);
             this.btnDone.TabIndex = 7;
             this.btnDone.Text = "DONE";
+            this.btnDone.Click += new System.EventHandler(this.btnDone_Click);
             // 
             // guna2HtmlLabel5
             // 

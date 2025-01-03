@@ -20,6 +20,7 @@ namespace KTPOS
             public static DateTime LoginTime { get; set; }
             public static string EmployeeName { get; set; }
             public static string EmployeeID { get; set; }
+            public static SqlDbType StaffID { get; internal set; }
         }
         public fLogin()
         {

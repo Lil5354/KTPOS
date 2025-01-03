@@ -20,6 +20,8 @@ namespace KTPOS.Proccess
             private set { GetDatabase.instance = value; }
         }
 
+        public SqlConnection SqlConnection { get; internal set; }
+
         private GetDatabase() { }
 
         //Lấy dữ liệu xuống

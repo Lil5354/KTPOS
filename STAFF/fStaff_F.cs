@@ -18,8 +18,32 @@ namespace KTPOS.STAFF
 {
     public partial class fStaff_F : Form
     {
+        private static decimal _cashTotal = 0;
+        private static decimal _transferTotal = 0;
 
         private string userRole;
+        public static event EventHandler<decimal> CashTotalChanged;
+        public static event EventHandler<decimal> TransferTotalChanged;
+        public static decimal CashTotal
+        {
+            get => _cashTotal;
+            set
+            {
+                _cashTotal = value;
+                CashTotalChanged?.Invoke(null, value);
+            }
+        }
+
+        public static decimal TransferTotal
+        {
+            get => _transferTotal;
+            set
+            {
+                _transferTotal = value;
+                TransferTotalChanged?.Invoke(null, value);
+            }
+        }
+
         public fStaff_F(string role)
         {
             InitializeComponent();
@@ -427,7 +451,7 @@ ORDER BY b.status, b.ID DESC";
                                     row.Cells["PAYMENT"].Value = "Done";
                                     row.Cells["METHOD"].Value = "Cash";
                                     row.Cells["CHECKOUT"].Value = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
-
+                                    _cashTotal += finalTotal;
                                     DataGridViewButtonCell paymentCell = row.Cells["PAYMENT"] as DataGridViewButtonCell;
                                     if (paymentCell != null)
                                     {
@@ -508,13 +532,13 @@ ORDER BY b.status, b.ID DESC";
                                 Console.WriteLine("Creating UC_QRPayment control");
                                 UC_QRPayment ucQrPayment = new UC_QRPayment();
                                 ucQrPayment.GetBillId(parsedBillId);
-
+                                TransferTotal += finalTotal;
                                 Console.WriteLine("Updating QR code");
                                 ucQrPayment.UpdateQRCode(
                                     content: $"Bill {parsedBillId} - {tableName}",
                                     amount: finalTotal
                                 );
-
+                                _transferTotal += finalTotal;
                                 Console.WriteLine("Adding control to form");
                                 AddUserControl(ucQrPayment);
                             }

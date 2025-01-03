@@ -33,5 +33,7 @@ namespace KTPOS.Properties {
                 return ((string)(this["KTPOSConnectionString"]));
             }
         }
+
+        public string ConnectionString { get; internal set; }
     }
 }
