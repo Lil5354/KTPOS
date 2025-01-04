@@ -1152,10 +1152,147 @@ namespace KTPOS.MANAGER
             }
 
         }
-        private void UpdateTotalLabel()
+        private void LoadChartCus()
+        {
+            
+                DateTime Start = dtpStart.Value;
+                string StartD = Start.ToString("yyyy-MM-dd");
+                DateTime End = dtpEnd.Value;
+                string EndD = End.ToString("yyyy-MM-dd");
+                object[] parameters = new object[] { StartD, EndD };
+
+                // Query for Customer vs Walk-in Revenue
+                string queryCustomerType = @"
+                    SELECT 
+                        CASE 
+                            WHEN C.ID IS NOT NULL THEN 'Registered Customer'
+                            ELSE 'Walk-in Customer'
+                        END AS CustomerType,
+                        SUM(B.TOTAL) AS TotalRevenue
+                    FROM BILL B
+                    LEFT JOIN CUSTOMER C ON B.IDCUSTOMER = C.ID
+                    WHERE B.CHKIN_TIME BETWEEN @StartDate AND @EndDate 
+                        AND B.STATUS = 1
+                    GROUP BY 
+                        CASE 
+                            WHEN C.ID IS NOT NULL THEN 'Registered Customer'
+                            ELSE 'Walk-in Customer'
+                        END
+                    ORDER BY TotalRevenue DESC";
+
+                // Query for Gender Distribution
+                string queryGenderRevenue = @"
+                    SELECT 
+                        C.GENDER,
+                        SUM(B.TOTAL) AS TotalRevenue
+                    FROM BILL B
+                    JOIN CUSTOMER C ON B.IDCUSTOMER = C.ID
+                    WHERE B.CHKIN_TIME BETWEEN @StartDate AND @EndDate 
+                        AND B.STATUS = 1
+                    GROUP BY C.GENDER
+                    ORDER BY TotalRevenue DESC";
+
+                var customerTypeData = GetDatabase.Instance.GetChartData(queryCustomerType, parameters);
+                var genderRevenueData = GetDatabase.Instance.GetChartData(queryGenderRevenue, parameters);
+
+                // Customer Type Chart Setup (chartProduct)
+                chartProduct.Series.Clear();
+                var customerTypeSeries = chartProduct.Series.Add("Customer Revenue Distribution");
+                customerTypeSeries.ChartType = SeriesChartType.Pie;
+                customerTypeSeries["PieLabelStyle"] = "Outside";
+                customerTypeSeries["PieStartAngle"] = "200";
+                customerTypeSeries.Label = "#PERCENT{P2}%";
+                customerTypeSeries.Font = new Font("Arial", 10, FontStyle.Bold);
+
+                double totalCustomerTypeRevenue = customerTypeData.Sum(x => x.Value);
+                foreach (var dataPoint in customerTypeData)
+                {
+                    DataPoint point = new DataPoint();
+                    point.AxisLabel = dataPoint.Key;
+                    point.YValues = new double[] { dataPoint.Value };
+                    point.LegendText = $"{dataPoint.Key}: {(dataPoint.Value / totalCustomerTypeRevenue * 100):F2}%";
+                    customerTypeSeries.Points.Add(point);
+                }
+
+                // Gender Revenue Chart Setup (chartServiceType)
+                chartServiceType.Series.Clear();
+                var genderSeries = chartServiceType.Series.Add("Gender Revenue Distribution");
+                genderSeries.ChartType = SeriesChartType.Pie;
+                genderSeries["PieLabelStyle"] = "Outside";
+                genderSeries["PieStartAngle"] = "270";
+                genderSeries.Label = "#PERCENT{P2}%";
+                genderSeries.Font = new Font("Arial", 10, FontStyle.Bold);
+
+                double totalGenderRevenue = genderRevenueData.Sum(x => x.Value);
+                foreach (var dataPoint in genderRevenueData)
+                {
+                    DataPoint point = new DataPoint();
+                    point.AxisLabel = dataPoint.Key;
+                    point.YValues = new double[] { dataPoint.Value };
+                    point.LegendText = $"{dataPoint.Key}: {(dataPoint.Value / totalGenderRevenue * 100):F2}%";
+                    genderSeries.Points.Add(point);
+                }
+
+                // Configure legends
+                chartProduct.Legends[0].Docking = Docking.Right;
+                chartProduct.Legends[0].Alignment = StringAlignment.Center;
+                chartProduct.Legends[0].Font = new Font("Arial", 10);
+
+                chartServiceType.Legends[0].Docking = Docking.Bottom;
+                chartServiceType.Legends[0].Alignment = StringAlignment.Center;
+                chartServiceType.Legends[0].Font = new Font("Arial", 10);
+
+                // Hometown Revenue Analysis (Line Chart)
+                string queryHometown = @"
+                    SELECT 
+                        ISNULL(C.HOMETOWN, 'Unknown') AS HOMETOWN,
+                        SUM(B.TOTAL) AS TotalRevenue
+                    FROM BILL B
+                    LEFT JOIN CUSTOMER C ON B.IDCUSTOMER = C.ID
+                    WHERE B.CHKIN_TIME BETWEEN @StartDate AND @EndDate 
+                        AND B.STATUS = 1
+                    GROUP BY C.HOMETOWN
+                    ORDER BY TotalRevenue DESC";
+
+                var hometownData = GetDatabase.Instance.GetChartData(queryHometown, parameters);
+
+                // Setup Hometown Revenue Chart
+                chartTR.Series.Clear();
+                var hometownSeries = chartTR.Series.Add("Hometown Revenue Distribution");
+                hometownSeries.ChartType = SeriesChartType.Column;
+
+                // Configure chart appearance
+                chartTR.ChartAreas[0].AxisX.LabelStyle.Angle = -45; // Rotate labels for better readability
+                chartTR.ChartAreas[0].AxisX.Interval = 1; // Show all labels
+                chartTR.ChartAreas[0].AxisY.Title = "Revenue";
+                chartTR.ChartAreas[0].AxisY.LabelStyle.Format = "N0"; // Format numbers without decimals
+
+                double totalHometownRevenue = hometownData.Sum(x => x.Value);
+                foreach (var dataPoint in hometownData)
+                {
+                    DataPoint point = new DataPoint();
+                    point.AxisLabel = dataPoint.Key;
+                    point.YValues = new double[] { dataPoint.Value };
+                    point.Label = dataPoint.Value.ToString("N0"); // Add value labels on top of columns
+                    point.LegendText = $"{dataPoint.Key}: {(dataPoint.Value / totalHometownRevenue * 100):F2}%";
+                    hometownSeries.Points.Add(point);
+                }
+
+                // Configure column chart specific properties
+                hometownSeries.IsValueShownAsLabel = true; // Show values on top of columns
+                hometownSeries["PointWidth"] = "0.8"; // Adjust column width
+
+                // Format value labels
+                hometownSeries.LabelFormat = "N0";
+                hometownSeries.Font = new Font("Arial", 9);
+
+                // Configure legend for hometown chart
+                chartTR.Legends[0].Enabled = false;
+        }
+        private void UpdateTotalLabel(string s)
         {
             // Find the Final Revenue series from the chart
-            Series revenueSeries = chartTR.Series.FindByName("Final Revenue");
+            Series revenueSeries = chartTR.Series.FindByName(s);
 
             // Calculate total by summing all Y values (revenue points) in the series
             decimal totalRevenue = 0;
@@ -1176,18 +1313,44 @@ namespace KTPOS.MANAGER
                 switch (selectedTab)
                 {
                     case "OVERALL REVENUE":
+                        ClearAllCharts();
                         LoadChart();
-                        UpdateTotalLabel();
+                        UpdateTotalLabel("Final Revenue");
+                        break;
+                    case "CUSTOMER":
+                        ClearAllCharts();
+                        LoadChartCus();
+                        UpdateTotalLabel("Hometown Revenue Distribution");
                         break;
                     default:
-                        query = "";
                         break;
                 }
             }
         }
+        private void ClearAllCharts()
+        {
+            // Clear primary charts
+            if (chartProduct != null && chartProduct.Series.Count > 0)
+            {
+                chartProduct.Series.Clear();
+                chartProduct.Titles.Clear();
+                chartProduct.ChartAreas[0].RecalculateAxesScale();
+            }
 
-       
+            if (chartServiceType != null && chartServiceType.Series.Count > 0)
+            {
+                chartServiceType.Series.Clear();
+                chartServiceType.Titles.Clear();
+                chartServiceType.ChartAreas[0].RecalculateAxesScale();
+            }
 
+            if (chartTR != null && chartTR.Series.Count > 0)
+            {
+                chartTR.Series.Clear();
+                chartTR.Titles.Clear();
+                chartTR.ChartAreas[0].RecalculateAxesScale();
+            }
+        }
         private void cbbFilterRevenue_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbbFilterRevenue.SelectedIndex != -1)
@@ -1196,12 +1359,23 @@ namespace KTPOS.MANAGER
                 switch (selectedTab)
                 {
                     case "OVERALL REVENUE":
+                        rdoMonth.Checked = false;
+                        rdoYear.Checked = false;
+                        ClearAllCharts();
                         OR1.Show();
                         OR2.Show();
                         OR3.Show();
-                        
+                        OR1.Text = "Top Selling Intems";
+                        OR2.Text = "Revenue by Service Type";
+                        OR3.Text = "Total Revenue by Month/ Year";
                         break;
                     case "CUSTOMER":
+                        rdoMonth.Visible = false;
+                        rdoYear.Visible = false;
+                        ClearAllCharts();
+                        OR1.Show();
+                        OR2.Show();
+                        OR3.Show();
                         OR1.Text = "Percentage of membership";
                         OR2.Text = "Percentage of Gender";
                         OR3.Text = "Revenue ratio by customer area";
