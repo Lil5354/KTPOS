@@ -24,6 +24,13 @@ namespace KTPOS.STAFF
         private string userRole;
         public static event EventHandler<decimal> CashTotalChanged;
         public static event EventHandler<decimal> TransferTotalChanged;
+        public static void ResetTotals()
+        {
+            _cashTotal = 0;
+            _transferTotal = 0;
+            CashTotalChanged?.Invoke(null, 0);
+            TransferTotalChanged?.Invoke(null, 0);
+        }
         public static decimal CashTotal
         {
             get => _cashTotal;
@@ -183,7 +190,7 @@ namespace KTPOS.STAFF
                 }
                 if (staffForm.Controls.Find("txtNoteBill", true).FirstOrDefault() is Guna2TextBox txtNoteBill)
                 {
-                    string filePath = "E:\\App\\ok\\KTPOS\\Note\\BillNote" + tableId.ToString() + ".txt";
+                    string filePath = "D:\\clone\\KTPOS - Sao chép\\Note\\BillNote" + tableId.ToString() + ".txt";
                     if (File.Exists(filePath))
                     {
                         string note = File.ReadAllText(filePath);

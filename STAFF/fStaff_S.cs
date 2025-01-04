@@ -267,7 +267,7 @@ namespace KTPOS.STAFF
                     // Load image based on category
                     try
                     {
-                        string imagePath = $@"E:\App\KTPOS-main\Image Items\" + itemName + ".jpg";
+                        string imagePath = $@"D:\clone\KTPOS - Sao chép\Image Items\" + itemName + ".jpg";
                         if (File.Exists(imagePath))
                         {
                             itemImage.Image = Image.FromFile(imagePath);
@@ -476,12 +476,17 @@ namespace KTPOS.STAFF
         private void AddBill()
         {
             string type;
+            string table = idTable.ToString();
             if (idTable > 0) type = "1";
-            else type = "0";
+            else
+            {
+                type = "0";
+                table = "NULL";
+            }
             string cus;
             if (idCus == 0) cus = "NULL";
             else cus = idCus.ToString();
-            string query = $"INSERT INTO BILL (IDTABLE, IDSTAFF, CHKIN_TIME, CHKOUT_TIME, STATUS, BILLTYPE, IDCUSTOMER) VALUES ({idTable.ToString()}, '{idStaff}', '{Time}', NULL, 0, {type}, {cus})";
+            string query = $"INSERT INTO BILL (IDTABLE, IDSTAFF, CHKIN_TIME, CHKOUT_TIME, STATUS, BILLTYPE, IDCUSTOMER) VALUES ({table}, '{idStaff}', '{Time}', NULL, 0, {type}, {cus})";
             GetDatabase.Instance.ExecuteNonQuery(query);
             query = "SELECT MAX(ID) AS ID FROM BILL;";
             DataTable result1 = GetDatabase.Instance.ExecuteQuery(query);
@@ -506,7 +511,7 @@ namespace KTPOS.STAFF
                 if (checkclose == false) return;
                 if (checkbill == false)
                     AddBill();
-                string filePath = "E:\\App\\KTPOS-main\\Note\\BillNote";
+                string filePath = "D:\\clone\\KTPOS - Sao chép\\Note\\BillNote";
                 string query = "DELETE from BILLINF where IDBILL = " + idBill.ToString();
                 GetDatabase.Instance.ExecuteNonQuery(query);
                 filePath = filePath + idBill.ToString() + ".txt";
