@@ -15,7 +15,7 @@ namespace KTPOS.STAFF
 {
     public partial class fBillViewer : Form
     {
-        private readonly string strcon = @"Data Source=KHOAZO\MSSQLSERVER03;Initial Catalog=KTPOS;Integrated Security=True";
+        private readonly string strcon = @"Data Source=LAPTOP-T5G4R7PV\SQLEXPRESS01;Initial Catalog=KTPOS;Integrated Security=True";
         public int _billId { get; set; } // 3,8,10 lỗi
 
         public fBillViewer(int billId)
@@ -74,7 +74,7 @@ namespace KTPOS.STAFF
 
                         // Read note from file with default value
                         string noteContent = "Không có";
-                        string notePath = $@"E:\App\ok\KTPOS\Note\BillNote{_billId}.txt";
+                        string notePath = $@"D:\Thư mục mới\KTPOS\Note\BillNote{_billId}.txt";
                         if (File.Exists(notePath))
                         {
                             string fileContent = File.ReadAllText(notePath);

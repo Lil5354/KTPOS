@@ -190,7 +190,7 @@ namespace KTPOS.STAFF
                 }
                 if (staffForm.Controls.Find("txtNoteBill", true).FirstOrDefault() is Guna2TextBox txtNoteBill)
                 {
-                    string filePath = "D:\\clone\\KTPOS - Sao chép\\Note\\BillNote" + tableId.ToString() + ".txt";
+                    string filePath = "D:\\Thư mục mới\\KTPOS\\Note\\BillNote" + tableId.ToString() + ".txt";
                     if (File.Exists(filePath))
                     {
                         string note = File.ReadAllText(filePath);
@@ -286,7 +286,7 @@ SELECT
     b.status as Status
 FROM BILL b
 LEFT JOIN [TABLE] t ON b.IDTABLE = t.ID
-ORDER BY b.status, b.ID DESC";
+ORDER BY b.status, b.CHKIN_TIME DESC";
 
             try
             {
@@ -424,6 +424,7 @@ ORDER BY b.status, b.ID DESC";
                                     row.Cells["PAYMENT"].Value = "Done";
                                     row.Cells["METHOD"].Value = "Cash";
                                     row.Cells["CHECKOUT"].Value = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+                                    LoadTables();
                                     _cashTotal += finalTotal;
                                     DataGridViewButtonCell paymentCell = row.Cells["PAYMENT"] as DataGridViewButtonCell;
                                     if (paymentCell != null)
@@ -511,6 +512,7 @@ ORDER BY b.status, b.ID DESC";
                                     content: $"Bill {parsedBillId} - {tableName}",
                                     amount: finalTotal
                                 );
+                                LoadTables();
                                 _transferTotal += finalTotal;
                                 Console.WriteLine("Adding control to form");
                                 AddUserControl(ucQrPayment);

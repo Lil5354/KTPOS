@@ -19,7 +19,7 @@ namespace KTPOS
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new fStaff_F("Manager","KT003"));
+            Application.Run(new fLogin());
         }
     }
 }
