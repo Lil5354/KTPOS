@@ -477,28 +477,46 @@ namespace KTPOS.STAFF
                 if (checkclose == false) return;
                 if (checkbill == false || idTable <= 0)
                     AddBill();
-                string filePath = "D:\\clone\\KTPOS - Sao chép\\Note\\BillNote";
+                string filePath = "D:\\clone\\Thư mục mới\\KTPOS\\Note\\BillNote";
                 filePath = filePath + idBill.ToString() + ".txt";
                 if (txtNoteBill.Text != "") using (StreamWriter writer = new StreamWriter(filePath))
                     {
                         writer.Write(txtNoteBill.Text);
                     }
-
+                // Lưu hóa đơn chi tiết
                 foreach (DataGridViewRow row in dtgvBillCus.Rows)
                 {
                     // Kiểm tra nếu dòng không phải là dòng trống
                     if (row.IsNewRow) continue;
                     int count = Convert.ToInt32(row.Cells["QTY"].Value);
                     int idFD = Convert.ToInt32(row.Cells["ID"].Value);
-
                     // Chuẩn bị câu lệnh SQL để chèn dữ liệu
                     string queryin = $"INSERT INTO BILLINF (IDBILL, IDFD, COUNT) VALUES ({idBill.ToString()}, {idFD.ToString()}, {count.ToString()})";
                     GetDatabase.Instance.ExecuteNonQuery(queryin);
                 }
+                // Sau khi lưu xong, gọi đến việc in hóa đơn
+                try
+                {
+                    fBillCheff billViewer = new fBillCheff(idBill);
+                    try
+                    {
+                        billViewer.MinimizeBox = false;
+                        billViewer.MaximizeBox = false;
+                        billViewer.StartPosition = FormStartPosition.CenterParent;
+                        billViewer.ShowDialog(this);
+                    }
+                    finally
+                    {
+                        billViewer.Dispose();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error printing bill: {ex.Message}", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 this.Close(); // Đóng form hiện tại (fStaff_S)
-
-                // Hiển thị lại form trước đó, tức là fStaff_F
-                // Nếu form gọi (fStaff_F) vẫn mở, thì có thể chỉ cần gọi lại form đó.
+                              // Hiển thị lại form trước đó
                 fStaff_F previousForm = Application.OpenForms["fStaff_F"] as fStaff_F;
                 previousForm?.Show();
             }

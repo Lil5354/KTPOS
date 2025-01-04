@@ -89,6 +89,31 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>KTPOSDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="KTPOSDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KTPOSDataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="KTPOSDataSet2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KTPOSDataSet2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="KTPOSDataSet3.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KTPOSDataSet3.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="KTPOSDataSet4.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KTPOSDataSet4.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="KTPOSDataSet5.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KTPOSDataSet5.xsd</DependentUpon>
+    </Compile>
     <Compile Include="MANAGER\fManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +127,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="STAFF\fBillCheff.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="STAFF\fBillCheff.Designer.cs">
+      <DependentUpon>fBillCheff.cs</DependentUpon>
+    </Compile>
     <Compile Include="STAFF\fBillViewer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +197,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="STAFF\fBillCheff.resx">
+      <DependentUpon>fBillCheff.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="STAFF\fBillViewer.resx">
       <DependentUpon>fBillViewer.cs</DependentUpon>
     </EmbeddedResource>
@@ -188,6 +222,7 @@
       <DependentUpon>fStaff_S.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="STAFF\rptBill.rdlc" />
+    <EmbeddedResource Include="STAFF\rptBillCheff.rdlc" />
     <EmbeddedResource Include="STAFF\UC_QRPayment.resx">
       <DependentUpon>UC_QRPayment.cs</DependentUpon>
     </EmbeddedResource>
@@ -201,6 +236,61 @@
     </None>
     <None Include="KTPOSDataSet.xss">
       <DependentUpon>KTPOSDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="KTPOSDataSet1.xsc">
+      <DependentUpon>KTPOSDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="KTPOSDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>KTPOSDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="KTPOSDataSet1.xss">
+      <DependentUpon>KTPOSDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="KTPOSDataSet2.xsc">
+      <DependentUpon>KTPOSDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="KTPOSDataSet2.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>KTPOSDataSet2.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="KTPOSDataSet2.xss">
+      <DependentUpon>KTPOSDataSet2.xsd</DependentUpon>
+    </None>
+    <None Include="KTPOSDataSet3.xsc">
+      <DependentUpon>KTPOSDataSet3.xsd</DependentUpon>
+    </None>
+    <None Include="KTPOSDataSet3.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>KTPOSDataSet3.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="KTPOSDataSet3.xss">
+      <DependentUpon>KTPOSDataSet3.xsd</DependentUpon>
+    </None>
+    <None Include="KTPOSDataSet4.xsc">
+      <DependentUpon>KTPOSDataSet4.xsd</DependentUpon>
+    </None>
+    <None Include="KTPOSDataSet4.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>KTPOSDataSet4.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="KTPOSDataSet4.xss">
+      <DependentUpon>KTPOSDataSet4.xsd</DependentUpon>
+    </None>
+    <None Include="KTPOSDataSet5.xsc">
+      <DependentUpon>KTPOSDataSet5.xsd</DependentUpon>
+    </None>
+    <None Include="KTPOSDataSet5.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>KTPOSDataSet5.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="KTPOSDataSet5.xss">
+      <DependentUpon>KTPOSDataSet5.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
