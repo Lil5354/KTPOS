@@ -26,7 +26,6 @@ namespace KTPOS.STAFF
         private bool checkclose = false;
         private string Time;
         private bool checkdelete = true;
-        private int[] food = new int[100];
         public fStaff_S(int tableId, string staffId)
         {
             InitializeComponent();
@@ -49,16 +48,7 @@ namespace KTPOS.STAFF
             idTable = tableId;
             idStaff = staffId;
             Time = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
-            if (dtgvBillCus.DataSource == null)
-            {
-                InitializeBillTable();
-            }
-            else
-            {
-                // Get the existing DataTable from the DataGridView
-                billTable = ((DataTable)dtgvBillCus.DataSource).Copy();
-                dtgvBillCus.DataSource = billTable;
-            }
+            InitializeBillTable();
             set();
             getidbill();
             CheckDiscount();
@@ -81,22 +71,7 @@ namespace KTPOS.STAFF
         {
             getidbill();
             CheckDiscount();
-            string query = $"SELECT i.FNAME as NAME, bi.COUNT as QTY, i.PRICE as PRICE, i.ID as ID FROM BILLINF bi JOIN ITEM i ON bi.IDFD = i.ID WHERE bi.IDBILL = '{idBill}'";
-            DataTable billDetails = GetDatabase.Instance.ExecuteQuery(query);
-            dtgvBillCus.DataSource = billDetails;
-            if (dtgvBillCus.Rows.Count > 0)
-            {
-                foreach (DataGridViewRow row1 in dtgvBillCus.Rows)
-                {
-                    string priceStr = row1.Cells["PRICE"].Value.ToString().Replace(",", "");
-                    int d = int.Parse(row1.Cells["QTY"].Value.ToString());
-                    if (decimal.TryParse(priceStr, out decimal price))
-                    {
-                        row1.Cells["PRICE"].Value = (price * d).ToString();
-                    }
-                }
-            }
-            query = $"SELECT c.PHONE AS PHONE FROM BILL b JOIN CUSTOMER c ON b.IDCUSTOMER = c.ID WHERE b.ID = '{idBill}'";
+            string query = $"SELECT c.PHONE AS PHONE FROM BILL b JOIN CUSTOMER c ON b.IDCUSTOMER = c.ID WHERE b.ID = '{idBill}'";
             DataTable dt = GetDatabase.Instance.ExecuteQuery(query);
             foreach (DataRow row1 in dt.Rows)
             {
@@ -105,15 +80,6 @@ namespace KTPOS.STAFF
                 {
                     txtPhone.Text = number;
                 }
-            }
-            UpdateTotal();
-            int id;
-            int count;
-            foreach (DataRow row in billDetails.Rows)
-            {
-                id = Convert.ToInt32(row["ID"]);
-                count = Convert.ToInt32(row["QTY"].ToString());
-                food[id] = count;
             }
             AutoCompleteStringCollection suggestions = new AutoCompleteStringCollection();
             query = "SELECT PHONE FROM CUSTOMER";
@@ -509,13 +475,11 @@ namespace KTPOS.STAFF
                 checkclose = true;
                 SaveCus();
                 if (checkclose == false) return;
-                if (checkbill == false)
+                if (checkbill == false || idTable <= 0)
                     AddBill();
                 string filePath = "D:\\clone\\KTPOS - Sao chép\\Note\\BillNote";
-                string query = "DELETE from BILLINF where IDBILL = " + idBill.ToString();
-                GetDatabase.Instance.ExecuteNonQuery(query);
                 filePath = filePath + idBill.ToString() + ".txt";
-                if (txtNoteBill != null) using (StreamWriter writer = new StreamWriter(filePath))
+                if (txtNoteBill.Text != "") using (StreamWriter writer = new StreamWriter(filePath))
                     {
                         writer.Write(txtNoteBill.Text);
                     }
@@ -583,7 +547,10 @@ namespace KTPOS.STAFF
 
         private void lbCancel_Click_1(object sender, EventArgs e)
         {
-            set();
+            foreach (DataGridViewRow row in dtgvBillCus.Rows)
+            {
+                dtgvBillCus.Rows.Remove(row);
+            }
         }
 
         private void txtPhone_KeyDown(object sender, KeyEventArgs e)
@@ -617,12 +584,6 @@ namespace KTPOS.STAFF
             int id = Convert.ToInt32(dtgvBillCus.SelectedRows[0].Cells["ID"].Value);
             int d = (int)nUDItem.Value;
             d--;
-            if (d < food[id])
-            {
-                MessageBox.Show("Cant access");
-                nUDItem.Value = food[id];
-                return;
-            }
             if (d == 0)
             {
                 DialogResult dialog = MessageBox.Show("Do you really want to delete?", "Notice", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

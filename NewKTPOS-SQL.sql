@@ -705,6 +705,6 @@ FROM BILL b
 JOIN CUSTOMER c ON b.IDCUSTOMER = c.ID
 WHERE b.ID = 3
 
-select * from BILL
+select * from BILLINF
 
 select * from CUSTOMER

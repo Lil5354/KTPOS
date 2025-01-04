@@ -200,29 +200,9 @@ namespace KTPOS.STAFF
                 if (staffForm.Controls.Find("dtgvBillCus", true).FirstOrDefault() is Guna2DataGridView dtgvBillCus &&
                     staffForm.Controls.Find("txtTotal", true).FirstOrDefault() is Guna2HtmlLabel txtTotal)
                 {
-                    dtgvBillCus.DataSource = billDetails;
                     dtgvBillCus.Columns["ID"].Visible = false;
                     dtgvBillCus.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                     decimal total = 0;
-                    if (dtgvBillCus.DataSource is DataTable dataTable)
-                    {
-                        if (dtgvBillCus.Rows.Count > 0)
-                        {
-                            foreach (DataGridViewRow row1 in dtgvBillCus.Rows)
-                            {
-                                string priceStr = row1.Cells["PRICE"].Value.ToString().Replace(",", "");
-                                int d = int.Parse(row1.Cells["QTY"].Value.ToString());
-                                if (decimal.TryParse(priceStr, out decimal price))
-                                {
-                                    row1.Cells["PRICE"].Value = (price * d).ToString();
-                                }
-                                total += price * d;
-                            }
-                        }
-                        else total = 0;
-                    }
-                    txtTotal.Text = total.ToString("N0") + " VND";
-                    staffForm.UpdateTotal();
                     dtgvBillCus.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
                     if (!dtgvBillCus.Columns.Contains("DEL_BUTTON"))
@@ -274,6 +254,7 @@ namespace KTPOS.STAFF
                                         else total = 0;
                                     }
                                     txtTotal.Text = total.ToString("N0") + " VND";
+                                    staffForm.UpdateTotal();
                                 }
                             }
                         }
