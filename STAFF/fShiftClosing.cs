@@ -73,30 +73,32 @@ namespace KTPOS.STAFF
         {
             try
             {
+                lblTotalInvoices.Text = "0";
+                lblRevenue.Text = "0";
                 DateTime shiftStartTime = DateTime.ParseExact(lblShiftStartTime.Text, "dd/MM/yyyy HH:mm:ss", null);
                 string query = $@"
-       WITH BillDetails AS (
-           SELECT 
-               B.ID,
-               SUM(bi.COUNT * i.PRICE) as OriginalAmount,
-               B.TOTAL as FinalAmount
-           FROM BILL B
-           JOIN BILLINF bi ON B.ID = bi.IDBILL
-           JOIN ITEM i ON bi.IDFD = i.ID
-           JOIN ACCOUNT A ON B.IDSTAFF = A.IDSTAFF
-           WHERE B.CHKOUT_TIME >= '{shiftStartTime:yyyy-MM-dd HH:mm:ss}'
-           AND A.FULLNAME = N'{lblEmployee.Text.Replace("'", "''")}'
-           AND B.STATUS = 1
-           GROUP BY B.ID, B.TOTAL
-       )
-       SELECT 
-           COUNT(ID) as TotalInvoices,
-           ISNULL(SUM(OriginalAmount - FinalAmount), 0) as TotalDiscounts,
-           ISNULL(SUM(FinalAmount), 0) as TotalRevenue
-       FROM BillDetails";
+WITH BillDetails AS (
+    SELECT 
+        B.ID,
+        SUM(bi.COUNT * i.PRICE) as OriginalAmount,
+        SUM(bi.COUNT * i.PRICE) - B.TOTAL as Discount,
+        B.TOTAL as FinalAmount
+    FROM BILL B
+    JOIN BILLINF bi ON B.ID = bi.IDBILL
+    JOIN ITEM i ON bi.IDFD = i.ID
+    JOIN ACCOUNT A ON B.IDSTAFF = A.IDSTAFF
+    WHERE B.CHKOUT_TIME >= '{shiftStartTime:yyyy-MM-dd HH:mm:ss}'
+    AND A.FULLNAME = N'{lblEmployee.Text.Replace("'", "''")}'
+    AND B.STATUS = 1
+    GROUP BY B.ID, B.TOTAL
+)
+SELECT 
+    COUNT(ID) as TotalInvoices,
+    ISNULL(SUM(Discount), 0) as TotalDiscounts,
+    ISNULL(SUM(FinalAmount), 0) as TotalRevenue
+FROM BillDetails";
 
                 DataTable result = GetDatabase.Instance.ExecuteQuery(query);
-
                 if (result != null && result.Rows.Count > 0)
                 {
                     DataRow row = result.Rows[0];
@@ -128,17 +130,27 @@ namespace KTPOS.STAFF
             try
             {
                 DateTime shiftStartTime = DateTime.ParseExact(lblShiftStartTime.Text, "dd/MM/yyyy HH:mm:ss", null);
-                using (DataTable result = GetDatabase.Instance.ExecuteQuery($@"
-        SELECT 
-            CAST(ISNULL(SUM(bi.COUNT * i.PRICE), 0) AS decimal(10,0)) AS TotalSales,
-            CAST(ISNULL(SUM(bi.COUNT * i.PRICE) - SUM(B.TOTAL), 0) AS decimal(10,0)) AS TotalDiscounts
-        FROM BILL B
-        JOIN BILLINF bi ON B.ID = bi.IDBILL
-        JOIN ITEM i ON bi.IDFD = i.ID
-        JOIN ACCOUNT A ON B.IDSTAFF = A.IDSTAFF
-        WHERE B.CHKOUT_TIME >= '{shiftStartTime:yyyy-MM-dd HH:mm:ss}'
-        AND A.FULLNAME = N'{lblEmployee.Text.Replace("'", "''")}'
-        AND B.STATUS = 1"))
+                string query = $@"
+WITH BillDetails AS (
+    SELECT 
+        B.ID,
+        SUM(bi.COUNT * i.PRICE) as TotalSales,
+        SUM(bi.COUNT * i.PRICE) - B.TOTAL as Discount
+    FROM BILL B
+    JOIN BILLINF bi ON B.ID = bi.IDBILL
+    JOIN ITEM i ON bi.IDFD = i.ID
+    JOIN ACCOUNT A ON B.IDSTAFF = A.IDSTAFF
+    WHERE B.CHKOUT_TIME >= '{shiftStartTime:yyyy-MM-dd HH:mm:ss}'
+    AND A.FULLNAME = N'{lblEmployee.Text.Replace("'", "''")}'
+    AND B.STATUS = 1
+    GROUP BY B.ID, B.TOTAL
+)
+SELECT 
+    CAST(ISNULL(SUM(TotalSales), 0) AS decimal(10,0)) AS TotalSales,
+    CAST(ISNULL(SUM(Discount), 0) AS decimal(10,0)) AS TotalDiscounts
+FROM BillDetails";
+
+                using (DataTable result = GetDatabase.Instance.ExecuteQuery(query))
                 {
                     if (result != null && result.Rows.Count > 0)
                     {
