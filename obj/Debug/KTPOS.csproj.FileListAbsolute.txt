@@ -427,3 +427,4 @@ D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.STAFF.fCus.resources
 D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.STAFF.fOrderPreview.resources
 D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.STAFF.fPayment.resources
 D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.STAFF.fShiftClosing.resources
+D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.STAFF.fBillCheff.resources

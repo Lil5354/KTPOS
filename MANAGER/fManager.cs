@@ -1359,6 +1359,8 @@ namespace KTPOS.MANAGER
                 switch (selectedTab)
                 {
                     case "OVERALL REVENUE":
+                        rdoMonth.Visible = true;
+                        rdoYear.Visible = true;
                         rdoMonth.Checked = false;
                         rdoYear.Checked = false;
                         ClearAllCharts();
