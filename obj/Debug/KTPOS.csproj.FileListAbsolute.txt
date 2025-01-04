@@ -423,3 +423,7 @@ E:\App\ok\obj\Debug\KTPOS.csproj.CoreCompileInputs.cache
 E:\App\ok\obj\Debug\KTPOS.csproj.Up2Date
 E:\App\ok\obj\Debug\KTPOS.exe
 E:\App\ok\obj\Debug\KTPOS.pdb
+D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.STAFF.fCus.resources
+D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.STAFF.fOrderPreview.resources
+D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.STAFF.fPayment.resources
+D:\Douments\GitHub\KTPOS\obj\Debug\KTPOS.STAFF.fShiftClosing.resources
