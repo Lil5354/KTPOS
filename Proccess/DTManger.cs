@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Security;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace KTPOS.Proccess
@@ -21,7 +22,7 @@ namespace KTPOS.Proccess
             private set { instance = value; }
         }
         private DTManger() { }
-        private static void AutoBindColumns(DataGridView dgv, DataTable dataTable)
+        public void AutoBindColumns(DataGridView dgv, DataTable dataTable)
         {
             foreach (DataGridViewColumn dgvColumn in dgv.Columns)
             {
@@ -149,6 +150,50 @@ namespace KTPOS.Proccess
             // Return null if login fails
             return 0;
         }
-
+        public int ResolvePromo(int s, string name)
+        {
+            string query = "UPDATE PROMOTION SET STATUS = " + s + " WHERE FNAME = '" + name + "' ";
+            int result = GetDatabase.Instance.ExecuteNonQuery(query);
+            if (result > 0)
+            {
+                return result;
+            }
+            return 0;
+        }
+        public int InsertPromo(string name, string disc, string start, string end, string apply)
+        {
+            string query = "INSERT INTO PROMOTION (FNAME, DISCOUNT, [START_DATE], END_DATE, APPLY_TO) VALUES " +
+                "('"+name+"', "+disc+", '"+start+"', '"+end+"', '"+apply+"'),";
+            int result = GetDatabase.Instance.ExecuteNonQuery(query);
+            if (result > 0)
+            {
+                return result;
+            }
+            // Return null if function false
+            return 0;
+        }
+        public int UpdatePromo(string name, string disc, string start, string end, string apply, string fname)
+        {
+            string query = "UPDATE PROMOTION SET FNAME = '" + name + "',   DISCOUNT = " + disc + ", [START_DATE] = '"+start+"', END_DATE = '"+end+"'" +
+                " APPLY_TO = '" + apply + "'" +
+                "WHERE FNAME = '"+fname+"';";
+            int result = GetDatabase.Instance.ExecuteNonQuery(query);
+            if (result > 0)
+            {
+                return result;
+            }
+            // Return null if function false
+            return 0;
+        }
+        public int ResolvePromoItem(int s, string iname, string promo)
+        {
+            string query = "EXEC ManageItemPromotion @OperationType = " + s + ", @ItemName = '" + iname + "', @PromotionName = '" + promo + "';";
+            int result = GetDatabase.Instance.ExecuteNonQuery(query);
+            if (result > 0)
+            {
+                return result;
+            }
+            return 0;
+        }
     }
 }

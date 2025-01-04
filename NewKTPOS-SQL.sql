@@ -1,7 +1,5 @@
 ﻿USE MASTER
 GO
-ALTER DATABASE KTPOS SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-GO
 DROP DATABASE IF EXISTS KTPOS
 GO
 CREATE DATABASE KTPOS
@@ -206,7 +204,7 @@ BEGIN
                     FROM BILLINF bi2
                     JOIN ITEM_PROMOTION ip ON bi2.IDFD = ip.IDITEM
                     JOIN PROMOTION p ON ip.IDPROMOTION = p.ID
-                    WHERE bi2.IDBILL = b.ID 
+                    WHERE bi2.IDBILL = b.ID AND P.STATUS = 1
                     --AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                     AND (CAST(b.CHKIN_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                 ) 
@@ -219,7 +217,7 @@ BEGIN
                      FROM PROMOTION p 
                      JOIN ITEM_PROMOTION ip ON p.ID = ip.IDPROMOTION
                      JOIN BILLINF bi ON ip.IDITEM = bi.IDFD
-                     WHERE bi.IDBILL = b.ID
+                     WHERE bi.IDBILL = b.ID AND P.STATUS = 1
                    --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                      AND (CAST(b.CHKIN_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                      ORDER BY p.DISCOUNT DESC)
@@ -232,7 +230,7 @@ BEGIN
                     SELECT 1 
                     FROM BILL_PROMOTION bp
                     JOIN PROMOTION p ON bp.IDPROMOTION = p.ID
-                    WHERE bp.IDBILL = b.ID
+                    WHERE bp.IDBILL = b.ID AND P.STATUS = 1
                   --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                     AND (CAST(b.CHKIN_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                 ) 
@@ -244,7 +242,7 @@ BEGIN
                     (SELECT TOP 1 p.DISCOUNT/100.0
                      FROM PROMOTION p 
                      JOIN BILL_PROMOTION bp ON p.ID = bp.IDPROMOTION
-                     WHERE bp.IDBILL = b.ID
+                     WHERE bp.IDBILL = b.ID AND P.STATUS = 1
                    --  AND (b.CHKOUT_TIME IS NULL OR CAST(b.CHKOUT_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                      AND (CAST(b.CHKIN_TIME AS DATE) BETWEEN p.[START_DATE] AND p.END_DATE)
                      ORDER BY p.DISCOUNT DESC)
@@ -258,7 +256,7 @@ END;
 GO
 CREATE TRIGGER trg_UpdateTableStatus
 ON BILL
-AFTER UPDATE
+AFTER UPDATE, INSERT
 AS
 BEGIN
     -- Khi BILL.STATUS = 1, đảm bảo TABLE.STATUS = 1
@@ -316,6 +314,31 @@ BEGIN
     END
 END;
 GO
+CREATE PROCEDURE ManageItemPromotion
+    @OperationType INT, -- 1: Add, 2: Remove
+    @ItemName NVARCHAR(255), -- Name of the ITEM
+    @PromotionName NVARCHAR(255) -- Name of the PROMOTION
+AS
+BEGIN
+    -- Declare variables to hold IDs
+    DECLARE @ItemID INT, @PromotionID INT;
+    -- Get the ID of the ITEM based on the name
+    SELECT @ItemID = ID FROM ITEM WHERE FNAME = @ItemName;
+    -- Get the ID of the PROMOTION based on the name
+    SELECT @PromotionID = ID FROM PROMOTION WHERE FNAME = @PromotionName;
+    -- Perform operations based on @OperationType
+    IF @OperationType = 1
+    BEGIN
+        -- Insert into ITEM_PROMOTION
+        INSERT INTO ITEM_PROMOTION (IDPROMOTION, IDITEM)
+        VALUES (@PromotionID, @ItemID);
+    END
+    ELSE IF @OperationType = 2
+    BEGIN
+        DELETE FROM ITEM_PROMOTION
+        WHERE IDPROMOTION = @PromotionID AND IDITEM = @ItemID;
+    END
+END;
 GO
 INSERT INTO ACCOUNT (FULLNAME, EMAIL, PHONE, DOB, [PASSWORD], [ROLE], STATUS) VALUES 
     (N'Võ Đăng Khoa',			'khoavd2809@gmail.com',	'0843019548', '2004-09-28', 'khoavo123',		'Manager', 1)
@@ -346,9 +369,9 @@ VALUES
 ('Le Thi O', '0955678901', 'Female', N'Quảng Nam');
 INSERT INTO PROMOTION (FNAME, [DESCRIPTION], DISCOUNT, [START_DATE], END_DATE, STATUS, APPLY_TO)
 VALUES 
-('New Year Discount', 'Discount for all items on New Year', 20, '2024-12-31', '2025-01-01', 1, 'Item'),
-('Merry Christmas', '10% off on all bills during holidays', 10, '2024-12-24', '2024-12-26', 1, 'Bill'),
-('Seasonal Fruits', 'Special price for seasonal drinks', 15, '2024-11-01', '2024-12-31', 1, 'Item');
+('New Year Discount', 'Discount for all items on New Year', 20, '2024-12-31', '2025-01-01', 1, 'ITEM'),
+('Merry Christmas', '10% off on all bills during holidays', 10, '2024-12-24', '2024-12-26', 1, 'BILL'),
+('Seasonal Fruits', 'Special price for seasonal drinks', 15, '2024-11-01', '2024-12-31', 1, 'ITEM');
 INSERT INTO [TABLE] (FNAME, STATUS, CAPACITY, VISIBLE) 
 VALUES
 ('Table 1', 1, 4, 1),
@@ -364,22 +387,57 @@ VALUES
 INSERT INTO BILL (IDTABLE, IDSTAFF, CHKIN_TIME, CHKOUT_TIME, STATUS, BILLTYPE, IDCUSTOMER) 
 VALUES 
 (1, 'KT001', '2024-12-31 09:00', '2024-12-31 10:00', 1, 1, 1),
-(2, 'KT002', '2024-12-24 10:15', NULL, 0, 1, 2),
-(3, 'KT003', '2024-12-20 11:30', NULL, 0, 1, 3),
 (NULL, 'KT004', '2024-12-31 12:45', '2024-12-31 13:45', 1, 0, 4),
 (5, 'KT001', '2024-12-24 14:00', '2024-12-24 16:00', 1, 1, 5),
 (NULL, 'KT002', '2024-11-01 15:15', '2024-11-01 16:15', 1, 0, 6),
 (7, 'KT003', '2024-12-31 16:30', '2024-12-31 17:30', 1, 1, 7),
-(NULL, 'KT004', '2024-12-24 17:45', NULL, 0, 0, 8),
 (9, 'KT001', '2024-12-20 19:00', '2024-12-20 20:00', 1, 1, 9),
-(NULL, 'KT002', '2024-12-31 20:15', '2024-12-31 21:15', 1, 0, 10);
+(NULL, 'KT002', '2024-12-31 20:15', '2024-12-31 21:15', 1, 0, 10),
+(1, 'KT001', '2023-01-10 12:00', '2023-01-10 13:30', 1, 1, 1),
+(2, 'KT002', '2023-02-15 18:45', '2023-02-15 19:50', 1, 1, 2),
+(3, 'KT003', '2023-03-20 08:30', '2023-03-20 09:45', 1, 1, 3),
+(4, 'KT004', '2023-04-05 14:15', '2023-04-05 15:45', 1, 1, 4),
+(5, 'KT005', '2024-05-25 19:00', '2024-05-25 20:20', 1, 1, 5),
+(6, 'KT006', '2024-06-12 10:00', '2024-06-12 11:30', 1,1, 6),
+(7, 'KT001', '2024-07-18 16:00', '2024-07-18 17:15', 1, 1, 7),
+(8, 'KT002', '2024-08-22 09:30', '2024-08-22 10:45', 1, 1, 8),
+(9, 'KT003', '2024-09-14 13:00', '2024-09-14 14:30', 1, 1, 9),
+(10, 'KT004', '2024-10-08 11:30', '2024-10-08 12:45', 1, 1, 10),
+(1, 'KT005', '2024-11-23 08:15', '2024-11-23 09:20', 1, 1, 3),
+(2, 'KT006', '2024-12-31 17:00', '2024-12-31 18:30', 1, 1, 4),
+(7, 'KT001', '2026-01-12 13:30', '2026-01-12 15:00', 1, 1, 2),
+(8, 'KT002', '2026-02-20 10:15', '2026-02-20 11:45', 1, 1, 5),
+(9, 'KT003', '2026-03-18 17:30', '2026-03-18 19:00', 1, 1, 7),
+(10, 'KT004', '2026-04-25 12:00', '2026-04-25 13:30', 1, 1, 10),
+(7, 'KT005', '2026-05-05 19:15', '2026-05-05 20:45', 1, 1, 8),
+(1, 'KT001', '2021-02-14 10:30', '2021-02-14 12:00', 1, 1, 1),--25
+(NULL, 'KT002', '2021-05-10 14:00', '2021-05-10 15:30', 1, 0, 9),
+(3, 'KT003', '2021-08-25 17:00', '2021-08-25 18:30', 1, 1, 2),
+(NULL, 'KT004', '2021-11-30 19:45', '2021-11-30 21:15', 1, 0, 2),
+(NULL, 'KT001', '2021-01-15 11:00', '2021-01-15 12:30', 1, 0, 6),
+(2, 'KT002', '2021-04-10 14:00', '2021-04-10 15:30', 1, 1, 7),
+(NULL, 'KT003', '2021-07-20 17:15', '2021-07-20 18:45', 1, 0, 8),
+(4, 'KT004', '2021-10-05 19:00', '2021-10-05 20:30', 1, 1, 9),
+(NULL, 'KT005', '2021-12-18 12:00', '2021-12-18 13:30', 1, 0, 3),
+(5, 'KT004', '2021-01-05 19:00', '2021-01-05 20:30', 1, 1, 2),
+(4, 'KT004', '2021-09-05 19:00', '2021-09-05 20:30', 1, 1, 2),
+(1, 'KT004', '2021-02-05 19:00', '2021-02-05 20:30', 1, 1, 9),--35
+(5, 'KT001', '2022-03-05 11:15', '2022-03-05 12:45', 1, 1, 2),--36
+(NULL, 'KT002', '2022-06-18 09:30', '2022-06-18 11:00', 1, 0, 3),
+(7, 'KT003', '2022-09-12 16:00', '2022-09-12 17:30', 1, 1, 4),
+(NULL, 'KT004', '2022-12-20 20:30', '2022-12-20 22:00', 1, 0, 5),
+(1, 'KT006', '2022-02-22 10:00', '2022-02-22 11:30', 1, 1, 3),
+(NULL, 'KT007', '2022-05-14 13:00', '2022-05-14 14:45', 1, 0, 3),
+(3, 'KT005', '2022-08-08 18:00', '2022-08-08 19:30', 1, 1, 7),
+(NULL, 'KT004', '2022-11-11 20:15', '2022-11-11 21:45', 1, 0, 4),
+(5, 'KT003', '2022-12-30 15:00', '2022-12-30 16:30', 1, 1, 5);--44
 INSERT INTO ITEM (FNAME, CATEGORY, PRICE, VISIBLE) 
 VALUES 
 ('Spring Rolls', 'Food', 35000, 1),
 ('Beef Pho', 'Food', 60000, 1),
 ('Flan Cake', 'Food', 20000, 1),
 ('Iced Coffee', 'Drink', 25000, 1),
-('Beer', 'Drink', 30000, 1),
+('Beer', 'Drink', 30000, 1),	
 ('Fried Rice', 'Food', 50000, 1),
 ('Salad', 'Food', 45000, 1),
 ('Baguette', 'Food', 15000, 1),
@@ -448,7 +506,63 @@ VALUES
 (9, 10, 1),
 (10, 1, 2),  -- 2 phần Spring Rolls
 (10, 4, 1),  -- 1 phần Iced Coffee
-(10, 7, 1);
+(10, 7, 1),
+(11, 1, 3),
+(12, 2, 1),
+(13, 3, 2),
+(14, 4, 4),
+(15, 5, 2),
+(16, 6, 3),
+(17, 7, 1),
+(18, 8, 2),
+(19, 9, 1),
+(20, 10, 3),
+(21, 1, 2),
+(22, 2, 4),
+(23, 3, 3),
+(24, 4, 1),
+(21, 5, 2),
+(20, 6, 1),
+(25, 1, 3),
+(26, 2, 2),
+(27, 3, 1),
+(28, 4, 4),
+(29, 5, 2),
+(30, 6, 3),
+(31, 7, 1),
+(32, 8, 5),
+(26, 2, 2),
+(27, 3, 1),
+(28, 4, 4),
+(29, 5, 2),
+(33, 6, 3),
+(34, 7, 1),
+(35, 8, 5),
+(27, 3, 1),
+(28, 4, 4),
+(29, 5, 2),
+(36, 1, 2),
+(36, 3, 3),
+(37, 2, 1),
+(37, 4, 4),
+(38, 5, 2),
+(38, 6, 1),
+(39, 7, 3),
+(39, 8, 2),
+(40, 9, 4),
+(40, 10, 1),
+(41, 1, 5),
+(41, 3, 2),
+(42, 2, 3),
+(42, 4, 2),
+(43, 5, 4),
+(43, 6, 3),
+(40, 7, 1),
+(45, 4, 2),
+(44, 5, 4),
+(45, 6, 3),
+(44, 7, 1),
+(42, 8, 5);
 ---------------------------------
 SELECT 
     B.ID,
@@ -680,8 +794,7 @@ JOIN ITEM_PROMOTION ip ON p.ID = ip.IDPROMOTION
 JOIN BILLINF bi ON ip.IDITEM = bi.IDFD
 WHERE bi.IDBILL = @BillID;
 --------------------------------------------------------------------------
-
------
+--------------------
 SELECT 
    B.ID,
    B.CHKIN_TIME AS [DATE],
@@ -694,17 +807,96 @@ SELECT
    (SELECT SUM(bi.COUNT * i.PRICE)
     FROM BILLINF bi
     JOIN ITEM i ON bi.IDFD = i.ID 
-    WHERE bi.IDBILL = B.ID) - B.TOTAL AS DISCOUNT, 
-   B.TOTAL AS PAYMENT
+    WHERE bi.IDBILL = B.ID) - B.TOTAL AS DISCOUNT,
+   B.TOTAL AS PAYMENT,
+   (SELECT SUM(TOTAL) FROM BILL) AS REVENUE
 FROM BILL B
 LEFT JOIN ACCOUNT A ON B.IDSTAFF = A.IDSTAFF 
-LEFT JOIN CUSTOMER C ON B.IDCUSTOMER = C.ID;
+LEFT JOIN CUSTOMER C ON B.IDCUSTOMER = C.ID
+GROUP BY 
+   B.ID, 
+   B.CHKIN_TIME, 
+   C.FULLNAME, 
+   B.BILLTYPE, 
+   B.TOTAL;
 
-SELECT c.PHONE AS PHONE
-FROM BILL b
-JOIN CUSTOMER c ON b.IDCUSTOMER = c.ID
-WHERE b.ID = 3
+DECLARE @StartDate DATE = '2024-01-01';
+DECLARE @EndDate DATE = '2025-12-31';
 
-select * from BILLINF
+WITH BillDetails AS (
+    SELECT 
+        YEAR(B.CHKIN_TIME) AS [Year],
+        SUM(bi.COUNT * i.PRICE) AS TOTAL_SALES,
+        SUM(bi.COUNT * i.PRICE) - B.TOTAL AS DISCOUNT,
+        B.TOTAL AS PAYMENT
+    FROM BILL B
+    JOIN BILLINF bi ON B.ID = bi.IDBILL
+    JOIN ITEM i ON bi.IDFD = i.ID
+    WHERE 
+        B.CHKIN_TIME BETWEEN @StartDate AND @EndDate
+    GROUP BY 
+        YEAR(B.CHKIN_TIME), B.TOTAL
+)
+SELECT 
+    [Year],
+    SUM(TOTAL_SALES) AS TOTAL_SALES,
+    SUM(DISCOUNT) AS TOTAL_DISCOUNT,
+    SUM(PAYMENT) AS FINAL_REVENUE
+FROM BillDetails
+GROUP BY [Year]
+ORDER BY [Year];
+   --
+   WITH BillDetails AS (
+    SELECT 
+        B.ID,
+        FORMAT(B.CHKIN_TIME, 'yyyy-MM') AS [MONTH],
+        SUM(bi.COUNT * i.PRICE) AS TOTAL_SALES,
+        SUM(bi.COUNT * i.PRICE) - B.TOTAL AS DISCOUNT,
+        B.TOTAL AS PAYMENT
+    FROM BILL B
+    JOIN BILLINF bi ON B.ID = bi.IDBILL
+    JOIN ITEM i ON bi.IDFD = i.ID
+    GROUP BY B.ID, FORMAT(B.CHKIN_TIME, 'yyyy-MM'), B.TOTAL
+)
+SELECT 
+    [MONTH],
+    SUM(TOTAL_SALES) AS TOTAL_SALES,
+    SUM(DISCOUNT) AS TOTAL_DISCOUNT,
+    SUM(PAYMENT) AS FINAL_REVENUE
+FROM BillDetails
+GROUP BY [MONTH]
+ORDER BY [MONTH];
+SELECT 
+    B.CHKIN_TIME AS [DATE],
+    C.FULLNAME AS [CUSTOMER],
+    CASE WHEN B.BILLTYPE = 1 THEN 'Dine-In' ELSE 'Take away' END AS [TYPE],
+    (SELECT SUM(bi.COUNT * i.PRICE)
+     FROM BILLINF bi
+     JOIN ITEM i ON bi.IDFD = i.ID 
+     WHERE bi.IDBILL = B.ID) AS TOTAL,
+    (SELECT SUM(bi.COUNT * i.PRICE)
+     FROM BILLINF bi
+     JOIN ITEM i ON bi.IDFD = i.ID 
+     WHERE bi.IDBILL = B.ID) - B.TOTAL AS DISCOUNT,
+    B.TOTAL AS PAYMENT
+FROM BILL B
+LEFT JOIN ACCOUNT A ON B.IDSTAFF = A.IDSTAFF 
+LEFT JOIN CUSTOMER C ON B.IDCUSTOMER = C.ID
+WHERE B.CHKIN_TIME BETWEEN @STARTDATE AND @ENDDATE;
 
-select * from CUSTOMER
+SELECT 
+    C.HOMETOWN,
+    COUNT(DISTINCT C.ID) AS TotalCustomers,
+    COUNT(DISTINCT B.ID) AS TotalVisits,
+    SUM(B.TOTAL) AS TotalSpent
+FROM CUSTOMER C
+JOIN BILL B ON C.ID = B.IDCUSTOMER
+WHERE 
+    B.STATUS = 1 
+    AND C.HOMETOWN IS NOT NULL
+GROUP BY 
+    C.HOMETOWN
+ORDER BY 
+    TotalCustomers DESC, TotalVisits DESC;
+
+SELECT * FROM BILL
