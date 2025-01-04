@@ -20,6 +20,7 @@ namespace KTPOS
             public static DateTime LoginTime { get; set; }
             public static string EmployeeName { get; set; }
             public static string EmployeeID { get; set; }
+            public static SqlDbType StaffID { get; internal set; }
         }
         public fLogin()
         {
@@ -96,8 +97,15 @@ namespace KTPOS
                         LoginInfo.EmployeeID = row["IDSTAFF"].ToString();
                         LoginInfo.EmployeeName = row["FULLNAME"].ToString();
                     }
-
-                    fStaff_F f = new fStaff_F(role);
+                    query = "SELECT IDSTAFF FROM ACCOUNT where EMAIL = '" + email + "'";
+                    string idstaff = "";
+                    DataTable data = GetDatabase.Instance.ExecuteQuery(query);
+                    foreach (DataRow row in data.Rows)
+                    {
+                        idstaff = row["IDSTAFF"].ToString();
+                        break;
+                    }
+                    fStaff_F f = new fStaff_F(role, idstaff);
                     this.Hide();
                     f.ShowDialog();
                 }
@@ -132,6 +140,14 @@ namespace KTPOS
                 txtPass.PasswordChar = '\0';
                 btnHide.Visible = false;
                 btnEye.Visible = true;
+            }
+        }
+
+        private void txtPass_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnSignin_Click(sender, e);
             }
         }
     }
