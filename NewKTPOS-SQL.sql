@@ -354,6 +354,12 @@ INSERT INTO ACCOUNT (FULLNAME, EMAIL, PHONE, DOB, [PASSWORD], [ROLE], STATUS) VA
     (N'Nguyễn Thành Đạt',		'dathphong@gmail.com',	'0906234567', '2007-11-20', 'hoangtusitinh',	'Staff', 1)
 INSERT INTO ACCOUNT (FULLNAME, EMAIL, PHONE, DOB, [PASSWORD], [ROLE], STATUS) VALUES 
     (N'Nguyễn Giang Gia Huy',	'huybo@gmail.com',		'0907234567', '2006-08-05', 'huybo123',			'Staff', 1)
+INSERT INTO ACCOUNT (FULLNAME, EMAIL, PHONE, DOB, [PASSWORD], [ROLE], STATUS) VALUES 
+    (N'Nguyễn Hà Vĩnh Khang', 'fabulous@gmail.com',		'0905245667', '2004-03-15', 'vkang123',			'Staff', 1)
+INSERT INTO ACCOUNT (FULLNAME, EMAIL, PHONE, DOB, [PASSWORD], [ROLE], STATUS) VALUES 
+    (N'Nguyễn Huy Khang',		'khangmeme@gmail.com',	'0901235467', '2004-11-20', 'ongtrummeme',		'Staff', 1)
+INSERT INTO ACCOUNT (FULLNAME, EMAIL, PHONE, DOB, [PASSWORD], [ROLE], STATUS) VALUES 
+    (N'Võ Quốc Nhật',	'ciyh@gmail.com','09072147867',					'2004-08-05',				'ciyh14@',			'Staff', 1)
 GO
 INSERT INTO CUSTOMER (FULLNAME, PHONE, GENDER, HOMETOWN)
 VALUES 
@@ -899,4 +905,4 @@ GROUP BY
 ORDER BY 
     TotalCustomers DESC, TotalVisits DESC;
 
-SELECT * FROM BILL
+SELECT * FROM ACCOUNT

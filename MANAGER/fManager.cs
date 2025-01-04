@@ -189,7 +189,6 @@ namespace KTPOS.MANAGER
                         OR1.Hide();
                         OR2.Hide();
                         OR3.Hide();
-                        gBFilter.Hide();
                         index = -1;
                         break;
                     case "PROMOTION":
