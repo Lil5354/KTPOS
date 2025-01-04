@@ -15,6 +15,7 @@ namespace KTPOS.STAFF
     public partial class fCus : Form
     {
         private string Phone;
+        public bool check = false;
         public fCus(string phone)
         {
             InitializeComponent();
@@ -43,13 +44,14 @@ namespace KTPOS.STAFF
             string name = txtName.Text;
             string home = Home.Text;
             string gender = Gender.Text;
+            string phone = txtPhone.Text;
             if (name == "")
             {
                 MessageBox.Show("Please enter Name");
                 txtName.Focus();
                 return;
             }
-            if (Phone == "")
+            if (phone == "")
             {
                 MessageBox.Show("Please enter Phone");
                 txtPhone.Focus();
@@ -63,12 +65,27 @@ namespace KTPOS.STAFF
             }
             if (gender == "")
             {
-                MessageBox.Show("Please enter Gender");
+                MessageBox.Show("Please choose valid Gender");
                 Gender.Focus();
                 return;
             }
-            string query = $"INSERT INTO CUSTOMER (FULLNAME, PHONE, GENDER, HOMETOWN) VALUES ('{name}', '{Phone}', '{gender}', N'{home}')";
+            int idCus = 0;
+            string query = $"SELECT ID FROM CUSTOMER WHERE PHONE = '{phone}';";
+            DataTable table = GetDatabase.Instance.ExecuteQuery(query);
+            foreach (DataRow row in table.Rows)
+            {
+                idCus = Convert.ToInt32(row["ID"]);
+                break;
+            }
+            if (idCus != 0)
+            {
+                MessageBox.Show("Phone exist");
+                txtPhone.Focus();
+                return;
+            }
+            query = $"INSERT INTO CUSTOMER (FULLNAME, PHONE, GENDER, HOMETOWN) VALUES ('{name}', '{phone}', '{gender}', N'{home}')";
             GetDatabase.Instance.ExecuteNonQuery(query);
+            check = true;
             this.Close();
         }
     }

@@ -73,61 +73,52 @@ namespace KTPOS.STAFF
         {
             try
             {
-                // Tạo truy vấn đơn giản và hiệu quả hơn
-                string query = string.Format(@"
-            WITH BillDetails AS (
-                SELECT 
-                    B.ID,
-                    SUM(bi.COUNT * i.PRICE) as OriginalAmount,
-                    B.TOTAL as FinalAmount
-                FROM BILL B
-                JOIN BILLINF bi ON B.ID = bi.IDBILL
-                JOIN ITEM i ON bi.IDFD = i.ID
-                JOIN ACCOUNT A ON B.IDSTAFF = A.IDSTAFF
-                WHERE CONVERT(DATE, B.CHKIN_TIME) = CONVERT(DATE, '{0}')
-                AND A.FULLNAME = N'{1}'
-                AND B.STATUS = 1
-                GROUP BY B.ID, B.TOTAL
-            )
-            SELECT 
-                COUNT(ID) as TotalInvoices,
-                ISNULL(SUM(OriginalAmount - FinalAmount), 0) as TotalDiscounts,
-                ISNULL(SUM(FinalAmount), 0) as TotalRevenue
-            FROM BillDetails",
-                    Convert.ToDateTime(lblDate.Text).ToString("yyyy-MM-dd"),
-                    lblEmployee.Text.Replace("'", "''"));
+                DateTime shiftStartTime = DateTime.ParseExact(lblShiftStartTime.Text, "dd/MM/yyyy HH:mm:ss", null);
+                string query = $@"
+       WITH BillDetails AS (
+           SELECT 
+               B.ID,
+               SUM(bi.COUNT * i.PRICE) as OriginalAmount,
+               B.TOTAL as FinalAmount
+           FROM BILL B
+           JOIN BILLINF bi ON B.ID = bi.IDBILL
+           JOIN ITEM i ON bi.IDFD = i.ID
+           JOIN ACCOUNT A ON B.IDSTAFF = A.IDSTAFF
+           WHERE B.CHKOUT_TIME >= '{shiftStartTime:yyyy-MM-dd HH:mm:ss}'
+           AND A.FULLNAME = N'{lblEmployee.Text.Replace("'", "''")}'
+           AND B.STATUS = 1
+           GROUP BY B.ID, B.TOTAL
+       )
+       SELECT 
+           COUNT(ID) as TotalInvoices,
+           ISNULL(SUM(OriginalAmount - FinalAmount), 0) as TotalDiscounts,
+           ISNULL(SUM(FinalAmount), 0) as TotalRevenue
+       FROM BillDetails";
 
-                // Thực thi truy vấn và lấy kết quả
                 DataTable result = GetDatabase.Instance.ExecuteQuery(query);
 
                 if (result != null && result.Rows.Count > 0)
                 {
                     DataRow row = result.Rows[0];
-
-                    // Cập nhật số lượng hóa đơn
                     int totalInvoices = row["TotalInvoices"] != DBNull.Value ?
                                       Convert.ToInt32(row["TotalInvoices"]) : 0;
                     lblTotalInvoices.Text = totalInvoices.ToString();
 
-                    // Cập nhật tổng tiền giảm giá
                     decimal totalDiscounts = row["TotalDiscounts"] != DBNull.Value ?
                                            Convert.ToDecimal(row["TotalDiscounts"]) : 0;
                     lblDiscounts.Text = string.Format("{0:N0} VND", totalDiscounts);
 
-                    // Cập nhật tổng doanh thu
                     decimal totalRevenue = row["TotalRevenue"] != DBNull.Value ?
                                          Convert.ToDecimal(row["TotalRevenue"]) : 0;
                     lblRevenue.Text = string.Format("{0:N0} VND", totalRevenue);
                 }
                 else
                 {
-                    // Gán giá trị mặc định nếu không có dữ liệu
                     SetDefaultValues();
                 }
             }
             catch (Exception ex)
             {
-                // Xử lý lỗi và ghi log nếu cần
                 MessageBox.Show($"Lỗi khi tải thống kê: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 SetDefaultValues();
             }
@@ -135,36 +126,39 @@ namespace KTPOS.STAFF
         private void UpdateFinancialStatistics()
         {
             try
-    {
-        using (DataTable result = GetDatabase.Instance.ExecuteQuery($@"
-            SELECT 
-                CAST(ISNULL(SUM(bi.COUNT * i.PRICE), 0) AS decimal(10,0)) AS TotalSales,
-                CAST(ISNULL(SUM(bi.COUNT * i.PRICE) - SUM(B.TOTAL), 0) AS decimal(10,0)) AS TotalDiscounts
-            FROM BILL B
-            JOIN BILLINF bi ON B.ID = bi.IDBILL
-            JOIN ITEM i ON bi.IDFD = i.ID
-            WHERE CONVERT(DATE, B.CHKIN_TIME) = CONVERT(DATE, '{Convert.ToDateTime(lblDate.Text):yyyy-MM-dd}')
-            AND B.STATUS = 1"))
-        {
-            if (result != null && result.Rows.Count > 0)
             {
-                DataRow row = result.Rows[0];
-                lblTotalSales.Text = $"{row["TotalSales"]:N0} VND";
-                lblDiscounts.Text = $"{row["TotalDiscounts"]:N0} VND";
+                DateTime shiftStartTime = DateTime.ParseExact(lblShiftStartTime.Text, "dd/MM/yyyy HH:mm:ss", null);
+                using (DataTable result = GetDatabase.Instance.ExecuteQuery($@"
+        SELECT 
+            CAST(ISNULL(SUM(bi.COUNT * i.PRICE), 0) AS decimal(10,0)) AS TotalSales,
+            CAST(ISNULL(SUM(bi.COUNT * i.PRICE) - SUM(B.TOTAL), 0) AS decimal(10,0)) AS TotalDiscounts
+        FROM BILL B
+        JOIN BILLINF bi ON B.ID = bi.IDBILL
+        JOIN ITEM i ON bi.IDFD = i.ID
+        JOIN ACCOUNT A ON B.IDSTAFF = A.IDSTAFF
+        WHERE B.CHKOUT_TIME >= '{shiftStartTime:yyyy-MM-dd HH:mm:ss}'
+        AND A.FULLNAME = N'{lblEmployee.Text.Replace("'", "''")}'
+        AND B.STATUS = 1"))
+                {
+                    if (result != null && result.Rows.Count > 0)
+                    {
+                        DataRow row = result.Rows[0];
+                        lblTotalSales.Text = $"{row["TotalSales"]:N0} VND";
+                        lblDiscounts.Text = $"{row["TotalDiscounts"]:N0} VND";
+                    }
+                    else
+                    {
+                        lblTotalSales.Text = "0 VND";
+                        lblDiscounts.Text = "0 VND";
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
+                MessageBox.Show($"Error updating financial statistics: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 lblTotalSales.Text = "0 VND";
                 lblDiscounts.Text = "0 VND";
             }
-        }
-    }
-    catch (Exception ex)
-    {
-        MessageBox.Show($"Error updating financial statistics: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        lblTotalSales.Text = "0 VND";
-        lblDiscounts.Text = "0 VND";
-    }
         }
         private void SetDefaultValues()
         {
@@ -212,6 +206,7 @@ namespace KTPOS.STAFF
         {
             try
             {
+                fStaff_F.ResetTotals();
                 // Create and show new login form
                 fLogin loginForm = new fLogin();
 

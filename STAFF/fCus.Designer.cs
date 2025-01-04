@@ -79,6 +79,7 @@
             // 
             // Gender
             // 
+            this.Gender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Gender.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Gender.FormattingEnabled = true;
             this.Gender.Location = new System.Drawing.Point(71, 180);

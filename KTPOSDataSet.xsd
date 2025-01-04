@@ -30,29 +30,63 @@
             </Mappings>
             <Sources />
           </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable1TableAdapter" GeneratorDataComponentClassName="DataTable1TableAdapter" Name="DataTable1" UserDataComponentName="DataTable1TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="KTPOSConnectionString (Settings)" DbObjectName="" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT 
+    F.NAME AS FoodName,
+    BI.COUNT AS Quantity
+FROM 
+    FOOD F
+    INNER JOIN (
+        SELECT IDFD, COUNT 
+        FROM BILLINF 
+        WHERE (@IDBILL IS NULL OR IDBILL = @IDBILL)
+        AND (@IDFD IS NULL OR IDFD = @IDFD)
+    ) BI ON F.ID = BI.IDFD
+ORDER BY 
+    F.NAME;
+
+-- Parameters
+DECLARE @IDBILL INT = NULL
+DECLARE @IDFD INT = NULL</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings />
+            <Sources />
+          </TableAdapter>
         </Tables>
         <Sources />
       </DataSource>
     </xs:appinfo>
   </xs:annotation>
-  <xs:element name="KTPOSDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_UserDSName="KTPOSDataSet" msprop:Generator_DataSetName="KTPOSDataSet">
+  <xs:element name="KTPOSDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="KTPOSDataSet" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="KTPOSDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="sp_CalculateBillDetails" msprop:Generator_RowEvHandlerName="sp_CalculateBillDetailsRowChangeEventHandler" msprop:Generator_RowDeletedName="sp_CalculateBillDetailsRowDeleted" msprop:Generator_RowDeletingName="sp_CalculateBillDetailsRowDeleting" msprop:Generator_RowEvArgName="sp_CalculateBillDetailsRowChangeEvent" msprop:Generator_TablePropName="sp_CalculateBillDetails" msprop:Generator_RowChangedName="sp_CalculateBillDetailsRowChanged" msprop:Generator_RowChangingName="sp_CalculateBillDetailsRowChanging" msprop:Generator_TableClassName="sp_CalculateBillDetailsDataTable" msprop:Generator_RowClassName="sp_CalculateBillDetailsRow" msprop:Generator_TableVarName="tablesp_CalculateBillDetails" msprop:Generator_UserTableName="sp_CalculateBillDetails">
+        <xs:element name="sp_CalculateBillDetails" msprop:Generator_RowClassName="sp_CalculateBillDetailsRow" msprop:Generator_RowEvHandlerName="sp_CalculateBillDetailsRowChangeEventHandler" msprop:Generator_RowDeletedName="sp_CalculateBillDetailsRowDeleted" msprop:Generator_RowDeletingName="sp_CalculateBillDetailsRowDeleting" msprop:Generator_RowEvArgName="sp_CalculateBillDetailsRowChangeEvent" msprop:Generator_TablePropName="sp_CalculateBillDetails" msprop:Generator_RowChangedName="sp_CalculateBillDetailsRowChanged" msprop:Generator_UserTableName="sp_CalculateBillDetails" msprop:Generator_RowChangingName="sp_CalculateBillDetailsRowChanging" msprop:Generator_TableClassName="sp_CalculateBillDetailsDataTable" msprop:Generator_TableVarName="tablesp_CalculateBillDetails">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="mathang" msprop:Generator_ColumnPropNameInRow="mathang" msprop:Generator_ColumnPropNameInTable="mathangColumn" msprop:Generator_ColumnVarNameInTable="columnmathang" msprop:Generator_UserColumnName="mathang">
+              <xs:element name="mathang" msprop:Generator_UserColumnName="mathang" msprop:Generator_ColumnPropNameInTable="mathangColumn" msprop:Generator_ColumnPropNameInRow="mathang" msprop:Generator_ColumnVarNameInTable="columnmathang">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="50" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="gia" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="gia" msprop:Generator_ColumnPropNameInTable="giaColumn" msprop:Generator_ColumnVarNameInTable="columngia" msprop:Generator_UserColumnName="gia" type="xs:decimal" minOccurs="0" />
-              <xs:element name="giammon" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="giammon" msprop:Generator_ColumnPropNameInTable="giammonColumn" msprop:Generator_ColumnVarNameInTable="columngiammon" msprop:Generator_UserColumnName="giammon" type="xs:decimal" minOccurs="0" />
-              <xs:element name="sl" msprop:Generator_ColumnPropNameInRow="sl" msprop:Generator_ColumnPropNameInTable="slColumn" msprop:Generator_ColumnVarNameInTable="columnsl" msprop:Generator_UserColumnName="sl" type="xs:int" />
-              <xs:element name="sotien" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="sotien" msprop:Generator_ColumnPropNameInTable="sotienColumn" msprop:Generator_ColumnVarNameInTable="columnsotien" msprop:Generator_UserColumnName="sotien" type="xs:decimal" minOccurs="0" />
+              <xs:element name="gia" msdata:ReadOnly="true" msprop:Generator_UserColumnName="gia" msprop:Generator_ColumnPropNameInTable="giaColumn" msprop:Generator_ColumnPropNameInRow="gia" msprop:Generator_ColumnVarNameInTable="columngia" type="xs:decimal" minOccurs="0" />
+              <xs:element name="giammon" msdata:ReadOnly="true" msprop:Generator_UserColumnName="giammon" msprop:Generator_ColumnPropNameInTable="giammonColumn" msprop:Generator_ColumnPropNameInRow="giammon" msprop:Generator_ColumnVarNameInTable="columngiammon" type="xs:decimal" minOccurs="0" />
+              <xs:element name="sl" msprop:Generator_UserColumnName="sl" msprop:Generator_ColumnPropNameInTable="slColumn" msprop:Generator_ColumnPropNameInRow="sl" msprop:Generator_ColumnVarNameInTable="columnsl" type="xs:int" />
+              <xs:element name="sotien" msdata:ReadOnly="true" msprop:Generator_UserColumnName="sotien" msprop:Generator_ColumnPropNameInTable="sotienColumn" msprop:Generator_ColumnPropNameInRow="sotien" msprop:Generator_ColumnVarNameInTable="columnsotien" type="xs:decimal" minOccurs="0" />
             </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DataTable1" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_RowClassName="DataTable1Row" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_UserTableName="DataTable1">
+          <xs:complexType>
           </xs:complexType>
         </xs:element>
       </xs:choice>
