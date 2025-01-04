@@ -189,6 +189,7 @@ namespace KTPOS.MANAGER
                         OR1.Hide();
                         OR2.Hide();
                         OR3.Hide();
+                        gBFilter.Hide();
                         index = -1;
                         break;
                     case "PROMOTION":
@@ -1038,7 +1039,7 @@ namespace KTPOS.MANAGER
                     string queryMonthlyBase = @"
                 WITH BillDetails AS (
                     SELECT 
-                        FORMAT(B.CHKIN_TIME, 'MM-yyyy') AS [MONTH],
+                        FORMAT(B.CHKIN_TIME, 'yyyy-MM') AS [MONTH],
                         SUM(bi.COUNT * i.PRICE) AS TOTAL_SALES,
                         SUM(bi.COUNT * i.PRICE) - B.TOTAL AS DISCOUNT,
                         B.TOTAL AS PAYMENT
@@ -1046,7 +1047,7 @@ namespace KTPOS.MANAGER
                     JOIN BILLINF bi ON B.ID = bi.IDBILL
                     JOIN ITEM i ON bi.IDFD = i.ID
                     WHERE B.CHKIN_TIME BETWEEN @StartDate AND @EndDate 
-                    GROUP BY FORMAT(B.CHKIN_TIME, 'MM-yyyy'), B.TOTAL
+                    GROUP BY FORMAT(B.CHKIN_TIME, 'yyyy-MM'), B.TOTAL
                 )
                 SELECT 
                     [MONTH],
@@ -1198,6 +1199,12 @@ namespace KTPOS.MANAGER
                         OR1.Show();
                         OR2.Show();
                         OR3.Show();
+                        
+                        break;
+                    case "CUSTOMER":
+                        OR1.Text = "Percentage of membership";
+                        OR2.Text = "Percentage of Gender";
+                        OR3.Text = "Revenue ratio by customer area";
                         break;
                     default:
                         break;
