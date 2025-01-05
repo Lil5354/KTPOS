@@ -1,86 +1,86 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\",
+  "WorkspaceRootPath": "E:\\App\\KTPOS-main\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\KTPOS\\manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\KTPOS\\staff\\uc_qrpayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\uc_qrpayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\KTPOS\\staff\\uc_qrpayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\uc_qrpayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\KTPOS\\manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\KTPOS\\proccess\\dtmanger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:proccess\\dtmanger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\KTPOS\\staff\\fshiftclosing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fshiftclosing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\KTPOS\\staff\\fshiftclosing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fshiftclosing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\KTPOS\\staff\\fbillviewer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fbillviewer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\KTPOS\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\KTPOS\\staff\\fbillviewer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fbillviewer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\KTPOS\\proccess\\getdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:proccess\\getdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|d:\\douments\\github\\ktpos\\ktpos\\staff\\fstaff_f.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fstaff_f.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\KTPOS\\staff\\fstaff_s.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\KTPOS-main\\staff\\fstaff_s.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fstaff_s.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\KTPOS\\staff\\fpayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fpayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\KTPOS\\staff\\fstaff_f.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fstaff_f.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\KTPOS\\staff\\forderpreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\forderpreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\KTPOS\\staff\\fcus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fcus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\KTPOS\\staff\\fstaff_s.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\KTPOS-main\\staff\\fstaff_s.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fstaff_s.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\KTPOS\\manager\\fmanager.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:manager\\fmanager.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\KTPOS-main\\flogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:flogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|D:\\Douments\\GitHub\\KTPOS\\KTPOS\\flogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:flogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\KTPOS-main\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\KTPOS-main\\proccess\\getdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:proccess\\getdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|e:\\app\\ktpos-main\\manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\KTPOS-main\\staff\\uc_qrpayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\uc_qrpayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\KTPOS-main\\staff\\uc_qrpayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\uc_qrpayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\KTPOS-main\\manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:manager\\fmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\KTPOS-main\\proccess\\dtmanger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:proccess\\dtmanger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\KTPOS-main\\staff\\fshiftclosing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fshiftclosing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\KTPOS-main\\staff\\fshiftclosing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fshiftclosing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\KTPOS-main\\staff\\fbillviewer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fbillviewer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\KTPOS-main\\staff\\fbillviewer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fbillviewer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\KTPOS-main\\staff\\fstaff_f.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fstaff_f.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\KTPOS-main\\staff\\fpayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fpayment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\KTPOS-main\\staff\\fstaff_f.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fstaff_f.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\KTPOS-main\\staff\\forderpreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\forderpreview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\KTPOS-main\\staff\\fcus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:staff\\fcus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|E:\\App\\KTPOS-main\\manager\\fmanager.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E9109FD1-438F-40EA-AEBB-B536B71406B4}|KTPOS.csproj|solutionrelative:manager\\fmanager.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -90,29 +90,28 @@
       "DocumentGroups": [
         {
           "DockedHeight": 937,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "DTManger.cs",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\Proccess\\DTManger.cs",
+              "DocumentMoniker": "E:\\App\\KTPOS-main\\Proccess\\DTManger.cs",
               "RelativeDocumentMoniker": "Proccess\\DTManger.cs",
-              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\Proccess\\DTManger.cs",
+              "ToolTip": "E:\\App\\KTPOS-main\\Proccess\\DTManger.cs",
               "RelativeToolTip": "Proccess\\DTManger.cs",
               "ViewState": "AgIAADIAAAAAAAAAAAAwwEoAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-02T14:09:56.101Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "fManager.cs [Design]",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\MANAGER\\fManager.cs",
+              "DocumentMoniker": "E:\\App\\KTPOS-main\\MANAGER\\fManager.cs",
               "RelativeDocumentMoniker": "MANAGER\\fManager.cs",
-              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\MANAGER\\fManager.cs [Design]",
+              "ToolTip": "E:\\App\\KTPOS-main\\MANAGER\\fManager.cs [Design]",
               "RelativeToolTip": "MANAGER\\fManager.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-02T13:34:04.688Z",
@@ -120,165 +119,84 @@
               "EditorCaption": " [Design]"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e506b91c-c606-466a-90a9-123d1d1e12b3}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "fShiftClosing.cs",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\fShiftClosing.cs",
-              "RelativeDocumentMoniker": "STAFF\\fShiftClosing.cs",
-              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\fShiftClosing.cs",
-              "RelativeToolTip": "STAFF\\fShiftClosing.cs",
-              "ViewState": "AgIAADwAAAAAAAAAAAAAwEwAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-04T15:33:26.001Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UC_QRPayment.cs",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\UC_QRPayment.cs",
-              "RelativeDocumentMoniker": "STAFF\\UC_QRPayment.cs",
-              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\UC_QRPayment.cs",
-              "RelativeToolTip": "STAFF\\UC_QRPayment.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAiwI8AAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-04T15:25:56.811Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UC_QRPayment.cs [Design]",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\UC_QRPayment.cs",
-              "RelativeDocumentMoniker": "STAFF\\UC_QRPayment.cs",
-              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\UC_QRPayment.cs [Design]",
-              "RelativeToolTip": "STAFF\\UC_QRPayment.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-04T15:25:52.987Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "fShiftClosing.cs [Design]",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\fShiftClosing.cs",
-              "RelativeDocumentMoniker": "STAFF\\fShiftClosing.cs",
-              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\fShiftClosing.cs [Design]",
-              "RelativeToolTip": "STAFF\\fShiftClosing.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-04T14:59:22.737Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "fPayment.cs [Design]",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\fPayment.cs",
-              "RelativeDocumentMoniker": "STAFF\\fPayment.cs",
-              "ToolTip": "D:\\Th\u01B0 mu\u0323c m\u01A1\u0301i (2)\\KTPOS\\STAFF\\fPayment.cs [Design]",
-              "RelativeToolTip": "..\\..\\..\\..\\Th\u01B0 mu\u0323c m\u01A1\u0301i (2)\\KTPOS\\STAFF\\fPayment.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-04T14:59:21.212Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "fOrderPreview.cs [Design]",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\fOrderPreview.cs",
+              "DocumentMoniker": "E:\\App\\KTPOS-main\\STAFF\\fOrderPreview.cs",
               "RelativeDocumentMoniker": "STAFF\\fOrderPreview.cs",
               "ToolTip": "D:\\Th\u01B0 mu\u0323c m\u01A1\u0301i (2)\\KTPOS\\STAFF\\fOrderPreview.cs [Design]",
-              "RelativeToolTip": "..\\..\\..\\..\\Th\u01B0 mu\u0323c m\u01A1\u0301i (2)\\KTPOS\\STAFF\\fOrderPreview.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-04T14:59:19.522Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "fCus.cs [Design]",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\fCus.cs",
-              "RelativeDocumentMoniker": "STAFF\\fCus.cs",
-              "ToolTip": "D:\\Th\u01B0 mu\u0323c m\u01A1\u0301i (2)\\KTPOS\\STAFF\\fCus.cs [Design]",
-              "RelativeToolTip": "..\\..\\..\\..\\Th\u01B0 mu\u0323c m\u01A1\u0301i (2)\\KTPOS\\STAFF\\fCus.cs [Design]",
+              "DocumentIndex": 4,
+              "Title": "GetDatabase.cs",
+              "DocumentMoniker": "E:\\App\\KTPOS-main\\Proccess\\GetDatabase.cs",
+              "RelativeDocumentMoniker": "Proccess\\GetDatabase.cs",
+              "ToolTip": "E:\\App\\KTPOS-main\\Proccess\\GetDatabase.cs",
+              "RelativeToolTip": "Proccess\\GetDatabase.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-04T14:54:10.895Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "fStaff_S.cs",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\fStaff_S.cs",
-              "RelativeDocumentMoniker": "STAFF\\fStaff_S.cs",
-              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\fStaff_S.cs",
-              "RelativeToolTip": "STAFF\\fStaff_S.cs",
-              "ViewState": "AgIAAMwBAAAAAAAAAAAlwN8BAABBAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-04T14:52:12.588Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "fStaff_F.cs",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\fStaff_F.cs",
-              "RelativeDocumentMoniker": "STAFF\\fStaff_F.cs",
-              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\fStaff_F.cs",
-              "RelativeToolTip": "STAFF\\fStaff_F.cs",
-              "ViewState": "AgIAAK0AAAAAAAAAAAAUwMAAAABFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-04T04:47:31.345Z",
+              "WhenOpened": "2025-01-04T03:45:39.433Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "fLogin.cs [Design]",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\fLogin.cs",
-              "RelativeDocumentMoniker": "fLogin.cs",
-              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\fLogin.cs [Design]",
-              "RelativeToolTip": "..\\fLogin.cs [Design]",
+              "DocumentIndex": 7,
+              "Title": "UC_QRPayment.cs",
+              "DocumentMoniker": "E:\\App\\KTPOS-main\\STAFF\\UC_QRPayment.cs",
+              "RelativeDocumentMoniker": "STAFF\\UC_QRPayment.cs",
+              "ToolTip": "E:\\App\\KTPOS-main\\STAFF\\UC_QRPayment.cs",
+              "RelativeToolTip": "STAFF\\UC_QRPayment.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAiwI8AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-04T04:47:00.15Z"
+              "WhenOpened": "2025-01-04T15:25:56.811Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 1,
               "Title": "fStaff_S.cs [Design]",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\fStaff_S.cs",
+              "DocumentMoniker": "E:\\App\\KTPOS-main\\STAFF\\fStaff_S.cs",
               "RelativeDocumentMoniker": "STAFF\\fStaff_S.cs",
-              "ToolTip": "D:\\Th\u01B0 mu\u0323c m\u01A1\u0301i (2)\\KTPOS\\STAFF\\fStaff_S.cs [Design]",
-              "RelativeToolTip": "..\\..\\..\\..\\Th\u01B0 mu\u0323c m\u01A1\u0301i (2)\\KTPOS\\STAFF\\fStaff_S.cs [Design]",
+              "ToolTip": "E:\\App\\KTPOS-main\\STAFF\\fStaff_S.cs [Design]",
+              "RelativeToolTip": "STAFF\\fStaff_S.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-04T03:48:52.179Z"
+              "WhenOpened": "2025-01-04T03:48:52.179Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "fStaff_F.cs [Design]",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\fStaff_F.cs",
-              "RelativeDocumentMoniker": "STAFF\\fStaff_F.cs",
-              "ToolTip": "D:\\Th\u01B0 mu\u0323c m\u01A1\u0301i (2)\\KTPOS\\STAFF\\fStaff_F.cs [Design]",
-              "RelativeToolTip": "..\\..\\..\\..\\Th\u01B0 mu\u0323c m\u01A1\u0301i (2)\\KTPOS\\STAFF\\fStaff_F.cs [Design]",
+              "DocumentIndex": 0,
+              "Title": "fStaff_S.cs",
+              "DocumentMoniker": "E:\\App\\KTPOS-main\\STAFF\\fStaff_S.cs",
+              "RelativeDocumentMoniker": "STAFF\\fStaff_S.cs",
+              "ToolTip": "E:\\App\\KTPOS-main\\STAFF\\fStaff_S.cs",
+              "RelativeToolTip": "STAFF\\fStaff_S.cs",
+              "ViewState": "AgIAAJQBAAAAAAAAAAAnwKsBAABHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-04T03:48:49.516Z"
+              "WhenOpened": "2025-01-04T14:52:12.588Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 2,
+              "Title": "fLogin.cs [Design]",
+              "DocumentMoniker": "E:\\App\\KTPOS-main\\fLogin.cs",
+              "RelativeDocumentMoniker": "fLogin.cs",
+              "ToolTip": "E:\\App\\KTPOS-main\\fLogin.cs [Design]",
+              "RelativeToolTip": "fLogin.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-04T04:47:00.15Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Program.cs",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\Program.cs",
+              "DocumentMoniker": "E:\\App\\KTPOS-main\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\Program.cs",
+              "ToolTip": "E:\\App\\KTPOS-main\\Program.cs",
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -287,49 +205,107 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "fBillViewer.cs",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\fBillViewer.cs",
-              "RelativeDocumentMoniker": "STAFF\\fBillViewer.cs",
-              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\fBillViewer.cs",
-              "RelativeToolTip": "STAFF\\fBillViewer.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAYwBEAAABLAAAAAAAAAA==",
+              "DocumentIndex": 15,
+              "Title": "fPayment.cs [Design]",
+              "DocumentMoniker": "E:\\App\\KTPOS-main\\STAFF\\fPayment.cs",
+              "RelativeDocumentMoniker": "STAFF\\fPayment.cs",
+              "ToolTip": "D:\\Th\u01B0 mu\u0323c m\u01A1\u0301i (2)\\KTPOS\\STAFF\\fPayment.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-04T03:45:45.096Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-04T14:59:21.212Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "fBillViewer.cs [Design]",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\fBillViewer.cs",
-              "RelativeDocumentMoniker": "STAFF\\fBillViewer.cs",
-              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\fBillViewer.cs [Design]",
-              "RelativeToolTip": "STAFF\\fBillViewer.cs [Design]",
+              "DocumentIndex": 11,
+              "Title": "fShiftClosing.cs [Design]",
+              "DocumentMoniker": "E:\\App\\KTPOS-main\\STAFF\\fShiftClosing.cs",
+              "RelativeDocumentMoniker": "STAFF\\fShiftClosing.cs",
+              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\fShiftClosing.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-04T03:45:43.272Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-01-04T14:59:22.737Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UC_QRPayment.cs [Design]",
+              "DocumentMoniker": "E:\\App\\KTPOS-main\\STAFF\\UC_QRPayment.cs",
+              "RelativeDocumentMoniker": "STAFF\\UC_QRPayment.cs",
+              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\UC_QRPayment.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-04T15:25:52.987Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 10,
-              "Title": "GetDatabase.cs",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\Proccess\\GetDatabase.cs",
-              "RelativeDocumentMoniker": "Proccess\\GetDatabase.cs",
-              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\Proccess\\GetDatabase.cs",
-              "RelativeToolTip": "Proccess\\GetDatabase.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAABMAAAAAAAAAA==",
+              "Title": "fShiftClosing.cs",
+              "DocumentMoniker": "E:\\App\\KTPOS-main\\STAFF\\fShiftClosing.cs",
+              "RelativeDocumentMoniker": "STAFF\\fShiftClosing.cs",
+              "ToolTip": "E:\\App\\KTPOS-main\\STAFF\\fShiftClosing.cs",
+              "RelativeToolTip": "STAFF\\fShiftClosing.cs",
+              "ViewState": "AgIAADwAAAAAAAAAAAAAwEwAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-04T03:45:39.433Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-04T15:33:26.001Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 18,
+              "Title": "fCus.cs [Design]",
+              "DocumentMoniker": "E:\\App\\KTPOS-main\\STAFF\\fCus.cs",
+              "RelativeDocumentMoniker": "STAFF\\fCus.cs",
+              "ToolTip": "D:\\Th\u01B0 mu\u0323c m\u01A1\u0301i (2)\\KTPOS\\STAFF\\fCus.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-04T14:54:10.895Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "fStaff_F.cs",
+              "DocumentMoniker": "E:\\App\\KTPOS-main\\STAFF\\fStaff_F.cs",
+              "RelativeDocumentMoniker": "STAFF\\fStaff_F.cs",
+              "ToolTip": "E:\\App\\KTPOS-main\\STAFF\\fStaff_F.cs",
+              "RelativeToolTip": "STAFF\\fStaff_F.cs",
+              "ViewState": "AgIAAK0AAAAAAAAAAAAUwMAAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-04T04:47:31.345Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "fStaff_F.cs [Design]",
+              "DocumentMoniker": "E:\\App\\KTPOS-main\\STAFF\\fStaff_F.cs",
+              "RelativeDocumentMoniker": "STAFF\\fStaff_F.cs",
+              "ToolTip": "D:\\Th\u01B0 mu\u0323c m\u01A1\u0301i (2)\\KTPOS\\STAFF\\fStaff_F.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-04T03:48:49.516Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "fBillViewer.cs",
+              "DocumentMoniker": "E:\\App\\KTPOS-main\\STAFF\\fBillViewer.cs",
+              "RelativeDocumentMoniker": "STAFF\\fBillViewer.cs",
+              "ToolTip": "E:\\App\\KTPOS-main\\STAFF\\fBillViewer.cs",
+              "RelativeToolTip": "STAFF\\fBillViewer.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAYwBEAAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-04T03:45:45.096Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "fBillViewer.cs [Design]",
+              "DocumentMoniker": "E:\\App\\KTPOS-main\\STAFF\\fBillViewer.cs",
+              "RelativeDocumentMoniker": "STAFF\\fBillViewer.cs",
+              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\STAFF\\fBillViewer.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-04T03:45:43.272Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
               "Title": "fManager.Designer.cs",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\MANAGER\\fManager.Designer.cs",
+              "DocumentMoniker": "E:\\App\\KTPOS-main\\MANAGER\\fManager.Designer.cs",
               "RelativeDocumentMoniker": "MANAGER\\fManager.Designer.cs",
-              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\MANAGER\\fManager.Designer.cs",
+              "ToolTip": "E:\\App\\KTPOS-main\\MANAGER\\fManager.Designer.cs",
               "RelativeToolTip": "MANAGER\\fManager.Designer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -338,23 +314,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 8,
               "Title": "fManager.cs",
-              "DocumentMoniker": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\MANAGER\\fManager.cs",
+              "DocumentMoniker": "E:\\App\\KTPOS-main\\MANAGER\\fManager.cs",
               "RelativeDocumentMoniker": "MANAGER\\fManager.cs",
-              "ToolTip": "D:\\Douments\\GitHub\\KTPOS\\KTPOS\\MANAGER\\fManager.cs",
+              "ToolTip": "E:\\App\\KTPOS-main\\MANAGER\\fManager.cs",
               "RelativeToolTip": "MANAGER\\fManager.cs",
               "ViewState": "AgIAAKYAAAAAAAAAAAAIwL0AAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-02T12:24:33.837Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-02T12:24:33.837Z"
             }
           ]
         },
         {
-          "DockedHeight": 41,
+          "DockedHeight": 247,
           "SelectedChildIndex": -1,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"

@@ -1,5 +1,7 @@
 ﻿USE MASTER
 GO
+ALTER DATABASE KTPOS SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+GO
 DROP DATABASE IF EXISTS KTPOS
 GO
 CREATE DATABASE KTPOS
@@ -375,8 +377,8 @@ VALUES
 ('Le Thi O', '0955678901', 'Female', N'Quảng Nam');
 INSERT INTO PROMOTION (FNAME, [DESCRIPTION], DISCOUNT, [START_DATE], END_DATE, STATUS, APPLY_TO)
 VALUES 
-('New Year Discount', 'Discount for all items on New Year', 20, '2024-12-31', '2025-01-01', 1, 'ITEM'),
-('Merry Christmas', '10% off on all bills during holidays', 10, '2024-12-24', '2024-12-26', 1, 'BILL'),
+('New Year Discount', 'Discount for all items on New Year', 20, '2024-12-31', '2025-01-30', 1, 'ITEM'),
+('Merry Christmas', '10% off on all bills during holidays', 10, '2024-12-24', '2025-12-26', 1, 'BILL'),
 ('Seasonal Fruits', 'Special price for seasonal drinks', 15, '2024-11-01', '2024-12-31', 1, 'ITEM');
 INSERT INTO [TABLE] (FNAME, STATUS, CAPACITY, VISIBLE) 
 VALUES
@@ -458,8 +460,6 @@ VALUES
 (1, 3), -- Flan Cake
 (1, 4), -- Iced Coffee
 (1, 5), -- Beer
-(1, 6), -- Fried Rice
-(1, 7), -- Salad
 (1, 8), -- Baguette
 (1, 9), -- Orange Juice
 (1, 10), -- Watermelon Smoothie
@@ -906,3 +906,10 @@ ORDER BY
     TotalCustomers DESC, TotalVisits DESC;
 
 SELECT * FROM ACCOUNT
+
+
+SELECT  DISTINCT I.ID AS ID , I.FNAME AS FNAME, I.CATEGORY AS CATEGORY, I.PRICE AS PRICE, ISNULL(P.DISCOUNT, 0) AS DISCOUNT FROM ITEM I LEFT JOIN ITEM_PROMOTION IP ON I.ID = IP.IDITEM LEFT JOIN PROMOTION P ON IP.IDPROMOTION = P.ID ORDER BY ISNULL(P.DISCOUNT, 0) DESC;
+
+select * from ITEM
+
+

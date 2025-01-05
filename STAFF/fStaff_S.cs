@@ -184,7 +184,7 @@ namespace KTPOS.STAFF
                 foreach (DataRow row in data.Rows)
                 {
                     int itemId = Convert.ToInt32(row["ID"]);
-                    if (menu[itemId] == 1) break;
+                    if (menu[itemId] == 1) continue;
                     menu[itemId] = 1;
                     string itemName = row["FNAME"].ToString();
                     decimal price1 = Convert.ToDecimal(row["PRICE"]);
@@ -477,7 +477,7 @@ namespace KTPOS.STAFF
                 if (checkclose == false) return;
                 if (checkbill == false || idTable <= 0)
                     AddBill();
-                string filePath = "D:\\Thư mục mới\\KTPOS\\Note\\BillNote";
+                string filePath = "E:\\App\\KTPOS-main\\Note\\BillNote";
                 filePath = filePath + idBill.ToString() + ".txt";
                 if (txtNoteBill.Text != "") using (StreamWriter writer = new StreamWriter(filePath))
                     {
@@ -518,28 +518,28 @@ namespace KTPOS.STAFF
             txtSearch.Clear();
             if (Filter.SelectedItem == null) return;
             string filter = Filter.SelectedItem.ToString();
-            string query = $"SELECT DISTINCT I.ID AS ID, I.FNAME AS FNAME, I.CATEGORY AS CATEGORY, I.PRICE AS PRICE, ISNULL(P.DISCOUNT, 0) AS DISCOUNT, P.FNAME AS PromotionName, P.[START_DATE] AS StartDate, P.END_DATE AS EndDate FROM ITEM I LEFT JOIN ITEM_PROMOTION IP ON I.ID = IP.IDITEM LEFT JOIN PROMOTION P ON IP.IDPROMOTION = P.ID JOIN ITEM_TAG IT ON I.ID = IT.IDITEM JOIN TAG T ON IT.IDTAG = T.ID AND T.TAGNAME = '{filter}' ORDER BY ISNULL(P.DISCOUNT, 0) DESC;";
+            string query = $"SELECT ITEM.ID AS ID, ITEM.FNAME AS FNAME, ITEM.CATEGORY AS CATEGORY, ITEM.PRICE AS PRICE, COALESCE(PROMOTION.DISCOUNT, 0) AS DISCOUNT FROM ITEM LEFT JOIN ITEM_PROMOTION ON ITEM.ID = ITEM_PROMOTION.IDITEM LEFT JOIN PROMOTION ON ITEM_PROMOTION.IDPROMOTION = PROMOTION.ID AND PROMOTION.[START_DATE] <= CAST(GETDATE() AS DATE) AND PROMOTION.END_DATE >= CAST(GETDATE() AS DATE) AND PROMOTION.STATUS = 1 INNER JOIN ITEM_TAG ON ITEM.ID = ITEM_TAG.IDITEM INNER JOIN TAG ON ITEM_TAG.IDTAG = TAG.ID WHERE ITEM.VISIBLE = 1 AND TAG.TAGNAME = '{filter}' ORDER BY DISCOUNT DESC;";
             LoadMenuItems(query);
         }
 
         private void btnAll_Click(object sender, EventArgs e)
         {
             txtSearch.Clear();
-            string query = "SELECT  DISTINCT I.ID AS ID , I.FNAME AS FNAME, I.CATEGORY AS CATEGORY, I.PRICE AS PRICE, ISNULL(P.DISCOUNT, 0) AS DISCOUNT FROM ITEM I LEFT JOIN ITEM_PROMOTION IP ON I.ID = IP.IDITEM LEFT JOIN PROMOTION P ON IP.IDPROMOTION = P.ID ORDER BY ISNULL(P.DISCOUNT, 0) DESC;";
+            string query = "SELECT ITEM.ID AS ID, ITEM.FNAME AS FNAME, ITEM.CATEGORY AS CATEGORY, ITEM.PRICE AS PRICE, COALESCE(PROMOTION.DISCOUNT, 0) AS DISCOUNT FROM ITEM LEFT JOIN ITEM_PROMOTION ON ITEM.ID = ITEM_PROMOTION.IDITEM LEFT JOIN PROMOTION ON ITEM_PROMOTION.IDPROMOTION = PROMOTION.ID AND PROMOTION.[START_DATE] <= CAST(GETDATE() AS DATE) AND PROMOTION.END_DATE >= CAST(GETDATE() AS DATE) AND PROMOTION.STATUS = 1 WHERE ITEM.VISIBLE = 1 ORDER BY DISCOUNT DESC;";
             LoadMenuItems(query);
         }
 
         private void btnFood_Click(object sender, EventArgs e)
         {
             txtSearch.Clear();
-            string query = "SELECT DISTINCT I.ID AS ID , I.FNAME AS FNAME, I.CATEGORY AS CATEGORY, I.PRICE AS PRICE, ISNULL(P.DISCOUNT, 0) AS DISCOUNT, P.FNAME AS PromotionName, P.[START_DATE] AS StartDate, P.END_DATE AS EndDate FROM ITEM I LEFT JOIN ITEM_PROMOTION IP ON I.ID = IP.IDITEM LEFT JOIN PROMOTION P ON IP.IDPROMOTION = P.ID WHERE CATEGORY = 'Food' ORDER BY ISNULL(P.DISCOUNT, 0) DESC;";
+            string query = "SELECT ITEM.ID AS ID, ITEM.FNAME AS FNAME, ITEM.CATEGORY AS CATEGORY, ITEM.PRICE AS PRICE, COALESCE(PROMOTION.DISCOUNT, 0) AS DISCOUNT FROM ITEM LEFT JOIN ITEM_PROMOTION ON ITEM.ID = ITEM_PROMOTION.IDITEM LEFT JOIN PROMOTION ON ITEM_PROMOTION.IDPROMOTION = PROMOTION.ID AND PROMOTION.[START_DATE] <= CAST(GETDATE() AS DATE) AND PROMOTION.END_DATE >= CAST(GETDATE() AS DATE) AND PROMOTION.STATUS = 1 WHERE ITEM.VISIBLE = 1 AND CATEGORY = 'Food' ORDER BY DISCOUNT DESC;";
             LoadMenuItems(query);
         }
 
         private void btnDrink_Click(object sender, EventArgs e)
         {
             txtSearch.Clear();
-            string query = "SELECT DISTINCT I.ID AS ID , I.FNAME AS FNAME, I.CATEGORY AS CATEGORY, I.PRICE AS PRICE, ISNULL(P.DISCOUNT, 0) AS DISCOUNT, P.FNAME AS PromotionName, P.[START_DATE] AS StartDate, P.END_DATE AS EndDate FROM ITEM I LEFT JOIN ITEM_PROMOTION IP ON I.ID = IP.IDITEM LEFT JOIN PROMOTION P ON IP.IDPROMOTION = P.ID WHERE CATEGORY = 'Drink' ORDER BY ISNULL(P.DISCOUNT, 0) DESC;";
+            string query = "SELECT ITEM.ID AS ID, ITEM.FNAME AS FNAME, ITEM.CATEGORY AS CATEGORY, ITEM.PRICE AS PRICE, COALESCE(PROMOTION.DISCOUNT, 0) AS DISCOUNT FROM ITEM LEFT JOIN ITEM_PROMOTION ON ITEM.ID = ITEM_PROMOTION.IDITEM LEFT JOIN PROMOTION ON ITEM_PROMOTION.IDPROMOTION = PROMOTION.ID AND PROMOTION.[START_DATE] <= CAST(GETDATE() AS DATE) AND PROMOTION.END_DATE >= CAST(GETDATE() AS DATE) AND PROMOTION.STATUS = 1 WHERE ITEM.VISIBLE = 1 AND CATEGORY = 'Drink' ORDER BY DISCOUNT DESC;";
             LoadMenuItems(query);
         }
 
