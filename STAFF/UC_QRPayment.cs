@@ -34,6 +34,7 @@ namespace KTPOS.STAFF
         {
             InitializeComponent();
             txtContent.TextChanged += TxtContent_TextChanged;
+            names.Visible = false;
         }
         public void UpdateQRCode(string content, decimal amount)
         {
@@ -49,7 +50,7 @@ namespace KTPOS.STAFF
                 txtContent.Text = content;
                 txtCost.Text = amount.ToString("N0") + " VND";
                 txt_phone.Text = MOMO_PHONE;
-                name.Text = MOMO_NAME;
+                names.Text = MOMO_NAME;
 
                 // Generate initial QR code
                 GenerateQRCode(content, amount);
@@ -179,8 +180,8 @@ namespace KTPOS.STAFF
                                 break;
                             }
                         }
+                        staffForm.LoadTables();
                     }
-
                     if (this.Parent != null)
                     {
                         this.Parent.Controls.Remove(this);

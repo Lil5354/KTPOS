@@ -163,7 +163,7 @@ namespace KTPOS.Proccess
         public int InsertPromo(string name, string disc, string start, string end, string apply)
         {
             string query = "INSERT INTO PROMOTION (FNAME, DISCOUNT, [START_DATE], END_DATE, APPLY_TO) VALUES " +
-                "('"+name+"', "+disc+", '"+start+"', '"+end+"', '"+apply+"'),";
+                "('"+name+"', "+disc+", '"+start+"', '"+end+"', '"+apply+"')";
             int result = GetDatabase.Instance.ExecuteNonQuery(query);
             if (result > 0)
             {
@@ -175,7 +175,7 @@ namespace KTPOS.Proccess
         public int UpdatePromo(string name, string disc, string start, string end, string apply, string fname)
         {
             string query = "UPDATE PROMOTION SET FNAME = '" + name + "',   DISCOUNT = " + disc + ", [START_DATE] = '"+start+"', END_DATE = '"+end+"'" +
-                " APPLY_TO = '" + apply + "'" +
+                ", APPLY_TO = '" + apply + "'" +
                 "WHERE FNAME = '"+fname+"';";
             int result = GetDatabase.Instance.ExecuteNonQuery(query);
             if (result > 0)

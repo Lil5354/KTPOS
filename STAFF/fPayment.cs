@@ -15,10 +15,12 @@ namespace KTPOS.STAFF
     {
         private decimal finalTotal;
         private int billId;
-        public fPayment(decimal total, int id)
+        private fStaff_F _parentForm;
+        public fPayment(decimal total, int id, fStaff_F parentForm)
         {
             InitializeComponent();
             txtTotal.Visible = false;
+            this._parentForm = parentForm;
             finalTotal = total;
             billId = id;
             txtTotal.Text = finalTotal.ToString("N0") + " VND";
@@ -41,6 +43,10 @@ namespace KTPOS.STAFF
                     if (result > 0)
                     {
                         MessageBox.Show("Payment successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (_parentForm != null)
+                        {
+                            _parentForm.LoadTables();
+                        }
                         this.DialogResult = DialogResult.OK;
                         this.Close();
                     }

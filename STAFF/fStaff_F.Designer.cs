@@ -48,7 +48,7 @@
             this.METHOD = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.StatusText = new System.Windows.Forms.DataGridViewButtonColumn();
             this.PrintButton = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.guna2CustomGradientPanel1 = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
+            this.panelTable = new Guna.UI2.WinForms.Guna2CustomGradientPanel();
             this.flTable = new System.Windows.Forms.FlowLayoutPanel();
             this.btnMinSize = new Guna.UI2.WinForms.Guna2Button();
             this.btnMaxSize = new Guna.UI2.WinForms.Guna2Button();
@@ -57,7 +57,7 @@
             btnClose = new Guna.UI2.WinForms.Guna2Button();
             this.guna2CustomGradientPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ListBill)).BeginInit();
-            this.guna2CustomGradientPanel1.SuspendLayout();
+            this.panelTable.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnClose
@@ -252,19 +252,19 @@
             this.PrintButton.MinimumWidth = 6;
             this.PrintButton.Name = "PrintButton";
             // 
-            // guna2CustomGradientPanel1
+            // panelTable
             // 
-            this.guna2CustomGradientPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.guna2CustomGradientPanel1.BorderRadius = 20;
-            this.guna2CustomGradientPanel1.Controls.Add(this.flTable);
-            this.guna2CustomGradientPanel1.FillColor = System.Drawing.Color.Maroon;
-            this.guna2CustomGradientPanel1.FillColor2 = System.Drawing.Color.Maroon;
-            this.guna2CustomGradientPanel1.FillColor3 = System.Drawing.Color.Maroon;
-            this.guna2CustomGradientPanel1.FillColor4 = System.Drawing.Color.Maroon;
-            this.guna2CustomGradientPanel1.Location = new System.Drawing.Point(32, 120);
-            this.guna2CustomGradientPanel1.Name = "guna2CustomGradientPanel1";
-            this.guna2CustomGradientPanel1.Size = new System.Drawing.Size(478, 550);
-            this.guna2CustomGradientPanel1.TabIndex = 41;
+            this.panelTable.BackColor = System.Drawing.Color.Transparent;
+            this.panelTable.BorderRadius = 20;
+            this.panelTable.Controls.Add(this.flTable);
+            this.panelTable.FillColor = System.Drawing.Color.Maroon;
+            this.panelTable.FillColor2 = System.Drawing.Color.Maroon;
+            this.panelTable.FillColor3 = System.Drawing.Color.Maroon;
+            this.panelTable.FillColor4 = System.Drawing.Color.Maroon;
+            this.panelTable.Location = new System.Drawing.Point(32, 120);
+            this.panelTable.Name = "panelTable";
+            this.panelTable.Size = new System.Drawing.Size(478, 550);
+            this.panelTable.TabIndex = 41;
             // 
             // flTable
             // 
@@ -380,7 +380,7 @@
             this.Controls.Add(this.btnCloseShift);
             this.Controls.Add(this.btnManage);
             this.Controls.Add(this.guna2CustomGradientPanel2);
-            this.Controls.Add(this.guna2CustomGradientPanel1);
+            this.Controls.Add(this.panelTable);
             this.Controls.Add(this.btnMinSize);
             this.Controls.Add(this.btnMaxSize);
             this.Controls.Add(btnClose);
@@ -390,7 +390,7 @@
             this.Load += new System.EventHandler(this.fStaff_F_Load);
             this.guna2CustomGradientPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ListBill)).EndInit();
-            this.guna2CustomGradientPanel1.ResumeLayout(false);
+            this.panelTable.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -398,7 +398,7 @@
         #endregion
         private Guna.UI2.WinForms.Guna2CustomGradientPanel guna2CustomGradientPanel2;
         private Guna.UI2.WinForms.Guna2ComboBox Filter;
-        private Guna.UI2.WinForms.Guna2CustomGradientPanel guna2CustomGradientPanel1;
+        private Guna.UI2.WinForms.Guna2CustomGradientPanel panelTable;
         private System.Windows.Forms.FlowLayoutPanel flTable;
         private Guna.UI2.WinForms.Guna2Button btnMinSize;
         private Guna.UI2.WinForms.Guna2Button btnMaxSize;

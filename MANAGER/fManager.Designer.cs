@@ -381,7 +381,7 @@
             this.guna2HtmlLabel21.ForeColor = System.Drawing.Color.Maroon;
             this.guna2HtmlLabel21.Location = new System.Drawing.Point(956, 506);
             this.guna2HtmlLabel21.Name = "guna2HtmlLabel21";
-            this.guna2HtmlLabel21.Size = new System.Drawing.Size(37, 27);
+            this.guna2HtmlLabel21.Size = new System.Drawing.Size(35, 27);
             this.guna2HtmlLabel21.TabIndex = 116;
             this.guna2HtmlLabel21.Text = "End";
             this.guna2HtmlLabel21.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
@@ -395,7 +395,7 @@
             this.guna2HtmlLabel20.ForeColor = System.Drawing.Color.Maroon;
             this.guna2HtmlLabel20.Location = new System.Drawing.Point(956, 410);
             this.guna2HtmlLabel20.Name = "guna2HtmlLabel20";
-            this.guna2HtmlLabel20.Size = new System.Drawing.Size(46, 27);
+            this.guna2HtmlLabel20.Size = new System.Drawing.Size(44, 27);
             this.guna2HtmlLabel20.TabIndex = 115;
             this.guna2HtmlLabel20.Text = "Start";
             this.guna2HtmlLabel20.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
@@ -432,7 +432,7 @@
             this.guna2HtmlLabel19.ForeColor = System.Drawing.Color.Maroon;
             this.guna2HtmlLabel19.Location = new System.Drawing.Point(962, 66);
             this.guna2HtmlLabel19.Name = "guna2HtmlLabel19";
-            this.guna2HtmlLabel19.Size = new System.Drawing.Size(220, 27);
+            this.guna2HtmlLabel19.Size = new System.Drawing.Size(215, 27);
             this.guna2HtmlLabel19.TabIndex = 112;
             this.guna2HtmlLabel19.Text = "ADD ITEM TO PROMOTE";
             this.guna2HtmlLabel19.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
@@ -468,7 +468,7 @@
             this.guna2HtmlLabel15.ForeColor = System.Drawing.Color.Maroon;
             this.guna2HtmlLabel15.Location = new System.Drawing.Point(956, 612);
             this.guna2HtmlLabel15.Name = "guna2HtmlLabel15";
-            this.guna2HtmlLabel15.Size = new System.Drawing.Size(79, 27);
+            this.guna2HtmlLabel15.Size = new System.Drawing.Size(76, 27);
             this.guna2HtmlLabel15.TabIndex = 110;
             this.guna2HtmlLabel15.Text = "Apply to";
             this.guna2HtmlLabel15.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
@@ -482,7 +482,7 @@
             this.guna2HtmlLabel12.ForeColor = System.Drawing.Color.Maroon;
             this.guna2HtmlLabel12.Location = new System.Drawing.Point(956, 328);
             this.guna2HtmlLabel12.Name = "guna2HtmlLabel12";
-            this.guna2HtmlLabel12.Size = new System.Drawing.Size(82, 27);
+            this.guna2HtmlLabel12.Size = new System.Drawing.Size(78, 27);
             this.guna2HtmlLabel12.TabIndex = 85;
             this.guna2HtmlLabel12.Text = "Discount";
             this.guna2HtmlLabel12.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
@@ -496,7 +496,7 @@
             this.guna2HtmlLabel14.ForeColor = System.Drawing.Color.Maroon;
             this.guna2HtmlLabel14.Location = new System.Drawing.Point(956, 238);
             this.guna2HtmlLabel14.Name = "guna2HtmlLabel14";
-            this.guna2HtmlLabel14.Size = new System.Drawing.Size(55, 27);
+            this.guna2HtmlLabel14.Size = new System.Drawing.Size(53, 27);
             this.guna2HtmlLabel14.TabIndex = 82;
             this.guna2HtmlLabel14.Text = "Name";
             this.guna2HtmlLabel14.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
@@ -939,7 +939,7 @@
             this.guna2HtmlLabel1.ForeColor = System.Drawing.Color.Black;
             this.guna2HtmlLabel1.Location = new System.Drawing.Point(549, 62);
             this.guna2HtmlLabel1.Name = "guna2HtmlLabel1";
-            this.guna2HtmlLabel1.Size = new System.Drawing.Size(35, 34);
+            this.guna2HtmlLabel1.Size = new System.Drawing.Size(33, 33);
             this.guna2HtmlLabel1.TabIndex = 106;
             this.guna2HtmlLabel1.Text = "TO";
             this.guna2HtmlLabel1.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
@@ -1078,7 +1078,7 @@
             this.dataGridViewTextBoxColumn4.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.Width = 80;
+            this.dataGridViewTextBoxColumn4.Width = 74;
             // 
             // CUS
             // 
@@ -1200,7 +1200,7 @@
             this.guna2HtmlLabel7.ForeColor = System.Drawing.Color.Maroon;
             this.guna2HtmlLabel7.Location = new System.Drawing.Point(968, 136);
             this.guna2HtmlLabel7.Name = "guna2HtmlLabel7";
-            this.guna2HtmlLabel7.Size = new System.Drawing.Size(36, 27);
+            this.guna2HtmlLabel7.Size = new System.Drawing.Size(35, 27);
             this.guna2HtmlLabel7.TabIndex = 113;
             this.guna2HtmlLabel7.Text = "Tag";
             this.guna2HtmlLabel7.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
@@ -1252,7 +1252,7 @@
             this.guna2HtmlLabel4.ForeColor = System.Drawing.Color.Maroon;
             this.guna2HtmlLabel4.Location = new System.Drawing.Point(968, 412);
             this.guna2HtmlLabel4.Name = "guna2HtmlLabel4";
-            this.guna2HtmlLabel4.Size = new System.Drawing.Size(47, 27);
+            this.guna2HtmlLabel4.Size = new System.Drawing.Size(45, 27);
             this.guna2HtmlLabel4.TabIndex = 107;
             this.guna2HtmlLabel4.Text = "Price";
             this.guna2HtmlLabel4.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
@@ -1266,7 +1266,7 @@
             this.guna2HtmlLabel3.ForeColor = System.Drawing.Color.Maroon;
             this.guna2HtmlLabel3.Location = new System.Drawing.Point(968, 316);
             this.guna2HtmlLabel3.Name = "guna2HtmlLabel3";
-            this.guna2HtmlLabel3.Size = new System.Drawing.Size(97, 27);
+            this.guna2HtmlLabel3.Size = new System.Drawing.Size(93, 27);
             this.guna2HtmlLabel3.TabIndex = 106;
             this.guna2HtmlLabel3.Text = "Categories";
             this.guna2HtmlLabel3.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
@@ -1280,7 +1280,7 @@
             this.guna2HtmlLabel2.ForeColor = System.Drawing.Color.Maroon;
             this.guna2HtmlLabel2.Location = new System.Drawing.Point(968, 221);
             this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
-            this.guna2HtmlLabel2.Size = new System.Drawing.Size(55, 27);
+            this.guna2HtmlLabel2.Size = new System.Drawing.Size(53, 27);
             this.guna2HtmlLabel2.TabIndex = 104;
             this.guna2HtmlLabel2.Text = "Name";
             this.guna2HtmlLabel2.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
@@ -1555,7 +1555,7 @@
             this.guna2HtmlLabel13.ForeColor = System.Drawing.Color.Maroon;
             this.guna2HtmlLabel13.Location = new System.Drawing.Point(961, 217);
             this.guna2HtmlLabel13.Name = "guna2HtmlLabel13";
-            this.guna2HtmlLabel13.Size = new System.Drawing.Size(78, 27);
+            this.guna2HtmlLabel13.Size = new System.Drawing.Size(76, 27);
             this.guna2HtmlLabel13.TabIndex = 78;
             this.guna2HtmlLabel13.Text = "Capacity";
             this.guna2HtmlLabel13.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
@@ -1569,7 +1569,7 @@
             this.guna2HtmlLabel9.ForeColor = System.Drawing.Color.Maroon;
             this.guna2HtmlLabel9.Location = new System.Drawing.Point(961, 127);
             this.guna2HtmlLabel9.Name = "guna2HtmlLabel9";
-            this.guna2HtmlLabel9.Size = new System.Drawing.Size(51, 27);
+            this.guna2HtmlLabel9.Size = new System.Drawing.Size(50, 27);
             this.guna2HtmlLabel9.TabIndex = 75;
             this.guna2HtmlLabel9.Text = "Table";
             this.guna2HtmlLabel9.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
@@ -1801,7 +1801,7 @@
             this.CAPACITYABLE.MinimumWidth = 6;
             this.CAPACITYABLE.Name = "CAPACITYABLE";
             this.CAPACITYABLE.ReadOnly = true;
-            this.CAPACITYABLE.Width = 115;
+            this.CAPACITYABLE.Width = 107;
             // 
             // STATUSTABLE
             // 
@@ -1828,7 +1828,7 @@
             this.DURATIONTABLE.MinimumWidth = 6;
             this.DURATIONTABLE.Name = "DURATIONTABLE";
             this.DURATIONTABLE.ReadOnly = true;
-            this.DURATIONTABLE.Width = 173;
+            this.DURATIONTABLE.Width = 164;
             // 
             // STATETABLE
             // 
@@ -1892,7 +1892,7 @@
             this.guna2HtmlLabel10.ForeColor = System.Drawing.Color.Maroon;
             this.guna2HtmlLabel10.Location = new System.Drawing.Point(937, 205);
             this.guna2HtmlLabel10.Name = "guna2HtmlLabel10";
-            this.guna2HtmlLabel10.Size = new System.Drawing.Size(53, 27);
+            this.guna2HtmlLabel10.Size = new System.Drawing.Size(52, 27);
             this.guna2HtmlLabel10.TabIndex = 96;
             this.guna2HtmlLabel10.Text = "D.O.B";
             this.guna2HtmlLabel10.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
@@ -1906,7 +1906,7 @@
             this.guna2HtmlLabel8.ForeColor = System.Drawing.Color.Maroon;
             this.guna2HtmlLabel8.Location = new System.Drawing.Point(937, 397);
             this.guna2HtmlLabel8.Name = "guna2HtmlLabel8";
-            this.guna2HtmlLabel8.Size = new System.Drawing.Size(60, 27);
+            this.guna2HtmlLabel8.Size = new System.Drawing.Size(57, 27);
             this.guna2HtmlLabel8.TabIndex = 94;
             this.guna2HtmlLabel8.Text = "Phone";
             this.guna2HtmlLabel8.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
@@ -1942,7 +1942,7 @@
             this.guna2HtmlLabel11.ForeColor = System.Drawing.Color.Maroon;
             this.guna2HtmlLabel11.Location = new System.Drawing.Point(937, 490);
             this.guna2HtmlLabel11.Name = "guna2HtmlLabel11";
-            this.guna2HtmlLabel11.Size = new System.Drawing.Size(42, 27);
+            this.guna2HtmlLabel11.Size = new System.Drawing.Size(41, 27);
             this.guna2HtmlLabel11.TabIndex = 92;
             this.guna2HtmlLabel11.Text = "Role";
             this.guna2HtmlLabel11.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
@@ -1956,7 +1956,7 @@
             this.guna2HtmlLabel5.ForeColor = System.Drawing.Color.Maroon;
             this.guna2HtmlLabel5.Location = new System.Drawing.Point(937, 307);
             this.guna2HtmlLabel5.Name = "guna2HtmlLabel5";
-            this.guna2HtmlLabel5.Size = new System.Drawing.Size(50, 27);
+            this.guna2HtmlLabel5.Size = new System.Drawing.Size(49, 27);
             this.guna2HtmlLabel5.TabIndex = 89;
             this.guna2HtmlLabel5.Text = "Email";
             this.guna2HtmlLabel5.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
@@ -1970,7 +1970,7 @@
             this.guna2HtmlLabel6.ForeColor = System.Drawing.Color.Maroon;
             this.guna2HtmlLabel6.Location = new System.Drawing.Point(937, 124);
             this.guna2HtmlLabel6.Name = "guna2HtmlLabel6";
-            this.guna2HtmlLabel6.Size = new System.Drawing.Size(92, 27);
+            this.guna2HtmlLabel6.Size = new System.Drawing.Size(88, 27);
             this.guna2HtmlLabel6.TabIndex = 87;
             this.guna2HtmlLabel6.Text = "Full Name";
             this.guna2HtmlLabel6.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
@@ -2240,7 +2240,7 @@
             this.IDACCOUNT.MinimumWidth = 6;
             this.IDACCOUNT.Name = "IDACCOUNT";
             this.IDACCOUNT.ReadOnly = true;
-            this.IDACCOUNT.Width = 55;
+            this.IDACCOUNT.Width = 51;
             // 
             // FULLNAME
             // 
@@ -2252,7 +2252,7 @@
             this.FULLNAME.MinimumWidth = 6;
             this.FULLNAME.Name = "FULLNAME";
             this.FULLNAME.ReadOnly = true;
-            this.FULLNAME.Width = 123;
+            this.FULLNAME.Width = 113;
             // 
             // DOB
             // 
@@ -2264,7 +2264,7 @@
             this.DOB.MinimumWidth = 6;
             this.DOB.Name = "DOB";
             this.DOB.ReadOnly = true;
-            this.DOB.Width = 78;
+            this.DOB.Width = 73;
             // 
             // EMAIL
             // 
@@ -2276,7 +2276,7 @@
             this.EMAIL.MinimumWidth = 6;
             this.EMAIL.Name = "EMAIL";
             this.EMAIL.ReadOnly = true;
-            this.EMAIL.Width = 84;
+            this.EMAIL.Width = 78;
             // 
             // PHONE
             // 
@@ -2288,7 +2288,7 @@
             this.PHONE.MinimumWidth = 6;
             this.PHONE.Name = "PHONE";
             this.PHONE.ReadOnly = true;
-            this.PHONE.Width = 92;
+            this.PHONE.Width = 85;
             // 
             // ROLE
             // 
@@ -2331,8 +2331,6 @@
             // 
             // cbbFilterRevenue
             // 
-            this.cbbFilterRevenue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.cbbFilterRevenue.BackColor = System.Drawing.Color.Transparent;
             this.cbbFilterRevenue.BorderColor = System.Drawing.Color.Maroon;
             this.cbbFilterRevenue.BorderRadius = 10;
@@ -2348,7 +2346,7 @@
             "CUSTOMER"});
             this.cbbFilterRevenue.Location = new System.Drawing.Point(6, 34);
             this.cbbFilterRevenue.Name = "cbbFilterRevenue";
-            this.cbbFilterRevenue.Size = new System.Drawing.Size(104, 36);
+            this.cbbFilterRevenue.Size = new System.Drawing.Size(170, 36);
             this.cbbFilterRevenue.TabIndex = 107;
             this.cbbFilterRevenue.SelectedIndexChanged += new System.EventHandler(this.cbbFilterRevenue_SelectedIndexChanged);
             // 
@@ -2361,7 +2359,7 @@
             this.Type.ForeColor = System.Drawing.Color.Maroon;
             this.Type.Location = new System.Drawing.Point(6, 3);
             this.Type.Name = "Type";
-            this.Type.Size = new System.Drawing.Size(48, 27);
+            this.Type.Size = new System.Drawing.Size(46, 27);
             this.Type.TabIndex = 108;
             this.Type.Text = "TYPE";
             this.Type.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
@@ -2373,7 +2371,7 @@
             this.TO.ForeColor = System.Drawing.Color.Black;
             this.TO.Location = new System.Drawing.Point(428, 27);
             this.TO.Name = "TO";
-            this.TO.Size = new System.Drawing.Size(35, 34);
+            this.TO.Size = new System.Drawing.Size(33, 33);
             this.TO.TabIndex = 2;
             this.TO.Text = "TO";
             this.TO.TextAlignment = System.Drawing.ContentAlignment.TopCenter;
@@ -2470,7 +2468,7 @@
             this.lblTotal.Font = new System.Drawing.Font("Segoe UI", 9.290322F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTotal.Location = new System.Drawing.Point(960, 14);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(15, 23);
+            this.lblTotal.Size = new System.Drawing.Size(15, 22);
             this.lblTotal.TabIndex = 7;
             this.lblTotal.Text = "...";
             // 
@@ -2489,7 +2487,7 @@
             this.guna2HtmlLabel17.Font = new System.Drawing.Font("Segoe UI Black", 9.290322F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.guna2HtmlLabel17.Location = new System.Drawing.Point(890, 14);
             this.guna2HtmlLabel17.Name = "guna2HtmlLabel17";
-            this.guna2HtmlLabel17.Size = new System.Drawing.Size(61, 23);
+            this.guna2HtmlLabel17.Size = new System.Drawing.Size(58, 22);
             this.guna2HtmlLabel17.TabIndex = 5;
             this.guna2HtmlLabel17.Text = "TOTAL:";
             // 
@@ -2503,7 +2501,7 @@
             this.rdoYear.CheckedState.InnerOffset = -4;
             this.rdoYear.Location = new System.Drawing.Point(337, 12);
             this.rdoYear.Name = "rdoYear";
-            this.rdoYear.Size = new System.Drawing.Size(64, 25);
+            this.rdoYear.Size = new System.Drawing.Size(60, 24);
             this.rdoYear.TabIndex = 4;
             this.rdoYear.Text = "Year";
             this.rdoYear.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));
@@ -2521,7 +2519,7 @@
             this.rdoMonth.CheckedState.InnerOffset = -4;
             this.rdoMonth.Location = new System.Drawing.Point(249, 12);
             this.rdoMonth.Name = "rdoMonth";
-            this.rdoMonth.Size = new System.Drawing.Size(82, 25);
+            this.rdoMonth.Size = new System.Drawing.Size(77, 24);
             this.rdoMonth.TabIndex = 3;
             this.rdoMonth.Text = "Month";
             this.rdoMonth.UncheckedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(125)))), ((int)(((byte)(137)))), ((int)(((byte)(149)))));

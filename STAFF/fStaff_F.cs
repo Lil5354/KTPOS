@@ -24,6 +24,13 @@ namespace KTPOS.STAFF
         private string userRole;
         public static event EventHandler<decimal> CashTotalChanged;
         public static event EventHandler<decimal> TransferTotalChanged;
+        private void SetDoubleBuffered(Control control, bool value)
+        {
+            var property = typeof(Control).GetProperty("DoubleBuffered",
+                System.Reflection.BindingFlags.NonPublic |
+                System.Reflection.BindingFlags.Instance);
+            property?.SetValue(control, value, null);
+        }
         public static void ResetTotals()
         {
             _cashTotal = 0;
@@ -61,6 +68,8 @@ namespace KTPOS.STAFF
             LoadTables();
             SetupListBillColumns();
             LoadBillData();
+            SetDoubleBuffered(flTable, true);
+            SetDoubleBuffered(panelTable, true);
             SetStyle(ControlStyles.OptimizedDoubleBuffer |
                 ControlStyles.AllPaintingInWmPaint, true);
             this.DoubleBuffered = true;
@@ -109,11 +118,11 @@ namespace KTPOS.STAFF
             newForm.Show();
             this.Hide();
         }
-        private void LoadTables()
+        public void LoadTables()
         {
             try
             {
-                string query = "SELECT ID, fname, status FROM [TABLE]";
+                string query = "SELECT ID, fname, status FROM [TABLE] WHERE VISIBLE = 1";
                 DataTable data = GetDatabase.Instance.ExecuteQuery(query);
 
                 flTable.Controls.Clear();
@@ -190,7 +199,7 @@ namespace KTPOS.STAFF
                 }
                 if (staffForm.Controls.Find("txtNoteBill", true).FirstOrDefault() is Guna2TextBox txtNoteBill)
                 {
-                    string filePath = "D:\\Thư mục mới\\KTPOS\\Note\\BillNote" + tableId.ToString() + ".txt";
+                    string filePath = "C:\\Thư mục mới (2)\\KTPOS\\Note\\BillNote" + tableId.ToString() + ".txt";
                     if (File.Exists(filePath))
                     {
                         string note = File.ReadAllText(filePath);
@@ -286,6 +295,7 @@ SELECT
     b.status as Status
 FROM BILL b
 LEFT JOIN [TABLE] t ON b.IDTABLE = t.ID
+WHERE CAST(b.CHKIN_TIME AS DATE) = CAST(GETDATE() AS DATE)
 ORDER BY b.status, b.CHKIN_TIME DESC";
 
             try
@@ -416,7 +426,7 @@ ORDER BY b.status, b.CHKIN_TIME DESC";
                             }
 
                             // Show payment form
-                            using (fPayment paymentForm = new fPayment(finalTotal, billId))
+                            using (fPayment paymentForm = new fPayment(finalTotal, billId, this))
                             {
                                 if (paymentForm.ShowDialog() == DialogResult.OK)
                                 {
@@ -424,7 +434,6 @@ ORDER BY b.status, b.CHKIN_TIME DESC";
                                     row.Cells["PAYMENT"].Value = "Done";
                                     row.Cells["METHOD"].Value = "Cash";
                                     row.Cells["CHECKOUT"].Value = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
-                                    LoadTables();
                                     _cashTotal += finalTotal;
                                     DataGridViewButtonCell paymentCell = row.Cells["PAYMENT"] as DataGridViewButtonCell;
                                     if (paymentCell != null)
@@ -512,7 +521,6 @@ ORDER BY b.status, b.CHKIN_TIME DESC";
                                     content: $"Bill {parsedBillId} - {tableName}",
                                     amount: finalTotal
                                 );
-                                LoadTables();
                                 _transferTotal += finalTotal;
                                 Console.WriteLine("Adding control to form");
                                 AddUserControl(ucQrPayment);

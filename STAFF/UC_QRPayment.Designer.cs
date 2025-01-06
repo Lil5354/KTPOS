@@ -33,15 +33,39 @@
             this.txtCost = new Guna.UI2.WinForms.Guna2TextBox();
             this.guna2HtmlLabel3 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.txtContent = new Guna.UI2.WinForms.Guna2TextBox();
-            this.name = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.txt_name = new Guna.UI2.WinForms.Guna2TextBox();
             this.btn_Pay = new Guna.UI2.WinForms.Guna2Button();
             this.guna2HtmlLabel1 = new Guna.UI2.WinForms.Guna2HtmlLabel();
             this.txt_phone = new Guna.UI2.WinForms.Guna2TextBox();
             this.pic_qrcode = new System.Windows.Forms.PictureBox();
+            this.guna2HtmlLabel2 = new Guna.UI2.WinForms.Guna2HtmlLabel();
+            this.names = new Guna.UI2.WinForms.Guna2HtmlLabel();
             btnClose = new Guna.UI2.WinForms.Guna2Button();
             ((System.ComponentModel.ISupportInitialize)(this.pic_qrcode)).BeginInit();
             this.SuspendLayout();
+            // 
+            // btnClose
+            // 
+            btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            btnClose.Animated = true;
+            btnClose.AutoRoundedCorners = true;
+            btnClose.BackColor = System.Drawing.Color.Transparent;
+            btnClose.BackgroundImage = global::KTPOS.Properties.Resources.xmark_solid;
+            btnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            btnClose.BorderRadius = 11;
+            btnClose.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
+            btnClose.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
+            btnClose.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
+            btnClose.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
+            btnClose.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
+            btnClose.FillColor = System.Drawing.Color.Transparent;
+            btnClose.Font = new System.Drawing.Font("Segoe UI", 9F);
+            btnClose.ForeColor = System.Drawing.Color.Transparent;
+            btnClose.Location = new System.Drawing.Point(665, 47);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new System.Drawing.Size(25, 25);
+            btnClose.TabIndex = 28;
+            btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // guna2HtmlLabel4
             // 
@@ -109,17 +133,6 @@
             this.txtContent.Size = new System.Drawing.Size(208, 31);
             this.txtContent.TabIndex = 24;
             this.txtContent.TextChanged += new System.EventHandler(this.txtContent_TextChanged);
-            // 
-            // name
-            // 
-            this.name.BackColor = System.Drawing.Color.Transparent;
-            this.name.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.name.ForeColor = System.Drawing.Color.Maroon;
-            this.name.Location = new System.Drawing.Point(57, 178);
-            this.name.Name = "name";
-            this.name.Size = new System.Drawing.Size(77, 22);
-            this.name.TabIndex = 23;
-            this.name.Text = "Full Name:";
             // 
             // txt_name
             // 
@@ -195,29 +208,6 @@
             this.txt_phone.Size = new System.Drawing.Size(208, 31);
             this.txt_phone.TabIndex = 18;
             // 
-            // btnClose
-            // 
-            btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            btnClose.Animated = true;
-            btnClose.AutoRoundedCorners = true;
-            btnClose.BackColor = System.Drawing.Color.Transparent;
-            btnClose.BackgroundImage = global::KTPOS.Properties.Resources.xmark_solid;
-            btnClose.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            btnClose.BorderRadius = 11;
-            btnClose.ButtonMode = Guna.UI2.WinForms.Enums.ButtonMode.ToogleButton;
-            btnClose.DisabledState.BorderColor = System.Drawing.Color.DarkGray;
-            btnClose.DisabledState.CustomBorderColor = System.Drawing.Color.DarkGray;
-            btnClose.DisabledState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(169)))), ((int)(((byte)(169)))), ((int)(((byte)(169)))));
-            btnClose.DisabledState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(141)))), ((int)(((byte)(141)))), ((int)(((byte)(141)))));
-            btnClose.FillColor = System.Drawing.Color.Transparent;
-            btnClose.Font = new System.Drawing.Font("Segoe UI", 9F);
-            btnClose.ForeColor = System.Drawing.Color.Transparent;
-            btnClose.Location = new System.Drawing.Point(665, 47);
-            btnClose.Name = "btnClose";
-            btnClose.Size = new System.Drawing.Size(25, 25);
-            btnClose.TabIndex = 28;
-            btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
             // pic_qrcode
             // 
             this.pic_qrcode.Location = new System.Drawing.Point(369, 135);
@@ -226,17 +216,40 @@
             this.pic_qrcode.TabIndex = 19;
             this.pic_qrcode.TabStop = false;
             // 
+            // guna2HtmlLabel2
+            // 
+            this.guna2HtmlLabel2.BackColor = System.Drawing.Color.Transparent;
+            this.guna2HtmlLabel2.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.guna2HtmlLabel2.ForeColor = System.Drawing.Color.Maroon;
+            this.guna2HtmlLabel2.Location = new System.Drawing.Point(57, 178);
+            this.guna2HtmlLabel2.Name = "guna2HtmlLabel2";
+            this.guna2HtmlLabel2.Size = new System.Drawing.Size(77, 22);
+            this.guna2HtmlLabel2.TabIndex = 29;
+            this.guna2HtmlLabel2.Text = "Full Name:";
+            // 
+            // names
+            // 
+            this.names.BackColor = System.Drawing.Color.Transparent;
+            this.names.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
+            this.names.ForeColor = System.Drawing.Color.Maroon;
+            this.names.Location = new System.Drawing.Point(113, 444);
+            this.names.Name = "names";
+            this.names.Size = new System.Drawing.Size(77, 22);
+            this.names.TabIndex = 23;
+            this.names.Text = "Full Name:";
+            // 
             // UC_QRPayment
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.guna2HtmlLabel2);
             this.Controls.Add(btnClose);
             this.Controls.Add(this.pic_qrcode);
             this.Controls.Add(this.guna2HtmlLabel4);
             this.Controls.Add(this.txtCost);
             this.Controls.Add(this.guna2HtmlLabel3);
             this.Controls.Add(this.txtContent);
-            this.Controls.Add(this.name);
+            this.Controls.Add(this.names);
             this.Controls.Add(this.txt_name);
             this.Controls.Add(this.btn_Pay);
             this.Controls.Add(this.guna2HtmlLabel1);
@@ -256,10 +269,11 @@
         public Guna.UI2.WinForms.Guna2TextBox txtCost;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel3;
         public Guna.UI2.WinForms.Guna2TextBox txtContent;
-        private Guna.UI2.WinForms.Guna2HtmlLabel name;
         public Guna.UI2.WinForms.Guna2TextBox txt_name;
         private Guna.UI2.WinForms.Guna2Button btn_Pay;
         private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel1;
         public Guna.UI2.WinForms.Guna2TextBox txt_phone;
+        private Guna.UI2.WinForms.Guna2HtmlLabel guna2HtmlLabel2;
+        private Guna.UI2.WinForms.Guna2HtmlLabel names;
     }
 }

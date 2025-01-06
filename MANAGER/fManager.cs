@@ -160,7 +160,7 @@ namespace KTPOS.MANAGER
                    case "BILL":
                         query = @"SELECT 
                            B.CHKIN_TIME AS [DATE],
-                           C.FULLNAME AS [CUSTOMER],
+                           ISNULL(C.FULLNAME, N'WALK-IN') AS [CUSTOMER],
                            CASE WHEN B.BILLTYPE = 1 THEN 'Dine-In' ELSE 'Take away' END AS [TYPE],
                            (SELECT SUM(bi.COUNT * i.PRICE)
                             FROM BILLINF bi
@@ -732,7 +732,7 @@ namespace KTPOS.MANAGER
         {
             DateTime S = dtpB1.Value;
             string Start = S.ToString("yyyy-MM-dd");
-            DateTime E = dtpB2.Value;
+            DateTime E = dtpB2.Value.AddDays(1);
             string End = E.ToString("yyyy-MM-dd");
             query = "SELECT B.CHKIN_TIME AS [DATE], C.FULLNAME AS [CUSTOMER], CASE WHEN B.BILLTYPE = 1 THEN 'Dine-In' ELSE 'Take away' END AS [TYPE], " +
                 "(SELECT SUM(bi.COUNT * i.PRICE) FROM BILLINF bi JOIN ITEM i ON bi.IDFD = i.ID WHERE bi.IDBILL = B.ID) AS TOTAL, " +

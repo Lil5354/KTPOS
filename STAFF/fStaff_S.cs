@@ -233,7 +233,7 @@ namespace KTPOS.STAFF
                     // Load image based on category
                     try
                     {
-                        string imagePath = $@"D:\clone\KTPOS - Sao chép\Image Items\" + itemName + ".jpg";
+                        string imagePath = $@"C:\Thư mục mới (2)\KTPOS\Image Items\" + itemName + ".jpg";
                         if (File.Exists(imagePath))
                         {
                             itemImage.Image = Image.FromFile(imagePath);
@@ -477,7 +477,7 @@ namespace KTPOS.STAFF
                 if (checkclose == false) return;
                 if (checkbill == false || idTable <= 0)
                     AddBill();
-                string filePath = "E:\\App\\KTPOS-main\\Note\\BillNote";
+                string filePath = "C:\\Thư mục mới (2)\\KTPOS\\Note\\BillNote";
                 filePath = filePath + idBill.ToString() + ".txt";
                 if (txtNoteBill.Text != "") using (StreamWriter writer = new StreamWriter(filePath))
                     {
@@ -499,6 +499,7 @@ namespace KTPOS.STAFF
                               // Hiển thị lại form trước đó
                 fStaff_F previousForm = Application.OpenForms["fStaff_F"] as fStaff_F;
                 previousForm?.Show();
+                previousForm.LoadTables();
             }
             else
             {
